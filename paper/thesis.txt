@@ -1,0 +1,343 @@
+Causal Effects of a Government Internet Shutdown on Software Production
+Evidence from Bangladesh's Nationwide Internet Shutdown in July 2024
+Hector Alberto Diaz Gomez
+Draft - September 2026
+Abstract
+This paper estimates the effect of Bangladesh's July 2024 nationwide Internet shutdown on observable software-production activity. I combine public GitHub event data from GH Archive with self-reported user location information and construct a daily panel covering 59,158 pre-active GitHub accounts in Bangladesh and fourteen comparison countries from May 1 to September 4, 2024. The primary outcome is the daily share of eligible users recording productive GitHub activity. A synthetic-control design estimates that during the July 18-23 total-shutdown window, activity in Bangladesh averaged 2.02 percent, compared with a 15.28 percent synthetic counterfactual, an average treatment effect of -13.26 percentage points (-86.8 percent). An international difference-in-differences estimate is nearly identical (-13.09 percentage points). Secondary outcomes show similarly large declines in productive, shipping, and collaborative activity. In-space placebo tests rank Bangladesh as the most extreme unit, although with fourteen placebos the smallest attainable rank p-value is 0.0667. I then use commit-level Git metadata to distinguish code creation from online publication. Among commits whose author matches the Bangladeshi account performing the push, 28.3 percent of commits authored during the shutdown first appear in a public GitHub push on or after July 24, while long push delays are rare in pre-shutdown placebo windows. The evidence therefore indicates both a severe collapse in observable online software activity and a substantial, but incomplete, margin of offline production followed by delayed synchronization. Because the shutdown coincided with intense domestic unrest, the estimates should be interpreted as the effect of the shutdown episode under the assumption that no other Bangladesh-specific shock generated the same abrupt pattern in GitHub activity.
+Keywords: Internet shutdowns; software production; GitHub; synthetic control; difference-in-differences; digital economy.
+
+1. Introduction
+Internet connectivity is an input into an increasingly large set of production processes. For software developers, the dependence is especially direct: source code can be written locally, but modern development also relies on remote repositories, package registries, code review, issue tracking, continuous integration, documentation, and communication with collaborators. A nationwide loss of connectivity therefore interrupts both the transmission of code and many complementary tasks required to coordinate and ship software.
+This paper studies a sharp episode of lost connectivity: Bangladesh's nationwide Internet shutdown in July 2024. Cloudflare reported that mobile networks began disconnecting early on July 18 and that national traffic fell to near zero later that day. Fixed broadband began to return on July 23, initially for selected sectors, while mobile connectivity recovered later, on July 28 (Belson, 2024). Internet Society Pulse records the national disruption as beginning on July 18 and lasting roughly five and a half days (Internet Society, 2024). The event offers an unusual setting in which a digitally intensive form of work can be observed at high frequency before, during, and after a near-complete national loss of Internet connectivity.
+The empirical challenge is that GitHub activity is volatile and highly heterogeneous across countries and developers. I therefore construct a multi-country donor pool and use synthetic control as the primary design. The treated unit is Bangladesh, and the donor pool contains fourteen countries with sizable GitHub communities. The synthetic-control weights are chosen using the pre-shutdown path of the daily active-user rate. The resulting counterfactual assigns 47.6 percent weight to Pakistan, 32.5 percent to Ghana, and 19.9 percent to Kenya. During July 18-23, the share of eligible Bangladeshi users with productive GitHub activity averaged only 2.02 percent, compared with 15.28 percent in the synthetic control. The estimated effect is -13.26 percentage points, or -86.8 percent relative to the synthetic counterfactual.
+Several complementary designs support the same conclusion. An international difference-in-differences comparison yields an effect of -13.09 percentage points, and excluding national holidays changes the estimate only modestly to -13.38 percentage points. Outcome-specific synthetic controls show declines of 86.2 percent in productive activity, 92.2 percent in shipping activity, and 92.1 percent in collaborative activity. A regression discontinuity in time centered on July 18 produces a smaller but still large discontinuity of roughly -9 percentage points in the daily activity rate. Event-study estimates show a sharp break around the shutdown rather than a smooth continuation of pre-treatment movements.
+The paper's second contribution is to distinguish observable online activity from underlying code creation. A Git commit can be created locally without Internet access, while the corresponding push to GitHub requires connectivity. For a large sample of public commits, I recover Git author and committer timestamps and match them to the first observed public PushEvent. In the strict sample where the commit author is the same GitHub account that performs the push, 829 of 2,932 commits authored during the July 18-23 shutdown, or 28.3 percent, are first observed in a public push on or after July 24. Using the committer timestamp yields 27.2 percent. The share of shutdown-authored commits delayed by more than 24 hours is 29.7 percent, compared with 1.1 percent on average in comparable six-day placebo windows before the shutdown. These patterns are consistent with local code production continuing for some developers while publication and synchronization were deferred until connectivity returned.
+The findings contribute to three literatures. First, they add micro-founded evidence to work on the economic costs of Internet shutdowns. Existing studies document broad effects on output, employment, investment, and economic activity (Tagat, Phokeer, and Kreitem, 2024; Gunsilius and Van Dijcke, 2023). Second, the paper contributes to research on Internet access as a productive input. Hjort and Poulsen (2019), for example, find that the arrival of fast Internet increased employment and firm performance in Africa. Third, the paper joins a growing literature that uses public GitHub activity as a high-frequency measure of software work. Kreitmeir and Raschky (2024) exploit Italy's temporary ChatGPT ban and construct daily GitHub outcomes; Hu et al. (2023) use open-source contributions to study lockdowns; and Wachs et al. (2022) demonstrate the usefulness of GitHub data for measuring the geography of software production.
+The interpretation is deliberately narrower than 'total software productivity.' Public GitHub events omit private repositories, other hosting services, meetings, local coding that is never pushed publicly, and non-coding work. User location is self-reported rather than physically verified. Most importantly, the shutdown was implemented amid severe domestic unrest, so the design cannot mechanically separate every contemporaneous Bangladesh-specific shock from the connectivity shock. The paper therefore estimates a large collapse in observable GitHub software-production activity during the shutdown episode, and then uses the commit-timestamp mechanism to show that delayed connectivity itself accounts for a meaningful part of the observed collapse.
+2. Institutional Background
+2.1 The July 2024 shutdown
+The shutdown followed escalating student protests over public-sector hiring quotas. The political context matters for identification because the decision to restrict connectivity was not randomly assigned. The empirical design therefore relies on the timing and severity of the network disruption, together with cross-country and within-Bangladesh comparisons, rather than assuming that the broader domestic environment was unchanged.
+Available network measurements nevertheless provide a precise chronology. Cloudflare reports outages at major mobile operators beginning during the early hours of July 18, followed by a near-complete national loss of Internet traffic around 21:00 local time. Fixed broadband began to recover on July 23, initially as a limited restoration that prioritized sectors including banking, technology, exporters, outsourcing providers, and media. Some residential fixed networks returned later, while major mobile providers did not show substantial recovery until July 28 (Belson, 2024). Internet Society Pulse independently records a national shutdown beginning July 18 and notes the gradual return of connectivity on July 23 (Internet Society, 2024).
+The main treatment window in this paper is July 18-23 inclusive. This choice captures the six daily observations most clearly associated with the near-total national disruption while treating July 24 onward as the start of the restoration period in daily data. The distinction is necessarily approximate because restoration began during July 23 and differed across networks. For that reason, specifications based on alternative phase definitions and a regression discontinuity in time are used as robustness checks rather than relying on a single exact daily cutoff.
+Table 1. Institutional timeline
+Date
+Connectivity status
+Empirical treatment
+July 16-17
+Selective social-media/service blocking reported before the nationwide outage
+Pre-treatment warning period; July 17 holiday handled in robustness
+July 18
+Mobile networks disconnect; traffic falls toward zero nationally
+Treatment begins
+July 18-23
+Near-total nationwide Internet disruption
+Main total-shutdown window
+July 23-27
+Partial fixed-broadband restoration
+Restoration / post-treatment transition
+July 28 onward
+Mobile connectivity begins to recover
+Post-treatment
+Sources: Cloudflare Radar reporting in Belson (2024) and Internet Society Pulse (2024). Dates are operationalized at daily frequency for the empirical analysis.
+2.2 Why software production is informative
+Distributed version control separates code creation from code publication. Developers can create commits locally, but a push to a remote GitHub repository requires network connectivity. Other productive actions - opening or merging pull requests, reviewing code, closing issues, publishing releases, and commenting on collaborative work - are even more directly online. This distinction makes software development useful for studying an Internet shutdown: public GitHub activity measures an observable online margin, while commit metadata can reveal whether some code was created locally and uploaded later.
+GH Archive records the public GitHub event stream and makes it available through hourly archives and Google BigQuery (GH Archive, n.d.). The data include events such as PushEvent, PullRequestEvent, PullRequestReviewEvent, IssuesEvent, IssueCommentEvent, and ReleaseEvent. For historical PushEvents, the event payload contains the number of commits and a list of commit objects, subject to a 20-commit timeline-event cap documented by GitHub. I account for this limitation in the mechanism analysis by defining a clean sample of fully observed pushes and by reporting robustness to progressively smaller push sizes (GitHub, n.d.).
+3. Related Literature
+A first literature estimates the economic consequences of Internet access and Internet disruptions. Hjort and Poulsen (2019) exploit the arrival of submarine Internet cables in Africa and find increases in employment, especially in higher-skill occupations, together with evidence of firm entry, productivity, and exporting. This literature establishes connectivity as a productive infrastructure input rather than merely a consumption amenity. The shutdown literature studies the reverse shock. Tagat, Phokeer, and Kreitem (2024) develop an econometric framework for measuring shutdown costs across countries and emphasize impacts on output, employment, and investment. Gunsilius and Van Dijcke (2023) estimate large reductions in economic activity from an Internet shutdown in India using a discontinuity-based method. These studies motivate the hypothesis that intentional connectivity losses can generate immediate real economic costs.
+A second literature uses digital trace data to measure knowledge work. GitHub is especially useful because public events are timestamped and tied to concrete production and collaboration tasks. Wachs et al. (2022) use GitHub to map the geography of open-source software production. Hu et al. (2023) study how pandemic lockdowns affected open-source contributions in China and show that the direction of the effect can depend on context and adaptation. Kreitmeir and Raschky (2024) compile daily GitHub outcomes to study Italy's temporary ban on ChatGPT. Their design is particularly close methodologically: because user-day GitHub actions are sparse and count distributions are highly skewed, they emphasize binary daily indicators, fixed effects, event studies, and robustness to outliers. I follow that logic by making the daily active-user rate the primary outcome and treating raw counts as secondary intensive-margin outcomes.
+A third literature concerns comparative-case causal inference. Synthetic control methods construct a weighted combination of untreated units that approximates the treated unit before an intervention (Abadie, Diamond, and Hainmueller, 2010). Abadie (2021) emphasizes transparent donor selection, pre-treatment fit, and placebo or leave-one-out exercises as central diagnostics. Synthetic difference-in-differences combines reweighting of units and time periods with difference-in-differences structure (Arkhangelsky et al., 2021). I use conventional synthetic control as the headline specification because its weights and pre-fit are transparent in this application, while SDID is treated as a robustness exercise. Finally, I use regression discontinuity in time as an additional temporal check, following the cautions in Hausman and Rapson (2018) regarding serial correlation, functional form, and the conceptual differences between time-based and cross-sectional RD designs.
+4. Data and Measurement
+4.1 GitHub users and country assignment
+The analysis begins from GitHub accounts returned by country-location searches for Bangladesh and fourteen potential donor countries: the Philippines, Pakistan, Sri Lanka, Nepal, Indonesia, Vietnam, Malaysia, Thailand, Kenya, Nigeria, Ghana, Morocco, Jordan, and Tunisia. GitHub profile location is self-reported. I therefore interpret the sample as accounts associated with each country rather than verified physical residence at every point in time.
+For each account, I use GH Archive to recover public daily GitHub events from May 1 through September 4, 2024. I retain accounts with at least four pre-treatment active days and remove likely bots or automation accounts using login/name patterns and behavioral filters. The final eligible sample contains 59,158 users, including 10,241 accounts associated with Bangladesh. This restriction focuses the design on developers with observable pre-shutdown activity and reduces the influence of dormant accounts. It also means that the estimand is an effect on pre-active public GitHub users, not on every person who has a GitHub account.
+4.2 Outcomes
+The primary outcome is the daily active-user rate: the share of eligible users in a country who record at least one productive GitHub action on day t. This extensive-margin measure is preferred because GitHub activity is sparse at the user-day level and raw commit counts contain extreme outliers. Binary activity measures are also closely aligned with the approach used by Kreitmeir and Raschky (2024).
+I construct secondary outcomes along the software-production pipeline. Productive activity indicates a day with commits, issue closure, pull-request closure, or a release. Shipping activity indicates a day with a merged pull request or a release. Collaboration activity indicates a day with code review or comment activity. I also construct count outcomes per 1,000 eligible users: collaboration events and shipping output. These measures separate code production from downstream delivery and coordination.
+Count outcomes are winsorized in user-level regressions when appropriate, because a small number of accounts generate implausibly large daily or weekly commit counts. The primary country-day synthetic-control analysis does not rely on a raw commit-count headline. National holidays are coded at the country-day level and used in robustness checks.
+Table 2. Data and outcome construction
+Component
+Definition / sample
+Scale
+Primary outcome
+Share of eligible users with any productive GitHub activity
+Country-day percentage points
+Productive activity
+Any commits, issues closed, pull requests closed, or releases
+User-day indicator / country-day rate
+Shipping activity
+Any merged pull request or release
+User-day indicator / country-day rate
+Collaboration activity
+Any PR review, issue comment, PR review comment, or commit comment
+User-day indicator / country-day rate
+Collaboration events
+Total review/comment events
+Per 1,000 eligible users
+Shipping output
+Merged pull requests plus releases
+Per 1,000 eligible users
+Mechanism sample
+Public repo-SHA pairs from fully observed PushEvents, matched to commit metadata
+Commit level
+Public GitHub events do not measure private repository activity, work on other platforms, meetings, or local code that is never pushed publicly.
+4.3 Commit-level mechanism data
+To distinguish coding from publication, I build a separate commit-level dataset for Bangladesh. I extract public PushEvents by eligible Bangladeshi users, retain PushEvents for which the historical payload reveals the complete set of commit SHAs, and keep the earliest observed push for each repository-SHA pair. I then query GitHub commit metadata to recover authoredDate, committedDate, and GitHub-linked author and committer logins. The analysis target contains 86,065 repository-SHA pairs; 70,576 commit objects are successfully resolved, an 82.0 percent resolution rate.
+The strict mechanism sample requires (i) a non-missing author timestamp, (ii) a nonnegative author-to-push delay, and (iii) equality between the GitHub login linked to the commit author and the PushEvent actor. This leaves 59,920 commits. The equality condition avoids attributing a commit written by another person to the Bangladeshi user who happened to push it. Git author and committer timestamps are embedded metadata rather than independently verified work-time measurements, so they are interpreted as evidence consistent with offline production rather than as an infallible clock of when coding occurred.
+5. Empirical Strategy
+5.1 Synthetic control
+The headline design treats Bangladesh as the single treated country and the fourteen other countries as the donor pool. Let Y_ct denote the daily active-user rate for country c on date t. Synthetic-control weights are nonnegative, sum to one, and are chosen to minimize the mean squared difference between Bangladesh and the weighted donor combination over the pre-treatment period May 1-July 17. The estimated daily treatment effect is the gap between Bangladesh and the synthetic control during July 18-23.
+The method is well suited to the setting because treatment occurs at the country level and the number of aggregate comparison units is modest. Its main advantage here is transparency: the counterfactual is an explicit weighted combination of observed countries, and the credibility of the design can be evaluated through pre-treatment fit, donor weights, in-space placebos, and leave-one-out exercises (Abadie, Diamond, and Hainmueller, 2010; Abadie, 2021).
+ATT_SC = mean_t in shutdown [ Y_BD,t - Sum_j w_j Y_j,t ]
+5.2 Difference-in-differences and event study
+As a complementary design, I compare the change in Bangladesh's mean outcome from the pre-period to the shutdown with the average corresponding change across the donor countries. Because treatment varies at the country-by-time level, I do not treat user-clustered standard errors from micro regressions as the sole source of inference. The aggregate DiD is used primarily as a magnitude check against the synthetic-control estimate, while placebo and time-series diagnostics provide additional information about whether the Bangladesh break is unusual.
+I also estimate user-day fixed-effects specifications and event studies around the shutdown in auxiliary analyses. These models absorb time-invariant user heterogeneity and common date shocks and trace the treatment effect over relative time. The event-study evidence is used diagnostically to assess whether the collapse in activity is concentrated around the treatment window rather than being the continuation of a smooth pre-existing decline.
+Y_it = beta (Bangladesh_i x Shutdown_t) + alpha_i + lambda_t + controls_it + epsilon_it
+5.3 Regression discontinuity in time
+A regression discontinuity in time centered on July 18 provides a third temporal comparison. I estimate local linear models on daily Bangladesh activity and on a Bangladesh-minus-control residualized series, with heteroskedasticity-and-autocorrelation-consistent standard errors. Following Hausman and Rapson (2018), I vary bandwidths and polynomial order, report donut specifications that omit dates immediately adjacent to the cutoff, inspect autocorrelation, and use placebo cutoffs. Because time itself is the running variable and other contemporaneous events can occur at the same date, the RDiT is interpreted as a robustness check rather than a standalone source of causal identification.
+5.4 Inference and robustness
+For synthetic control, I implement in-space placebos by assigning the treatment date to each donor country in turn and reconstructing its synthetic control using the remaining donors. The primary rank statistic compares Bangladesh's absolute ATT and post/pre RMSPE ratio with the placebo distribution. With fourteen placebo countries, the smallest possible finite-sample rank value is 1/(14+1) = 0.0667; consequently, a value of 0.0667 means Bangladesh is the most extreme unit, not that the effect is weak.
+I also re-estimate the primary synthetic control after removing each donor country one at a time. Holidays are excluded in a separate DiD specification. Finally, outcome-specific synthetic controls allow donor weights to vary by outcome, whereas the main secondary-outcome table deliberately reuses the active-rate synthetic-control weights. Reusing the primary weights reduces the risk that each new outcome is matched with a different donor combination chosen after observing results.
+6. Results
+6.1 Main effect on daily productive activity
+The synthetic-control estimate shows an exceptionally large collapse in observable GitHub activity. Bangladesh's active-user rate averages 2.021 percent during July 18-23, compared with a synthetic counterfactual of 15.277 percent. The ATT is -13.256 percentage points, equivalent to an 86.8 percent reduction relative to the synthetic counterfactual. The pre-treatment RMSPE is 3.260 percentage points and the post/pre RMSPE ratio is 4.192.
+The synthetic control places 47.6 percent weight on Pakistan, 32.5 percent on Ghana, and 19.9 percent on Kenya. No other donor receives positive weight in the baseline optimization. Bangladesh is more extreme than all fourteen in-space placebos in both absolute ATT and RMSPE-ratio comparisons, yielding rank statistics of 0.0667, the smallest value attainable with fourteen placebo units.
+The leave-one-out exercise is highly stable. Across specifications that remove one donor at a time, the ATT ranges only from -13.256 to -12.886 percentage points. In particular, excluding Pakistan produces -12.905 percentage points and excluding Kenya produces -12.886 percentage points. This matters because both countries experienced localized connectivity disruptions near the broader pre-treatment period: Internet Society reports regional restrictions in Pakistan around July 14-17, while Cloudflare documents a major Kenyan traffic disruption on June 25 (Internet Society, 2024; Cloudflare, 2024). The limited movement in the treatment estimate when either donor is removed reduces, though does not eliminate, concern that these donor-specific episodes drive the result.
+Table 3. Main estimates for the daily active-user rate
+Specification
+Actual BD (%)
+Counterfactual (%)
+ATT (pp)
+Relative effect
+Diagnostic
+Synthetic control
+2.021
+15.277
+-13.256
+-86.8%
+Pre RMSPE 3.260; ratio 4.192
+International DiD
+2.021
+15.109
+-13.088
+-86.6%
+All donor countries
+International DiD, no holidays
+2.021
+15.400
+-13.379
+-86.9%
+National holidays excluded
+RDiT, local linear
+--
+--
+-9.284
+--
+HAC SE 5.034 pp; p=0.065
+SC placebo rank values are 0.0667 for both absolute ATT and RMSPE-ratio tests. RDiT is treated as a temporal robustness check, not as the main design.
+6.2 Difference-in-differences and temporal robustness
+The international DiD estimate is -13.088 percentage points, nearly identical to the synthetic-control ATT. Removing national holidays yields -13.379 percentage points. The agreement is notable because the two methods use different weighting logic: synthetic control chooses donor weights to reproduce Bangladesh before the shutdown, whereas the reported international DiD gives equal weight to donor-country changes.
+The RDiT produces a smaller point estimate but the same qualitative conclusion. A local linear specification around July 18 estimates a discontinuity of -9.28 percentage points in Bangladesh's active-user rate; a controlled Bangladesh-minus-Philippines version yields -9.16 percentage points. HAC p-values are approximately 0.065 in both cases, while a Philippines geographic placebo is near zero. Donut specifications that omit the dates adjacent to the cutoff produce larger negative discontinuities, although their magnitude is sensitive to the exact omitted window. Consistent with Hausman and Rapson (2018), I therefore emphasize the direction and timing of the break rather than treating the RDiT p-value as the decisive inferential statistic.
+Weekly and daily event-study specifications likewise indicate a pronounced fall around the shutdown. Pre-treatment coefficients are not uniformly zero - GitHub activity is noisy and Bangladesh exhibits meaningful short-run fluctuations - which is another reason to prefer the synthetic-control design over a single two-country parallel-trends claim. The key empirical fact is that the shutdown-period collapse is far larger than ordinary pre-treatment fluctuations and is reproduced across methods.
+6.3 Productive, shipping, and collaboration outcomes
+The collapse is not limited to a generic activity indicator. Holding the primary synthetic-control weights fixed, productive activity falls by 15.179 percentage points relative to a 17.555 percent counterfactual, or 86.5 percent. Shipping activity falls by 1.333 percentage points relative to a 1.415 percent counterfactual, or 94.2 percent. Collaboration activity falls by 0.780 percentage points relative to a 0.834 percent counterfactual, or 93.6 percent. Count outcomes show similarly large relative declines in collaboration events and shipping output.
+Allowing the donor weights to re-optimize separately for each outcome produces comparable magnitudes: -86.2 percent for productive activity, -92.2 percent for shipping activity, and -92.1 percent for collaboration activity. The in-space placebo ATT rank is again 0.0667 for all three key activity-rate outcomes. The RMSPE-ratio rank is 0.0667 for productive and shipping activity but 0.20 for collaboration activity. I therefore treat collaboration as consistent secondary evidence rather than giving it the same inferential weight as the primary and shipping outcomes.
+Table 4. Secondary outcomes
+Outcome
+Fixed-weight SC ATT
+Fixed-weight relative
+Outcome-specific SC ATT
+Outcome-specific relative
+ATT rank
+Productive active rate
+-15.179 pp
+-86.5%
+-14.870 pp
+-86.2%
+0.0667
+Shipping active rate
+-1.333 pp
+-94.2%
+-0.964 pp
+-92.2%
+0.0667
+Collaboration active rate
+-0.780 pp
+-93.6%
+-0.630 pp
+-92.1%
+0.0667
+Collaboration events / 1,000
+-24.095
+-95.1%
+-18.589
+-93.7%
+--
+Shipping output / 1,000
+-23.981
+-93.9%
+-18.192
+-92.1%
+--
+Fixed-weight specifications reuse the primary active-rate SCM weights. Outcome-specific specifications re-estimate donor weights separately for each outcome.
+7. Mechanism: Offline Production and Delayed Synchronization
+7.1 Main backlog measure
+A fall in public GitHub events does not necessarily imply an equal fall in code creation. Git is decentralized: developers may continue editing files and creating commits locally, then push them only after connectivity returns. The commit-level analysis directly tests for this pattern.
+In the strict sample, 2,932 commits are authored during July 18-23. Of these, 829 first appear in a public push on or after July 24. The resulting author-time backlog share is 28.27 percent. Replacing the author timestamp with the committer timestamp produces a nearly identical 27.16 percent backlog share (790 of 2,909 commits). The agreement between the two metadata clocks is useful because neither timestamp is a perfect external record of when coding occurred.
+Long publication delays become dramatically more common during the shutdown. Among shutdown-authored commits, 29.71 percent have an author-to-push delay above 24 hours, 25.38 percent above 48 hours, and 22.75 percent above 72 hours. In six overlapping pre-shutdown placebo windows, the corresponding averages are approximately 1.10 percent, 0.72 percent, and 0.46 percent. The real shutdown is therefore far outside the normal pre-period delay distribution.
+Table 5. Commit-time mechanism
+Timestamp
+N during shutdown
+Pushed Jul 24+
+Backlog share
+>24h
+>48h
+>72h
+Mean delay (h)
+authoredDate
+2,932
+829
+28.27%
+29.71%
+25.38%
+22.75%
+40.94
+committedDate
+2,909
+790
+27.16%
+28.60%
+24.27%
+21.73%
+37.47
+Strict sample requires author login = PushEvent actor and nonnegative delay. The backlog share is conditional on commits observed in the mechanism sample, not a share of all software production in Bangladesh.
+7.2 Timing and concentration of delayed pushes
+The delayed commits are released quickly once connectivity begins to return. Of the 829 author-time backlog commits, 354 (42.7 percent) appear on July 24 and 544 (65.6 percent) by July 25. By July 27, 81.1 percent have appeared; by July 31, 92.0 percent have appeared. This temporal concentration immediately after restoration is consistent with a synchronization backlog rather than ordinary long-lived branches or sporadic publication.
+The backlog is not generated by only a handful of unusually active users. The 2,932 shutdown-authored commits come from 835 users and 977 repositories. Two hundred twenty-two users (26.6 percent) and 246 repositories (25.2 percent) contribute at least one backlog commit. The largest user accounts for 2.77 percent of backlog commits, the top five users for 12.06 percent, and the top ten for 21.47 percent. Dropping the twenty users with the most backlog still leaves a 20.37 percent backlog share.
+Backlog is, however, more common in larger pushes. Restricting to pushes with at most 10 commits lowers the backlog share to 21.0 percent; at most 5 commits, 14.4 percent; at most 2 commits, 7.8 percent; and single-commit pushes, 3.3 percent. This pattern is economically meaningful rather than merely inconvenient: if developers accumulate local commits while offline and synchronize later, restoration should produce larger-than-normal push batches. At the same time, it means that the 28.3 percent headline mechanism estimate should not be interpreted as applying uniformly to every kind of push.
+8. Robustness, Identification Threats, and Limitations
+8.1 Synthetic-control diagnostics
+The primary synthetic control improves pre-treatment fit relative to using the Philippines alone, but the fit is not perfect. The pre-treatment RMSPE is 3.26 percentage points, and Bangladesh exhibits temporary deviations from the synthetic series in early July. The paper therefore reports pre-fit explicitly rather than treating the synthetic control as a perfect replica. The unusually large post-treatment gap and the stability of the estimate under leave-one-out exercises are the main reasons the design remains informative.
+The donor pool also contains countries with their own short-lived connectivity disturbances. Pakistan experienced regional restrictions around July 14-17, immediately before Bangladesh's national shutdown, and Kenya experienced a major traffic disruption on June 25. These episodes are a reason to avoid presenting donor selection as mechanically pristine. Still, removing Pakistan or Kenya individually changes the ATT by less than 0.4 percentage points. A more conservative future extension could pre-register donor exclusion rules based on third-party connectivity data and expand the donor pool to increase placebo-inference resolution.
+8.2 Metadata and measurement
+Commit metadata resolution is similar across periods: 82.34 percent of the pre-period target commits are found, compared with 84.24 percent during the shutdown and 81.81 percent after. The shutdown mechanism is therefore not generated by a sharp deterioration in commit-object availability during the treatment window.
+Location is another measurement limitation. GitHub location fields are user-entered and may be missing, stale, or imprecise. The estimates should be read as applying to accounts associated with Bangladesh and the donor countries, not as a verified census of developers physically located in each country on every date. Public-event data additionally exclude private repositories. If private and public work respond differently to a shutdown, the paper estimates the effect on the observable public margin rather than on all software production.
+8.3 Concurrent unrest and causal interpretation
+The most important identification threat is that the Internet shutdown was itself a response to political unrest. Protests, curfews, transportation disruptions, workplace closures, fear, or other domestic conditions could directly reduce software work even if connectivity were available. Date fixed effects and foreign controls cannot absorb shocks unique to Bangladesh that coincide with the shutdown. For this reason, the headline estimate should be interpreted as the effect of the shutdown episode under the identifying assumption that the abrupt Bangladesh-specific deviation is primarily attributable to lost connectivity.
+Several findings make the connectivity interpretation more plausible without fully proving it. First, the break is tightly aligned with the network outage. Second, activity begins to recover as connectivity returns. Third, downstream online tasks such as shipping and collaboration fall at least as strongly as the general activity rate. Fourth, commit metadata reveal a large stock of code authored during the outage but pushed immediately after restoration. A pure 'developers stopped working because of unrest' story does not naturally predict that last pattern. Nevertheless, the mechanism evidence is complementary, not a substitute for randomized assignment.
+9. Discussion
+The results illustrate why high-frequency digital trace data can add information beyond aggregate estimates of shutdown costs. A national GDP series cannot show whether digital workers cease production, shift to offline tasks, or accumulate work that is released later. GitHub timestamps reveal all three margins imperfectly but at daily and commit-level frequency.
+The main estimate - an 86.8 percent decline in the daily active-user rate relative to the synthetic counterfactual - is best interpreted as a collapse in observable online software-production activity. The mechanism results indicate that some of this activity is displaced across time rather than destroyed. At least within the strict public-commit sample, roughly one-quarter to one-third of commits authored during the outage appear only after the main shutdown window. This implies that treating observed pushes as identical to contemporaneous production would overstate the immediate loss in underlying coding effort.
+At the same time, delayed synchronization cannot account for the entire collapse. Most eligible users record no productive public activity during the shutdown, and the recovery backlog is much smaller than the counterfactual volume implied by the active-rate and shipping estimates. Connectivity therefore appears to matter not only for publishing already-written code but also for complementary tasks: accessing remote dependencies, coordinating with collaborators, reviewing code, resolving issues, merging pull requests, and releasing software. The especially large declines in shipping and collaboration are consistent with these channels.
+These results are relevant for firms and policymakers in digitally intensive economies. Resilience planning that focuses only on local editing tools may be insufficient because modern software production depends on a broader stack of remote services. Local mirrors of repositories and package registries, redundant international connectivity, offline-capable documentation, and asynchronous development workflows may mitigate some losses, but they cannot fully substitute for network access when teams, deployment infrastructure, and customers remain online.
+10. Conclusion
+Bangladesh's July 2024 Internet shutdown provides a high-frequency case study of what happens to digitally mediated production when national connectivity is abruptly removed. Using public GitHub events for 59,158 pre-active accounts across fifteen countries, the paper finds that Bangladesh's daily productive-activity rate fell by 13.26 percentage points relative to a synthetic counterfactual during July 18-23, an 86.8 percent decline. International difference-in-differences, secondary outcomes, placebos, and temporal discontinuity analyses point in the same direction.
+The commit-level evidence adds an important qualification. A substantial share of commits authored during the outage appeared only after connectivity began to return. The shutdown therefore suppressed observable online activity more strongly than it suppressed all local code creation. This distinction is central to measuring the cost of connectivity shocks in software production: an outage can both destroy contemporaneous production and shift part of the remaining production into an offline backlog.
+The paper's main limitation is the coincidence of the shutdown with severe domestic unrest. Future work could combine network telemetry at subnational or provider level with developer location at finer geographic resolution, or exploit variation in restoration timing across networks and regions. Such designs could more sharply separate the direct effect of connectivity from the broader social environment. Even with this limitation, the evidence shows that modern software production is highly exposed to network availability and that public development platforms can provide unusually granular measures of that exposure.
+References
+Abadie, A. (2021). Using synthetic controls: Feasibility, data requirements, and methodological aspects. Journal of Economic Literature, 59(2), 391-425. https://doi.org/10.1257/jel.20191450
+Abadie, A., Diamond, A., & Hainmueller, J. (2010). Synthetic control methods for comparative case studies: Estimating the effect of California's tobacco control program. Journal of the American Statistical Association, 105(490), 493-505. https://doi.org/10.1198/jasa.2009.ap08746
+Aceto, G., Botta, A., Marchetta, P., Persico, V., & Pescape, A. (2018). A comprehensive survey on Internet outages. Journal of Network and Computer Applications, 113, 36-63. https://doi.org/10.1016/j.jnca.2018.03.026
+Arkhangelsky, D., Athey, S., Hirshberg, D. A., Imbens, G. W., & Wager, S. (2021). Synthetic difference-in-differences. American Economic Review, 111(12), 4088-4118. https://doi.org/10.1257/aer.20190159
+Belson, D. (2024, August 1). A recent spate of Internet disruptions. Cloudflare Blog. https://blog.cloudflare.com/a-recent-spate-of-internet-disruptions-july-2024/
+Cloudflare. (2024). Q2 2024 Internet disruption summary. Cloudflare Blog.
+GH Archive. (n.d.). GH Archive. https://www.gharchive.org/
+GitHub. (n.d.). GitHub event types. GitHub Docs. https://docs.github.com/en/rest/using-the-rest-api/github-event-types
+Gunsilius, F., & Van Dijcke, D. (2023). Free discontinuity regression: With an application to the economic effects of Internet shutdowns. arXiv:2309.14630.
+Hausman, C., & Rapson, D. S. (2018). Regression discontinuity in time: Considerations for empirical applications. Annual Review of Resource Economics, 10, 533-552. https://doi.org/10.1146/annurev-resource-121517-033306
+Hjort, J., & Poulsen, J. (2019). The arrival of fast Internet and employment in Africa. American Economic Review, 109(3), 1032-1079. https://doi.org/10.1257/aer.20161385
+Hu, J., Hu, D., Yang, X., & Chau, M. (2023). The impacts of lockdown on open source software contributions during the COVID-19 pandemic. Research Policy, 52(10), 104885. https://doi.org/10.1016/j.respol.2023.104885
+Internet Society. (2024). Shutdowns: Bangladesh. Internet Society Pulse. https://pulse.internetsociety.org/en/shutdowns/
+Kreitmeir, D., & Raschky, P. A. (2024). The heterogeneous productivity effects of generative AI. Working paper, Monash University.
+Schachenhofer, L., Hirsch, P., & Gronalt, M. (2023). How Internet blackouts affect information flows in organizations - Analyzing cascade effects and feedback loops. International Journal of Disaster Risk Reduction. https://doi.org/10.1016/j.ijdrr.2023.104101
+Tagat, A., Phokeer, A., & Kreitem, H. M. (2024). Net Loss: An econometric method to measure the impact of Internet shutdowns. ACM Journal on Computing and Sustainable Societies, 2(2), Article 25. https://doi.org/10.1145/3659466
+Wachs, J., Nitecki, M., Schueller, W., & Polleres, A. (2022). The geography of open source software: Evidence from GitHub. Technological Forecasting and Social Change, 176, 121478. https://doi.org/10.1016/j.techfore.2022.121478
+Appendix A. Additional Empirical Diagnostics
+Table A1. Primary synthetic-control donor weights
+Country
+Weight
+Pakistan
+47.579%
+Ghana
+32.488%
+Kenya
+19.933%
+Weights are estimated on the pre-treatment daily active-user rate.
+Table A2. Primary leave-one-out range
+Donor removed
+ATT (pp)
+Relative effect
+Pre RMSPE
+RMSPE ratio
+Ghana
+-13.209
+-86.73%
+3.297
+4.131
+Pakistan
+-12.905
+-86.46%
+3.376
+3.961
+Kenya
+-12.886
+-86.44%
+3.293
+4.042
+Any zero-weight donor
+-13.256
+-86.77%
+3.260
+4.192
+Removing donors that receive zero baseline weight mechanically leaves the baseline estimate unchanged.
+Table A3. Mechanism placebo comparison
+Metric
+Real shutdown
+Mean placebo
+Maximum placebo
+Released in next 6 days
+25.38%
+0.56%
+0.77%
+Delay >24h
+29.71%
+1.10%
+1.31%
+Delay >48h
+25.38%
+0.72%
+0.90%
+Delay >72h
+22.75%
+0.46%
+0.56%
+Delay >120h
+13.88%
+0.32%
+0.46%
+Placebo windows are six-day authoring windows between July 1 and July 11, with six-day subsequent release windows that end before treatment. Windows overlap, so the comparison is descriptive rather than an exact independent randomization test.
+Table A4. Metadata coverage by push period
+Period
+Target N
+Commit found
+Author timestamp
+Author login
+Author = pusher
+Pre
+17,000
+82.34%
+82.34%
+77.95%
+71.49%
+Shutdown
+3,197
+84.24%
+84.24%
+79.17%
+69.69%
+Post
+65,868
+81.81%
+81.81%
+77.81%
+71.05%
+Similar resolution rates across periods reduce concern that the mechanism result is generated by treatment-specific metadata missingness.
