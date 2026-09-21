@@ -1,0 +1,4 @@
+specification,outcome,cutoff,bandwidth,degree,donut,N_time,effect,se_hac,ci_low,ci_high,p_hac,durbin_watson,ljung_box_p,hac_lags
+Main local linear,Bangladesh active rate,2024-07-17,7,1,0,15,-0.092836,0.050344,-0.191508,0.005835,0.065175,1.207410,0.336958,2
+Controlled local linear,Bangladesh - Philippines active rate,2024-07-17,7,1,0,15,-0.091600,0.049802,-0.189211,0.006010,0.065873,1.655841,0.252651,2
+Geographic placebo,Philippines active rate,2024-07-17,7,1,0,15,-0.001236,0.014922,-0.030481,0.028010,0.933998,1.257362,0.008083,2
