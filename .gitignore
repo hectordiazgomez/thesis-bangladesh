@@ -1,0 +1,15 @@
+# macOS
+.DS_Store
+
+# Secrets
+.env
+*.key
+*.token
+
+# Python
+__pycache__/
+.ipynb_checkpoints/
+
+# Temporary files
+*.tmp
+*.temp

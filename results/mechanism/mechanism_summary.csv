@@ -1,0 +1,4 @@
+sample,N,authored_during_blackout,authored_then_pushed_after,author_backlog_pct,committed_during_blackout,committed_then_pushed_after,commit_backlog_pct,median_author_push_hours,mean_author_push_hours
+All commits with authoredDate,70576,3578,985,27.52934600335383,3552,943,26.548423423423422,0.0022222222222222222,6.764759505757494
+Author login = Bangladesh pusher,61183,2991,829,27.71648278167837,2968,790,26.617250673854446,0.0022222222222222222,4.958101058617966
+Strict + nonnegative author/push delay,59920,2932,829,28.274215552523874,2909,790,27.157098659333105,0.0022222222222222222,4.958101058617966
