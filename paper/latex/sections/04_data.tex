@@ -1,0 +1,51 @@
+\section{Data and Measurement}
+\label{sec:data}
+
+\subsection{GitHub users and country assignment}
+\label{sec:users}
+
+The analysis begins from GitHub accounts returned by country-location searches for Bangladesh and fourteen potential donor countries: the Philippines, Pakistan, Sri Lanka, Nepal, Indonesia, Vietnam, Malaysia, Thailand, Kenya, Nigeria, Ghana, Morocco, Jordan, and Tunisia. GitHub profile location is self-reported. I therefore interpret the sample as accounts associated with each country rather than verified physical residence at every point in time.
+
+For each account, I use GH Archive to recover public daily GitHub events from May 1 through September 4, 2024. I retain accounts with at least four pre-treatment active days and remove likely bots or automation accounts using login/name patterns and behavioral filters. The final eligible sample contains 59,158 users, including 10,241 accounts associated with Bangladesh. This restriction focuses the design on developers with observable pre-shutdown activity and reduces the influence of dormant accounts. It also means that the estimand is an effect on pre-active public GitHub users, not on every person who has a GitHub account.
+
+\subsection{Outcomes}
+\label{sec:outcomes}
+
+The primary outcome is the daily active-user rate: the share of eligible users in a country who record at least one productive GitHub action on day $t$. This extensive-margin measure is preferred because GitHub activity is sparse at the user-day level and raw commit counts contain extreme outliers. Binary activity measures are also closely aligned with the approach used by \citet{kreitmeir2024}.
+
+I construct secondary outcomes along the software-production pipeline. Productive activity indicates a day with commits, issue closure, pull-request closure, or a release. Shipping activity indicates a day with a merged pull request or a release. Collaboration activity indicates a day with code review or comment activity. I also construct count outcomes per 1,000 eligible users: collaboration events and shipping output. These measures separate code production from downstream delivery and coordination.
+
+Count outcomes are winsorized in user-level regressions when appropriate, because a small number of accounts generate implausibly large daily or weekly commit counts. The primary country-day synthetic-control analysis does not rely on a raw commit-count headline. National holidays are coded at the country-day level and used in robustness checks.
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{Data and outcome construction}
+\label{tab:data}
+\begin{threeparttable}
+\begin{tabular}{@{}p{0.22\textwidth}p{0.44\textwidth}p{0.26\textwidth}@{}}
+\toprule
+Component & Definition / sample & Scale \\
+\midrule
+Primary outcome & Share of eligible users with any productive GitHub activity & Country-day percentage points \\
+Productive activity & Any commits, issues closed, pull requests closed, or releases & User-day indicator / country-day rate \\
+Shipping activity & Any merged pull request or release & User-day indicator / country-day rate \\
+Collaboration activity & Any PR review, issue comment, PR review comment, or commit comment & User-day indicator / country-day rate \\
+Collaboration events & Total review/comment events & Per 1,000 eligible users \\
+Shipping output & Merged pull requests plus releases & Per 1,000 eligible users \\
+Mechanism sample & Public repo-SHA pairs from fully observed PushEvents, matched to commit metadata & Commit level \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}[flushleft]
+\footnotesize
+\item \textit{Notes:} Public GitHub events do not measure private repository activity, work on other platforms, meetings, or local code that is never pushed publicly.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\subsection{Commit-level mechanism data}
+\label{sec:mechanism_data}
+
+To distinguish coding from publication, I build a separate commit-level dataset for Bangladesh. I extract public PushEvents by eligible Bangladeshi users, retain PushEvents for which the historical payload reveals the complete set of commit SHAs, and keep the earliest observed push for each repository-SHA pair. I then query GitHub commit metadata to recover \texttt{authoredDate}, \texttt{committedDate}, and GitHub-linked author and committer logins. The analysis target contains 86,065 repository-SHA pairs; 70,576 commit objects are successfully resolved, an 82.0 percent resolution rate.
+
+The strict mechanism sample requires (i) a non-missing author timestamp, (ii) a nonnegative author-to-push delay, and (iii) equality between the GitHub login linked to the commit author and the PushEvent actor. This leaves 59,920 commits. The equality condition avoids attributing a commit written by another person to the Bangladeshi user who happened to push it. Git author and committer timestamps are embedded metadata rather than independently verified work-time measurements, so they are interpreted as evidence consistent with offline production rather than as an infallible clock of when coding occurred.

@@ -1,0 +1,85 @@
+% Advisor-review LaTeX version of the thesis.
+% Authoritative manuscript text: paper/thesis.txt
+% Figures: python analysis/figures/make_all_figures.py
+% Tables:  python analysis/tables/make_all_tables.py
+% Build:   latexmk -pdf main.tex   (run inside paper/latex/; .latexmkrc names the output thesis.pdf)
+
+\documentclass[12pt,letterpaper]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{newtxtext}
+\usepackage{newtxmath}
+\usepackage{microtype}
+\usepackage{setspace}
+\onehalfspacing
+\setlength{\emergencystretch}{1.5em}
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\graphicspath{{figures/}}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{threeparttable}
+\usepackage{caption}
+\captionsetup{font=small,labelfont=bf,justification=raggedright,singlelinecheck=false}
+\captionsetup[table]{position=top,skip=4pt}
+\usepackage{float}
+
+\usepackage[authoryear,round]{natbib}
+\bibliographystyle{plainnat}
+
+\usepackage[hidelinks]{hyperref}
+\usepackage[capitalise,noabbrev]{cleveref}
+
+% Figure notes set below the caption title.
+\newcommand{\fignote}[1]{\par\vspace{2pt}{\footnotesize\justifying\textit{Notes:} #1\par}}
+\newcommand{\justifying}{\leftskip=0pt \rightskip=0pt \parfillskip=0pt plus 1fil}
+
+% Allow figures with notes to share pages with text.
+\renewcommand{\topfraction}{0.85}
+\renewcommand{\bottomfraction}{0.6}
+\renewcommand{\textfraction}{0.1}
+\renewcommand{\floatpagefraction}{0.75}
+
+\title{Causal Effects of a Government Internet Shutdown on Software Production\\[4pt]
+  \large Evidence from Bangladesh's Nationwide Internet Shutdown in July 2024}
+\author{Hector Alberto Diaz Gomez}
+\date{Draft -- September 2026}
+
+\begin{document}
+
+\pagenumbering{gobble}
+\maketitle
+\begin{abstract}
+\noindent This paper estimates the effect of Bangladesh's July 2024 nationwide Internet shutdown on observable software-production activity. I combine public GitHub event data from GH Archive with self-reported user location information and construct a daily panel covering 59,158 pre-active GitHub accounts in Bangladesh and fourteen comparison countries from May 1 to September 4, 2024. The primary outcome is the daily share of eligible users recording productive GitHub activity. A synthetic-control design estimates that during the July 18--23 total-shutdown window, activity in Bangladesh averaged 2.02 percent, compared with a 15.28 percent synthetic counterfactual, an average treatment effect of $-$13.26 percentage points ($-$86.8 percent). An international difference-in-differences estimate is nearly identical ($-$13.09 percentage points). Secondary outcomes show similarly large declines in productive, shipping, and collaborative activity. In-space placebo tests rank Bangladesh as the most extreme unit, although with fourteen placebos the smallest attainable rank $p$-value is 0.0667. I then use commit-level Git metadata to distinguish code creation from online publication. Among commits whose author matches the Bangladeshi account performing the push, 28.3 percent of commits authored during the shutdown first appear in a public GitHub push on or after July 24, while long push delays are rare in pre-shutdown placebo windows. The evidence therefore indicates a severe collapse in observable online software activity and is consistent with a substantial, but incomplete, margin of local work followed by delayed synchronization. Because the shutdown coincided with intense domestic unrest, the estimates should be interpreted as the effect of the shutdown episode under the assumption that no other Bangladesh-specific shock generated the same abrupt pattern in GitHub activity.
+
+\medskip
+\noindent\textbf{Keywords:} Internet shutdowns; software production; GitHub; synthetic control; difference-in-differences; digital economy.
+\end{abstract}
+\clearpage
+\pagenumbering{arabic}
+
+\input{sections/01_introduction}
+\input{sections/02_background}
+\input{sections/03_literature}
+\input{sections/04_data}
+\input{sections/05_empirical_strategy}
+\input{sections/06_results}
+\input{sections/07_mechanism}
+\input{sections/08_robustness}
+\input{sections/09_discussion}
+\input{sections/10_conclusion}
+
+% Aceto et al. (2018) and Schachenhofer et al. (2023) appear in the
+% manuscript's reference list but are not cited in the text; \nocite keeps
+% the reference list identical to paper/thesis.txt.
+\nocite{aceto2018,schachenhofer2023}
+\bibliography{references}
+
+\clearpage
+\appendix
+\input{sections/appendix}
+
+\end{document}

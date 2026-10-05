@@ -1,0 +1,51 @@
+\section{Results}
+\label{sec:results}
+
+\subsection{Main effect on daily productive activity}
+\label{sec:main_results}
+
+The synthetic-control estimate shows an exceptionally large collapse in observable GitHub activity (\cref{fig:sc,tab:main}). Bangladesh's active-user rate averages 2.021 percent during July 18--23, compared with a synthetic counterfactual of 15.277 percent. The ATT is $-$13.256 percentage points, equivalent to an 86.8 percent reduction relative to the synthetic counterfactual. The pre-treatment RMSPE is 3.260 percentage points and the post/pre RMSPE ratio is 4.192.
+
+\begin{figure}[htbp]
+\centering
+\caption{Actual and synthetic Bangladesh: daily share of eligible users with observable productive GitHub activity}
+\label{fig:sc}
+\includegraphics[width=\textwidth]{fig1_sc_actual_vs_synthetic.pdf}
+\fignote{The solid line is the daily percentage of eligible Bangladesh-associated GitHub accounts with observable productive GitHub activity; the dashed line is the synthetic control, a weighted combination of Pakistan (47.6\%), Ghana (32.5\%), and Kenya (19.9\%) with weights chosen on May 1--July 17, 2024 (\cref{tab:weights}). The shaded band marks the July 18--23 total-shutdown window and the dotted line its onset. The outcome measures observable public GitHub activity, not total software productivity. Pre-treatment fit is imperfect (pre-treatment RMSPE 3.26 percentage points), most visibly in early July, when Bangladesh lies above its synthetic counterpart. The stored daily series ends on July 23, 2024. Source: \texttt{results/synthetic\_control/actual\_vs\_synthetic\_daily.csv}.}
+\end{figure}
+
+The synthetic control places 47.6 percent weight on Pakistan, 32.5 percent on Ghana, and 19.9 percent on Kenya (\cref{tab:weights}). No other donor receives positive weight in the baseline optimization. Bangladesh is more extreme than all fourteen in-space placebos in both absolute ATT and RMSPE-ratio comparisons, yielding rank statistics of 0.0667, the smallest value attainable with fourteen placebo units (\cref{fig:placebo,tab:sc_placebos}).
+
+\begin{figure}[htbp]
+\centering
+\caption{Synthetic-control in-space placebo inference: post/pre-treatment RMSPE ratios}
+\label{fig:placebo}
+\includegraphics[width=\textwidth]{fig2_sc_placebo_rmspe_ratio.pdf}
+\fignote{Each donor country is assigned the July 18--23 treatment in turn, and its synthetic control is rebuilt from the remaining donors. The figure ranks Bangladesh and the 14 placebo countries by the ratio of post-treatment to pre-treatment RMSPE, a statistic that scales the treatment-period gap by each unit's pre-treatment fit. Bangladesh is the most extreme of the 15 units; it also has the largest absolute ATT. The exact rank $p$-value is therefore $1/15 = 0.0667$ for both statistics. This is the minimum attainable value with 14 placebo countries: Bangladesh is the most extreme unit in the placebo distribution, but the resolution of exact placebo inference is limited by the size of the donor pool. Source: \texttt{results/synthetic\_control/sc\_inspace\_placebos.csv}, verified against \texttt{results/final/table\_primary\_SC\_placebos.csv}.}
+\end{figure}
+
+The leave-one-out exercise is highly stable (\cref{tab:loo}). Across specifications that remove one donor at a time, the ATT ranges only from $-$13.256 to $-$12.886 percentage points. In particular, excluding Pakistan produces $-$12.905 percentage points, excluding Ghana produces $-$13.209 percentage points, and excluding Kenya produces $-$12.886 percentage points. This matters because both Pakistan and Kenya experienced localized connectivity disruptions near the broader pre-treatment period: Internet Society reports regional restrictions in Pakistan around July 14--17, while Cloudflare documents a major Kenyan traffic disruption on June 25 \citep{isoc2024,cloudflare2024}.
+% TODO: REPLACE BANGLADESH INTERNET SOCIETY ENTRY WITH PAKISTAN-SPECIFIC SOURCE
+The limited movement in the treatment estimate when either donor is removed reduces, though does not eliminate, concern that these donor-specific episodes drive the result.
+
+\input{tables/tab_main_estimates}
+
+\subsection{Difference-in-differences and temporal robustness}
+\label{sec:did_results}
+
+The international DiD estimate is $-$13.088 percentage points, nearly identical to the synthetic-control ATT. Removing national holidays yields $-$13.379 percentage points. The agreement is notable because the two methods use different weighting logic: synthetic control chooses donor weights to reproduce Bangladesh before the shutdown, whereas the reported international DiD gives equal weight to donor-country changes.
+
+The RDiT produces a smaller point estimate but the same qualitative conclusion. A local linear specification at the July 17 cutoff estimates a discontinuity of $-$9.28 percentage points in Bangladesh's active-user rate; a controlled Bangladesh-minus-Philippines version yields $-$9.16 percentage points. HAC $p$-values are approximately 0.065 in both cases, while a Philippines geographic placebo is near zero (\cref{tab:rdit}).
+% TODO: RESOLVE RDIT SENSITIVITY-FILE DISCREPANCY BEFORE FINAL SUBMISSION
+Consistent with \citet{hausman2018}, I therefore emphasize the direction and timing of the break rather than treating the RDiT $p$-value as the decisive inferential statistic.
+
+Auxiliary event-study specifications show a decline around the shutdown, but because the archived event-study implementation is not fully documented, I do not use those estimates as primary evidence.
+
+\subsection{Productive, shipping, and collaboration outcomes}
+\label{sec:secondary}
+
+The collapse is not limited to a generic activity indicator. Holding the primary synthetic-control weights fixed, productive activity falls by 15.179 percentage points relative to a 17.555 percent counterfactual, or 86.5 percent. Shipping activity falls by 1.333 percentage points relative to a 1.415 percent counterfactual, or 94.2 percent. Collaboration activity falls by 0.780 percentage points relative to a 0.834 percent counterfactual, or 93.6 percent. Count outcomes show similarly large relative declines in collaboration events and shipping output (\cref{tab:secondary}).
+
+Allowing the donor weights to re-optimize separately for each outcome produces comparable magnitudes: $-$86.2 percent for productive activity, $-$92.2 percent for shipping activity, and $-$92.1 percent for collaboration activity. The in-space placebo ATT rank is again 0.0667 for all three key activity-rate outcomes. The RMSPE-ratio rank is 0.0667 for productive and shipping activity but 0.20 for collaboration activity. I therefore treat collaboration as consistent secondary evidence rather than giving it the same inferential weight as the primary and shipping outcomes.
+
+\input{tables/tab_secondary_outcomes}

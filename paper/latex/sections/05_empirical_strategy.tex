@@ -1,0 +1,41 @@
+\section{Empirical Strategy}
+\label{sec:strategy}
+
+\subsection{Synthetic control}
+\label{sec:sc}
+
+The headline design treats Bangladesh as the single treated country and the fourteen other countries as the donor pool. Let $Y_{ct}$ denote the daily active-user rate for country $c$ on date $t$. Synthetic-control weights are nonnegative, sum to one, and are chosen to minimize the mean squared difference between Bangladesh and the weighted donor combination over the pre-treatment period May 1--July 17. The estimated daily treatment effect is the gap between Bangladesh and the synthetic control during July 18--23.
+
+The method is well suited to the setting because treatment occurs at the country level and the number of aggregate comparison units is modest. Its main advantage here is transparency: the counterfactual is an explicit weighted combination of observed countries, and the credibility of the design can be evaluated through pre-treatment fit, donor weights, in-space placebos, and leave-one-out exercises \citep*{abadie2010,abadie2021}.
+\begin{equation}
+  \mathrm{ATT}_{\mathrm{SC}} = \frac{1}{|\mathcal{T}_{1}|}\sum_{t \in \mathcal{T}_{1}}
+  \Bigl[\, Y_{\mathrm{BD},t} - \sum_{j} w_{j} Y_{j,t} \Bigr],
+  \label{eq:att_sc}
+\end{equation}
+where $\mathcal{T}_{1}$ denotes the shutdown days.
+
+\subsection{Difference-in-differences and event study}
+\label{sec:did}
+
+As a complementary design, I compare the change in Bangladesh's mean outcome from the pre-period to the shutdown with the average corresponding change across the donor countries. Because treatment varies at the country-by-time level, I do not treat user-clustered standard errors from micro regressions as the sole source of inference. The aggregate DiD is used primarily as a magnitude check against the synthetic-control estimate, while placebo and time-series diagnostics provide additional information about whether the Bangladesh break is unusual.
+
+I also estimate user-day fixed-effects specifications and event studies around the shutdown in auxiliary analyses. These models absorb time-invariant user heterogeneity and common date shocks and trace the treatment effect over relative time. The event-study evidence is used diagnostically to assess whether the collapse in activity is concentrated around the treatment window rather than being the continuation of a smooth pre-existing decline.
+\begin{equation}
+  Y_{it} = \beta\,(\text{Bangladesh}_{i} \times \text{Shutdown}_{t}) + \alpha_{i} + \lambda_{t}
+  + \text{controls}_{it} + \varepsilon_{it}
+  \label{eq:did}
+\end{equation}
+
+\subsection{Regression discontinuity in time}
+\label{sec:rdit_method}
+
+A regression discontinuity in time at the July 17 cutoff provides a third temporal comparison. I estimate local linear models on daily Bangladesh activity and on a Bangladesh-minus-control residualized series, with heteroskedasticity-and-autocorrelation-consistent standard errors.
+% TODO: VERIFY RDIT SENSITIVITY FILE BEFORE FINAL SUBMISSION
+Following \citet{hausman2018}, I vary bandwidths and polynomial order, report donut specifications that omit dates immediately adjacent to the cutoff, inspect autocorrelation, and use placebo cutoffs. Because time itself is the running variable and other contemporaneous events can occur at the same date, the RDiT is interpreted as a robustness check rather than a standalone source of causal identification.
+
+\subsection{Inference and robustness}
+\label{sec:inference}
+
+For synthetic control, I implement in-space placebos by assigning the treatment date to each donor country in turn and reconstructing its synthetic control using the remaining donors. The primary rank statistic compares Bangladesh's absolute ATT and post/pre RMSPE ratio with the placebo distribution. With fourteen placebo countries, the smallest possible finite-sample rank value is $1/(14+1) = 0.0667$; consequently, a value of 0.0667 means Bangladesh is the most extreme unit, not that the effect is weak.
+
+I also re-estimate the primary synthetic control after removing each donor country one at a time. Holidays are excluded in a separate DiD specification. Finally, outcome-specific synthetic controls allow donor weights to vary by outcome, whereas the main secondary-outcome table deliberately reuses the active-rate synthetic-control weights. Reusing the primary weights reduces the risk that each new outcome is matched with a different donor combination chosen after observing results.
