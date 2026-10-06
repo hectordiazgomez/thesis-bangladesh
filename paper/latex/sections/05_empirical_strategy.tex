@@ -39,3 +39,19 @@ Following \citet{hausman2018}, I vary bandwidths and polynomial order, report do
 For synthetic control, I implement in-space placebos by assigning the treatment date to each donor country in turn and reconstructing its synthetic control using the remaining donors. The primary rank statistic compares Bangladesh's absolute ATT and post/pre RMSPE ratio with the placebo distribution. With fourteen placebo countries, the smallest possible finite-sample rank value is $1/(14+1) = 0.0667$; consequently, a value of 0.0667 means Bangladesh is the most extreme unit, not that the effect is weak.
 
 I also re-estimate the primary synthetic control after removing each donor country one at a time. Holidays are excluded in a separate DiD specification. Finally, outcome-specific synthetic controls allow donor weights to vary by outcome, whereas the main secondary-outcome table deliberately reuses the active-rate synthetic-control weights. Reusing the primary weights reduces the risk that each new outcome is matched with a different donor combination chosen after observing results.
+
+\subsection{Within-Bangladesh sectoral recovery}
+\label{sec:sector_method}
+
+The designs above estimate the effect of the shutdown during July 18--23. To describe how activity evolved after restoration, I use the fixed sample of 20,000 accounts described in \cref{sec:sector_data}. For user $i$, sector $s$, and day $t$, let $A_{ist}=1$ if the user records at least one PushEvent on day $t$ in a repository classified to sector $s$; activity in several repositories of the same sector on the same day counts once. Days are grouped into event periods $k$: the final eight complete pre-shutdown weeks, $k=-8,\dots,-1$ (May 23--July 17, 2024); the shutdown, $k=0$ (July 18--23); and consecutive seven-day bins after it, starting with $k=+1$ (July 24--30). Let $\bar{A}_{isk}$ be user $i$'s share of active days in period $k$, and $\bar{A}^{\mathrm{pre}}_{is}$ the corresponding share over the 56 baseline days. I report
+\begin{equation}
+  \beta_{sk} = \frac{1}{N}\sum_{i=1}^{N}\bigl(\bar{A}_{isk} - \bar{A}^{\mathrm{pre}}_{is}\bigr),
+  \qquad
+  R_{sk} = 100 \times \frac{\sum_{i} \bar{A}_{isk}}{\sum_{i} \bar{A}^{\mathrm{pre}}_{is}},
+  \label{eq:sector}
+\end{equation}
+where $N=20{,}000$ and users without activity in sector $s$ contribute zeros. The coefficient $\beta_{sk}$ is the change in the daily probability of sector-$s$ push activity relative to the baseline, in percentage points; the recovery index $R_{sk}$ normalizes the baseline to 100. Standard errors for $\beta_{sk}$ are the standard deviation of the user-level differences divided by $\sqrt{N}$, and 95 percent intervals use the normal approximation. As a summary of recovery timing, I report the first post-shutdown week that begins two consecutive weeks with $R_{sk}\geq 80$.
+
+Because the activity measure counts pushes to any classified repository, including repositories first observed after the shutdown, it captures recovery through new projects and through switching across repositories. As a complementary specification, I also follow only the repositories pushed to during the baseline weeks, whose activity cannot be replaced by new projects.
+
+This analysis compares each sector with its own pre-shutdown baseline and has no untreated comparison group. It therefore describes the heterogeneity and timing of recovery within Bangladesh; it does not estimate sector-specific causal effects. Post-shutdown deviations from the baseline may also reflect trends, seasonality, or other Bangladesh-specific developments. The confidence intervals capture sampling variation across users but not common shocks that affect all users in a given week. The pre-shutdown coefficients ($k<0$) indicate how much weekly activity fluctuates around the baseline in the absence of a shutdown and serve as a benchmark for interpreting post-shutdown deviations.

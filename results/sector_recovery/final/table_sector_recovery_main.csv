@@ -1,0 +1,8 @@
+sector,sector_label,pre_users,shutdown_recovery_index,week1_recovery_index,week2_recovery_index,week4_recovery_index,week8_recovery_index,first_week_ge_80,first_sustained2_ge_80
+Information,Information,1528,11.7,75.9,72.2,106.0,94.5,3.0,3.0
+Educational Services,Education,1234,11.7,59.1,53.4,75.4,81.9,6.0,6.0
+Retail Trade,Retail,1012,6.2,52.0,52.3,153.7,79.6,4.0,9.0
+Accommodation and Food Services,Accommodation/Food,480,3.5,44.3,42.8,54.2,62.6,,
+Health Care and Social Assistance,Health,514,6.3,40.7,51.5,77.5,89.4,6.0,6.0
+Finance and Insurance,Finance,382,30.9,92.2,67.6,89.5,91.3,1.0,3.0
+Real Estate and Rental,Real Estate,213,4.0,33.0,25.1,44.4,85.5,5.0,5.0

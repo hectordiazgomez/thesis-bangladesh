@@ -54,7 +54,8 @@ def write(name: str, body: str) -> None:
 # heading and the appendix packs without stranded headings or blank pages.
 APPENDIX_LABELS = {"tab:weights", "tab:loo", "tab:sc_placebos", "tab:weights_specific",
                    "tab:rdit", "tab:mech_placebos", "tab:metadata", "tab:push_completeness",
-                   "tab:push_size", "tab:concentration"}
+                   "tab:push_size", "tab:concentration", "tab:sector_threshold",
+                   "tab:sector_fixed_repo"}
 
 
 def table(caption: str, label: str, colspec: str, head: str, rows: list[str],
@@ -364,6 +365,126 @@ def tab_concentration() -> None:
         r"commits."))
 
 
+# ---------------------------------------------------------------------------
+# Within-Bangladesh sectoral recovery (results/sector_recovery/)
+# ---------------------------------------------------------------------------
+SECTOR = RES / "sector_recovery"
+# (classifier sector name, short label); fastest to slowest recovery.
+SECTORS = [
+    ("Finance and Insurance", "Finance"),
+    ("Information", "Information"),
+    ("Educational Services", "Education"),
+    ("Health Care and Social Assistance", "Health"),
+    ("Retail Trade", "Retail"),
+    ("Real Estate and Rental", "Real Estate"),
+    ("Accommodation and Food Services", "Accommodation/Food"),
+]
+EXCLUDED = [
+    ("Professional, Scientific, Technical Services", "Professional/Scientific"),
+    ("Administrative and Support Services", "Admin. Support"),
+]
+
+
+def week(x: float) -> str:
+    return "--" if pd.isna(x) else f"{int(x)}"
+
+
+def tab_sector_recovery() -> None:
+    s = pd.read_csv(SECTOR / "sectorwide" / "sectorwide_recovery_summary.csv").set_index("sector")
+    sup = pd.read_csv(SECTOR / "sectorwide" / "sectorwide_support.csv").set_index("sector")
+    final = pd.read_csv(SECTOR / "final" / "table_sector_recovery_main.csv").set_index("sector")
+    cols = ["shutdown", "week1", "week2", "week4", "week8"]
+    rows = []
+    for sector, short in SECTORS:
+        r, f = s.loc[sector], final.loc[sector]
+        for c in cols:  # final table stores the same indices rounded to 0.1
+            check(f"{short} {c}", round(r[f"{c}_recovery_index"], 1), f[f"{c}_recovery_index"], 1e-9)
+        if week(r.first_sustained2_ge_80) != week(f.first_sustained2_ge_80):
+            raise AssertionError(f"{short} sustained-week mismatch")
+        rows.append(f"{short} & {sup.loc[sector, 'naics_code'].replace('-', '--')} & {int(r.pre_users):,} & "
+                    f"{num(r.pre8_user_daily_activity_pct)} & "
+                    + " & ".join(num(r[f'{c}_recovery_index'], 1) for c in cols)
+                    + f" & {week(r.first_sustained2_ge_80)}")
+    write("tab_sector_recovery", table(
+        "Recovery of observable GitHub push activity by repository sector", "tab:sector_recovery",
+        "lrrrrrrrrr",
+        r"& & Pre & Pre rate & \multicolumn{5}{c}{Recovery index (pre-period mean = 100)} & First wk \\"
+        "\n" r"\cmidrule(lr){5-9}" "\n"
+        r"Sector & NAICS & users & (\%) & Shutdown & +1 & +2 & +4 & +8 & $\geq$80, 2 wks",
+        rows,
+        r"Fixed sample of 20,000 Bangladesh-associated accounts. Repository sectors from the "
+        r"historical-README classifier with confidence $\geq$ 0.80. The outcome is the share of "
+        r"sampled users with at least one PushEvent to a repository of the sector on a given day. "
+        r"\textit{Pre users}: sampled users with such activity in the baseline period. "
+        r"\textit{Pre rate}: mean daily outcome over the baseline period (May 23--July 17, 2024, "
+        r"the final eight complete pre-shutdown weeks), in percent of all 20,000 users. "
+        r"Shutdown: July 18--23; week +1: July 24--30; subsequent 7-day bins. "
+        r"\textit{First wk $\geq$80, 2 wks}: first post-shutdown week that begins two consecutive "
+        r"weeks with an index of at least 80 (observed through week +17, November 13--19); "
+        r"it does not imply that the index stays above 80 thereafter. -- indicates no such week. "
+        r"Within-Bangladesh comparison with the sector's own pre-period; not a causal effect "
+        r"relative to an untreated control. Sources: "
+        r"\texttt{results/sector\_recovery/sectorwide/sectorwide\_recovery\_summary.csv}, verified "
+        r"against \texttt{results/sector\_recovery/final/table\_sector\_recovery\_main.csv}.",
+        size=r"\footnotesize"))
+
+
+def tab_sector_threshold() -> None:
+    s = pd.read_csv(SECTOR / "final" / "sector_threshold_robustness_full.csv")
+    s["threshold"] = s.threshold.map(lambda x: f"{float(x):.2f}")
+    s = s.set_index(["sector", "threshold"])
+    rows = []
+    for i, (sector, short) in enumerate(SECTORS + EXCLUDED):
+        if i == len(SECTORS):
+            rows.append(r"\midrule \multicolumn{7}{l}{\textit{Excluded from the main figures and table}}")
+        for j, thr in enumerate(["0.70", "0.80", "0.90"]):
+            r = s.loc[(sector, thr)]
+            lab = short if j == 0 else ""
+            rows.append(f"{lab} & {thr} & {int(r.pre_users):,} & {num(r.week1_recovery_index, 1)} & "
+                        f"{num(r.week4_recovery_index, 1)} & {num(r.week8_recovery_index, 1)} & "
+                        f"{week(r.first_sustained2_ge_80)}")
+    write("tab_sector_threshold", table(
+        "Sectoral recovery indices by classifier-confidence threshold", "tab:sector_threshold",
+        "llrrrrr",
+        r"Sector & Threshold & Pre users & Week +1 & Week +4 & Week +8 & First wk $\geq$80, 2 wks",
+        rows,
+        r"Each row repeats the main specification (\cref{tab:sector_recovery}) keeping only "
+        r"repositories whose classifier confidence is at least the stated threshold; 0.80 is the "
+        r"main specification. Professional/Scientific and Administrative Support are excluded from "
+        r"the main results because their support falls sharply at the 0.90 threshold. Source: "
+        r"\texttt{results/sector\_recovery/final/sector\_threshold\_robustness\_full.csv}.",
+        size=r"\footnotesize"))
+
+
+def tab_sector_fixed_repo() -> None:
+    repo = pd.read_csv(SECTOR / "pre8" / "sector_recovery_summary_pre8.csv").set_index("sector")
+    wide = pd.read_csv(SECTOR / "sectorwide" / "sectorwide_recovery_summary.csv").set_index("sector")
+    rows = []
+    for sector, short in SECTORS:
+        r, w = repo.loc[sector], wide.loc[sector]
+        rows.append(f"{short} & {int(r.n_repos):,} & "
+                    + " & ".join(num(r[f'week{k}_recovery_index'], 1) for k in (1, 4, 8)) + " & "
+                    + " & ".join(num(w[f'week{k}_recovery_index'], 1) for k in (1, 4, 8)))
+    write("tab_sector_fixed_repo", table(
+        "Recovery of pre-existing repositories versus sector-wide user activity",
+        "tab:sector_fixed_repo", "lrrrrrrr",
+        r"& & \multicolumn{3}{c}{Fixed pre-period repositories} & \multicolumn{3}{c}{Sector-wide (main)} \\"
+        "\n" r"\cmidrule(lr){3-5}\cmidrule(lr){6-8}" "\n"
+        r"Sector & Repos & +1 & +4 & +8 & +1 & +4 & +8",
+        rows,
+        r"Recovery indices (pre-period mean = 100). \textit{Fixed pre-period repositories}: "
+        r"classified repositories (confidence $\geq$ 0.80) with at least one PushEvent by a sampled "
+        r"user during the final eight pre-shutdown weeks; the outcome is each repository's daily "
+        r"PushEvent active-day rate, and new repositories never enter. \textit{Sector-wide}: main "
+        r"specification of \cref{tab:sector_recovery}, which includes activity on repositories first "
+        r"observed after the shutdown. Because a cohort selected on recent activity would decline "
+        r"over time even without a shutdown, the fixed-repository indices are not a counterfactual "
+        r"for the sector-wide indices. Sources: "
+        r"\texttt{results/sector\_recovery/pre8/sector\_recovery\_summary\_pre8.csv} and "
+        r"\texttt{results/sector\_recovery/sectorwide/sectorwide\_recovery\_summary.csv}.",
+        size=r"\footnotesize"))
+
+
 def main() -> None:
     sc = primary_sc()
     tab_main_estimates(sc)
@@ -379,6 +500,9 @@ def main() -> None:
     tab_push_completeness()
     tab_push_size()
     tab_concentration()
+    tab_sector_recovery()
+    tab_sector_threshold()
+    tab_sector_fixed_repo()
 
 
 if __name__ == "__main__":

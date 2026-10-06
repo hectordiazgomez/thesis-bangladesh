@@ -39,7 +39,7 @@ The RDiT produces a smaller point estimate but the same qualitative conclusion. 
 % TODO: RESOLVE RDIT SENSITIVITY-FILE DISCREPANCY BEFORE FINAL SUBMISSION
 Consistent with \citet{hausman2018}, I therefore emphasize the direction and timing of the break rather than treating the RDiT $p$-value as the decisive inferential statistic.
 
-Auxiliary event-study specifications show a decline around the shutdown, but because the archived event-study implementation is not fully documented, I do not use those estimates as primary evidence.
+Auxiliary event-study specifications show a decline around the shutdown, but because the archived event-study implementation is not fully documented, I do not use those estimates as primary evidence. Dynamics after restoration are instead documented in \cref{sec:sector_results}, which reports a reproducible within-Bangladesh event study by repository sector.
 
 \subsection{Productive, shipping, and collaboration outcomes}
 \label{sec:secondary}
@@ -49,3 +49,46 @@ The collapse is not limited to a generic activity indicator. Holding the primary
 Allowing the donor weights to re-optimize separately for each outcome produces comparable magnitudes: $-$86.2 percent for productive activity, $-$92.2 percent for shipping activity, and $-$92.1 percent for collaboration activity. The in-space placebo ATT rank is again 0.0667 for all three key activity-rate outcomes. The RMSPE-ratio rank is 0.0667 for productive and shipping activity but 0.20 for collaboration activity. I therefore treat collaboration as consistent secondary evidence rather than giving it the same inferential weight as the primary and shipping outcomes.
 
 \input{tables/tab_secondary_outcomes}
+
+\subsection{Sectoral recovery after restoration}
+\label{sec:sector_results}
+
+The synthetic-control estimates describe the collapse during the shutdown window. They do not show how activity evolved once connectivity returned, or whether recovery was common across the kinds of projects on which Bangladeshi developers work. This subsection addresses these questions using the fixed sample of 20,000 Bangladesh-associated accounts and the repository-sector classification of \cref{sec:sector_data}, estimated as described in \cref{sec:sector_method}. The analysis compares each sector with its own pre-shutdown baseline. It documents heterogeneity in recovery dynamics within Bangladesh; it does not estimate sector-specific causal effects relative to an untreated international control, and the synthetic-control estimate in \cref{sec:main_results} remains the paper's headline result. Throughout, a sector refers to the economic sector associated with the repositories in which observable GitHub activity occurs, not to developers' employers or industries of employment.
+
+\input{tables/tab_sector_recovery}
+
+All seven sectors show a sharp fall in observable push activity during July 18--23 (\cref{tab:sector_recovery,fig:sector_index}). The shutdown-period recovery index ranges from 3.5 in Accommodation/Food to 11.7 in Information and Education and 30.9 in Finance. In every sector, the 95 percent confidence interval for the change relative to the baseline excludes zero (\cref{fig:sector_es}).
+
+Restoration of connectivity did not imply an immediate or uniform recovery. In the first week after the shutdown (July 24--30), the recovery index ranges from 33.0 in Real Estate to 92.2 in Finance. Mobile connectivity returned only during this week, later than fixed broadband \citep{belson2024}, so part of the week $+1$ shortfall may reflect incomplete restoration. Recovery was also not monotonic: in Finance, Information, Education, Real Estate, and Accommodation/Food, the index is lower in week $+2$ (July 31--August 6) than in week $+1$. The data do not identify the source of this second-week decline.
+
+\begin{figure}[htbp]
+\centering
+\caption{Recovery of observable GitHub push activity by repository sector}
+\label{fig:sector_index}
+\includegraphics[width=\textwidth]{fig5_sector_recovery_index.pdf}
+\fignote{Each panel highlights one sector's recovery index $R_{sk}$ (\cref{eq:sector}); the other six sectors are shown in light grey for comparison. The index is 100 times the sector's mean daily probability of push activity in event week $k$, divided by its mean over the final eight complete pre-shutdown weeks (May 23--July 17, 2024). The shaded band is the July 18--23 shutdown ($k=0$); week $+1$ is July 24--30, followed by consecutive seven-day bins. Solid and dotted horizontal lines mark 100 and 80. The common vertical axis is truncated at 200; the one value above it (Accommodation/Food, week $-8$) is labeled. Fixed sample of 20,000 Bangladesh-associated accounts; repository sectors from the historical-README classifier with confidence $\geq 0.80$. The sector is that of the repositories in which activity occurs, not the developer's employer. Within-Bangladesh comparison with each sector's own baseline; not a causal effect relative to an untreated control. Source: \texttt{results/sector\_recovery/sectorwide/sectorwide\_user\_eventstudy.csv}, verified against \texttt{results/sector\_recovery/final/table\_sector\_recovery\_main.csv}.}
+\end{figure}
+
+Finance and Information recovered fastest. Finance returned to an index of 92.2 in week $+1$, and both sectors begin a run of two consecutive weeks at or above 80 in week $+3$. Information exceeds its baseline by week $+4$ (106.0). In week $+8$, the two indices are 94.5 and 91.3. The Finance series is nonetheless noisy: its baseline includes a spike in week $-1$ (index 193.6), and its post-shutdown index falls back below 80 in several later weeks.
+
+Education and Health recovered more gradually. Their week $+1$ indices are 59.1 and 40.7, they reach 75.4 and 77.5 by week $+4$, and both begin a run of two consecutive weeks at or above 80 only in week $+6$. By week $+8$, they stand at 81.9 and 89.4.
+
+Accommodation/Food remained persistently depressed. Its index is 44.3 in week $+1$, 54.2 in week $+4$, and 62.6 in week $+8$, and it never records two consecutive weeks at or above 80 through the end of the observation window (week $+17$, November 13--19). This result should be read alongside the sector's unstable baseline: the index is 254.1 and 127.3 in the first two baseline weeks and between 40.8 and 95.5 in the remaining six. Part of the post-shutdown gap may therefore reflect a decline that began before the shutdown rather than a failure to recover.
+
+Real Estate recovered slowly at first and later approached its baseline. Its index remains between 25.1 and 44.4 through week $+4$, rises above 100 in weeks $+5$ and $+6$ (115.1 and 157.3), and is 85.5 in week $+8$. This later recovery is not durable within the observed window: from week $+12$ onward, the index lies between 31.9 and 46.7 (\cref{fig:sector_es}). Real Estate is also the smallest of the seven sectors, with 213 sampled users active in the baseline period, so its weekly estimates are imprecise.
+
+Retail shows a pronounced temporary rebound. Its index is about 52 in weeks $+1$ and $+2$, rises to 153.7 in week $+4$ (August 14--20), and falls back to 76.5 in week $+5$. Its first run of two consecutive weeks at or above 80 begins only in week $+9$. The week $+4$ value is therefore a transient overshoot, possibly reflecting a burst of catch-up activity, rather than evidence of completed recovery; the data do not identify what generated it. The timing of Retail's first sustained run is also sensitive to the classifier threshold (\cref{sec:sector_robustness}).
+
+Index values above 100 later in the window should not be read as gains caused by the shutdown. Information, for example, has an index between 111.5 and 126.4 in weeks $+10$ to $+15$ and 144.3 in week $+17$. Without an untreated comparison group, such movements cannot be separated from trend growth, seasonality, or changes in the sampled users' activity.
+
+\begin{figure}[htbp]
+\centering
+\caption{Sectoral event study: change in daily push-activity probability relative to the pre-shutdown baseline}
+\label{fig:sector_es}
+\includegraphics[width=\textwidth]{fig6_sector_eventstudy.pdf}
+\fignote{Points are $\beta_{sk}$ from \cref{eq:sector}: the mean change, across the fixed sample of 20,000 Bangladesh-associated accounts, in the daily probability of a PushEvent in a sector-$s$ repository during event week $k$, relative to each user's mean over the final eight complete pre-shutdown weeks, in percentage points. Vertical lines are 95 percent confidence intervals based on the cross-user standard deviation of these differences; they do not account for common weekly shocks. The shaded band is the July 18--23 shutdown ($k=0$); week $+1$ is July 24--30, and the window extends to week $+17$ (November 13--19, 2024). Vertical scales differ across panels because baseline activity levels differ by sector (\cref{tab:sector_recovery}). Repository sectors from the historical-README classifier with confidence $\geq 0.80$. Within-Bangladesh comparison; not a causal effect relative to an untreated control. Source: \texttt{results/sector\_recovery/sectorwide/sectorwide\_user\_eventstudy.csv}.}
+\end{figure}
+
+The main specification counts pushes to any classified repository, including repositories first observed after the shutdown. A complementary specification follows only repositories pushed to during the eight baseline weeks (\cref{tab:sector_fixed_repo}). Activity in these pre-existing repositories recovers far less: in week $+8$, their indices range from 10.1 (Accommodation/Food) to 31.4 (Education), compared with 62.6 to 94.5 in the sector-wide specification. Because repositories selected on recent activity would become less active over time even without a shutdown, this gap does not measure a shutdown effect. It is nevertheless consistent with recovery occurring partly through new repositories and switching across projects rather than solely through a return to pre-existing ones.
+
+Taken together, the sectoral evidence indicates that the collapse in observable activity documented in \cref{sec:main_results} was followed by a recovery that was gradual and uneven across the economic sectors associated with developers' repositories. These are before--after comparisons within Bangladesh. They share the identification limitations discussed in \cref{sec:unrest} and, in addition, cannot separate post-shutdown recovery from other Bangladesh-specific developments between August and November 2024.

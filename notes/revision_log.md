@@ -58,3 +58,47 @@
 - Appendix tables placed with [H]; Table A1 widened (tabular*) so notes are readable.
 - Note: `paper/thesis.txt` and `paper/thesis.docx` do not yet reflect these wording changes.
 - Empirical numbers changed: none.
+
+## 2026-10-06 — Sectoral recovery extension integrated into the LaTeX manuscript
+
+- Advisor comment addressed: none recorded (`notes/advisor_feedback.md` is empty);
+  extension requested by the author.
+- New empirical content (no existing estimate changed): within-Bangladesh
+  sectoral recovery analysis from `results/sector_recovery/` (scripts
+  `analysis/sector_recovery/06`-`10`). Main specification: fixed sample of 20,000
+  Bangladesh-associated accounts, historical-README NAICS classifier with
+  confidence >= 0.80, 8-week pre-shutdown baseline (May 23-Jul 17, 2024).
+- Files changed:
+  - `paper/latex/main.tex` (one abstract sentence)
+  - `paper/latex/sections/01_introduction.tex` (new paragraph)
+  - `paper/latex/sections/04_data.tex` (new Section 4.4)
+  - `paper/latex/sections/05_empirical_strategy.tex` (new Section 5.5, Eq. 3)
+  - `paper/latex/sections/06_results.tex` (new Section 6.4; one sentence added to
+    the event-study paragraph in Section 6.2)
+  - `paper/latex/sections/08_robustness.tex` (new Section 8.3)
+  - `paper/latex/sections/09_discussion.tex` (new paragraph)
+  - `paper/latex/sections/10_conclusion.tex` (new paragraph)
+  - `paper/latex/sections/appendix.tex` (new Appendix A.4)
+  - `analysis/figures/make_all_figures.py` (Figures `fig5_sector_recovery_index`,
+    `fig6_sector_eventstudy`; plotted values checked against
+    `results/sector_recovery/final/table_sector_recovery_main.csv`)
+  - `analysis/tables/make_all_tables.py` (tables `tab_sector_recovery`,
+    `tab_sector_threshold`, `tab_sector_fixed_repo`)
+  - `paper/latex/figures/fig5_*.pdf`, `fig6_*.pdf`; `paper/latex/tables/tab_sector_*.tex`;
+    `paper/latex/thesis.pdf`; `README.md`
+- Main-text numbering shifts: new Table 5 and Figures 3-4; former Table 5 and
+  Figure 3 (mechanism) become Table 6 and Figure 5; new appendix tables A11-A12.
+- Empirical numbers changed: none. Synthetic control, DiD, RDiT, and mechanism
+  text and tables untouched. The RDiT sensitivity file was not used.
+- Flags:
+  - "First week >= 80, 2 wks" is the first week beginning two consecutive weeks
+    with index >= 80; several sectors later fall below 80 again (e.g., Real Estate
+    31.9-46.7 from week +12), so the manuscript does not call it "sustained recovery".
+  - Accommodation/Food has an unstable baseline (week -8 index 254.1); disclosed.
+  - Sample-selection script for the 20,000-account sample is not in the
+    repository, and bot filtering is undocumented (non-printing TODO in Section 4.4).
+  - Classifier reference marked [CITATION NEEDED].
+  - Repository coverage counts (168,875 repos; 92,979 with README; 32,491 with
+    score >= 0.80) are read from `data/sector_recovery/repo_sector.sqlite`.
+- `paper/thesis.txt` and `paper/thesis.docx` were not modified and do not contain
+  the sectoral extension.

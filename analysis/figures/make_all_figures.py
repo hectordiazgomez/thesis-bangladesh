@@ -232,6 +232,94 @@ def fig_mechanism_release(png_dir):
     save(fig, "fig4_mechanism_release", png_dir)
 
 
+# ---------------------------------------------------------------------------
+# Figures 5-6: within-Bangladesh sectoral recovery (classifier score >= 0.80)
+# ---------------------------------------------------------------------------
+SECTOR_DIR = RES / "sector_recovery"
+# Main-figure sectors, ordered from fastest to slowest recovery. Professional/
+# Scientific and Administrative Support are excluded because their support
+# collapses at the 0.90 classifier threshold (see the appendix robustness table).
+SECTORS = [
+    ("Finance and Insurance", "Finance"),
+    ("Information", "Information"),
+    ("Educational Services", "Education"),
+    ("Health Care and Social Assistance", "Health"),
+    ("Retail Trade", "Retail"),
+    ("Real Estate and Rental", "Real Estate"),
+    ("Accommodation and Food Services", "Accommodation/Food"),
+]
+FAINT = "#D0D0D0"
+
+
+def sector_eventstudy() -> pd.DataFrame:
+    e = pd.read_csv(SECTOR_DIR / "sectorwide" / "sectorwide_user_eventstudy.csv")
+    final = pd.read_csv(SECTOR_DIR / "final" / "table_sector_recovery_main.csv").set_index("sector")
+    for sector, _ in SECTORS:
+        g = e[e.sector == sector].set_index("event_time")
+        r = final.loc[sector]
+        for k, col in [(0, "shutdown"), (1, "week1"), (2, "week2"), (4, "week4"), (8, "week8")]:
+            check(f"{sector} {col}", round(g.loc[k, "recovery_index"], 1),
+                  r[f"{col}_recovery_index"], 1e-9)
+    return e
+
+
+def sector_panels(nrows: int, height: float, sharey: bool):
+    fig, axes = plt.subplots(nrows, 4, figsize=(FULL_W, height), sharex=True, sharey=sharey)
+    axes = axes.ravel()
+    axes[-1].axis("off")
+    return fig, axes
+
+
+def fig_sector_recovery_index(png_dir):
+    e = sector_eventstudy()
+    e = e[e.event_time.between(-8, 8)]
+    top = 200
+    fig, axes = sector_panels(2, 3.6, sharey=True)
+    for ax, (sector, short) in zip(axes, SECTORS):
+        ax.axvspan(-0.5, 0.5, color=SHADE, lw=0, zorder=0)
+        ax.axhline(100, color="black", lw=0.6)
+        ax.axhline(80, color=COMP, lw=0.6, ls=":")
+        for other, _ in SECTORS:
+            if other != sector:
+                g = e[e.sector == other].sort_values("event_time")
+                ax.plot(g.event_time, g.recovery_index, color=FAINT, lw=0.8, zorder=1)
+        g = e[e.sector == sector].sort_values("event_time")
+        ax.plot(g.event_time, g.recovery_index, color=BD, marker="o", ms=2.5, zorder=3)
+        # Label values outside the common axis instead of silently clipping them.
+        for r in g[g.recovery_index > top].itertuples():
+            ax.annotate(f"{r.recovery_index:.0f}", (r.event_time, top), xytext=(4, -8),
+                        textcoords="offset points", fontsize=7, color=BD)
+        ax.set_title(short, loc="left")
+        ax.set_xticks([-8, -4, 0, 4, 8])
+        ax.set_ylim(0, top)
+    for ax in axes[4:7]:
+        ax.set_xlabel("Event week")
+    for ax in axes[[0, 4]]:
+        ax.set_ylabel("Recovery index\n(pre-period mean = 100)")
+    fig.tight_layout(h_pad=1.2, w_pad=0.8)
+    save(fig, "fig5_sector_recovery_index", png_dir)
+
+
+def fig_sector_eventstudy(png_dir):
+    e = sector_eventstudy()
+    # Separate y-scales: pre-period activity levels differ roughly sevenfold.
+    fig, axes = sector_panels(2, 3.8, sharey=False)
+    for ax, (sector, short) in zip(axes, SECTORS):
+        g = e[e.sector == sector].sort_values("event_time")
+        ax.axvspan(-0.5, 0.5, color=SHADE, lw=0, zorder=0)
+        ax.axhline(0, color="black", lw=0.6)
+        ax.vlines(g.event_time, g.ci_low_pp, g.ci_high_pp, color=BD, lw=0.8)
+        ax.plot(g.event_time, g.beta_vs_pre8_pp, "o", color=BD, ms=2.5)
+        ax.set_title(short, loc="left")
+        ax.set_xticks([-8, 0, 8, 16])
+    for ax in axes[4:7]:
+        ax.set_xlabel("Event week")
+    for ax in axes[[0, 4]]:
+        ax.set_ylabel("Change from pre-period\nmean (pp)")
+    fig.tight_layout(h_pad=1.2, w_pad=0.8)
+    save(fig, "fig6_sector_eventstudy", png_dir)
+
+
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--png-dir", type=Path, default=None)
@@ -239,6 +327,8 @@ def main() -> None:
     fig_sc_actual_vs_synthetic(args.png_dir)
     fig_sc_placebos(args.png_dir)
     fig_mechanism_release(args.png_dir)
+    fig_sector_recovery_index(args.png_dir)
+    fig_sector_eventstudy(args.png_dir)
 
 
 if __name__ == "__main__":

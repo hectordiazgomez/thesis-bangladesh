@@ -43,6 +43,7 @@ The repository also contains:
 - Regression Discontinuity in Time robustness
 - secondary outcome analyses
 - commit author-time versus push-time mechanism analysis
+- within-Bangladesh sectoral recovery analysis (descriptive; see below)
 - synthetic-control placebo tests
 - leave-one-donor-out robustness checks
 
@@ -59,6 +60,10 @@ Synthetic-control, placebo, donor-weight, DiD, and related outputs.
 
 `results/mechanism/`
 Commit-timing and push-timing mechanism results and robustness checks.
+
+`results/sector_recovery/`
+Sectoral recovery outputs; `final/` holds the advisor-ready tables and
+threshold-robustness files used in the manuscript.
 
 `results/rdit/`
 Archived preferred RDiT result and documentation.
@@ -87,6 +92,22 @@ currently contained in the manuscript itself.
 `manifest.csv`
 Maps files exported from the original Google Drive research directory to
 their organized repository locations.
+
+## Sectoral recovery extension
+
+A within-Bangladesh analysis traces observable PushEvent activity after
+connectivity returned, by the NAICS sector of the repositories in which
+activity occurs (historical-README classifier, confidence >= 0.80), for a
+fixed sample of 20,000 accounts selected on pre-shutdown activity. It
+describes heterogeneity in recovery relative to each sector's own
+pre-shutdown baseline; it is not a sector-specific causal estimate and does
+not replace the synthetic-control headline result. Pipeline:
+`README_sector_pipeline.md` and `analysis/sector_recovery/`.
+
+The LaTeX manuscript (`paper/latex/`, compiled to `paper/latex/thesis.pdf`)
+includes this extension; `paper/thesis.docx` and `paper/thesis.txt` do not.
+Figures and tables are regenerated with `analysis/figures/make_all_figures.py`
+and `analysis/tables/make_all_tables.py`.
 
 ## Interpretation
 
