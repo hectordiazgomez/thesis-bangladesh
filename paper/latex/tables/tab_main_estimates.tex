@@ -5,20 +5,19 @@
 \caption{Summary of estimates across designs: daily active-user rate}
 \label{tab:main}
 \begin{threeparttable}
-\begin{tabular}{lrrrr>{\raggedright\arraybackslash}p{3.4cm}}
+\begin{tabular}{l r r >{\raggedright\arraybackslash}p{5.0cm} >{\raggedright\arraybackslash}p{2.3cm}}
 \toprule
-Specification & Actual & Counter- & ATT & Relative & Diagnostic \\
- & BD (\%) & factual (\%) & (pp) & effect &  \\
+Design & Effect (pp) & Relative effect & Inference & Role \\
 \midrule
-Synthetic control & 2.021 & 15.277 & $-$13.256 & $-$86.8\% & Pre RMSPE 3.260; ratio 4.192 \\
-International DiD & 2.021 & 15.109 & $-$13.088 & $-$86.6\% & All donor countries \\
-International DiD, no holidays & 2.021 & 15.400 & $-$13.379 & $-$86.9\% & National holidays excluded \\
-RDiT, local linear & -- & -- & $-$9.284 & -- & HAC SE 5.034 pp; $p=0.065$ \\
+Synthetic control & $-$13.256 & $-$86.8\% & In-space placebo rank: $1/15 = 0.0667$ (14 placebo countries) & Primary causal design \\
+International DiD & $-$13.088 & $-$86.6\% & Donor-placebo rank: $1/15$; placebo SD 1.17 pp & Magnitude check \\
+DiD, holidays excluded & $-$13.379 & $-$86.9\% & Donor-placebo rank: $1/15$; placebo SD 1.19 pp & Robustness \\
+RDiT, local linear & $-$9.284 & -- & HAC $p = 0.065$ (SE 5.03 pp) & Temporal robustness \\
 \bottomrule
 \end{tabular}
 \begin{tablenotes}[flushleft]
 \footnotesize\raggedright
-\item \textit{Notes:} The outcome is the daily percentage of eligible users with observable productive GitHub activity; effects are averages over July 18--23, 2024. SC placebo rank values are $1/15=0.0667$ for both the absolute-ATT and RMSPE-ratio tests, the minimum attainable with 14 placebo countries (\cref{tab:sc_placebos}). The RDiT row is the preferred specification (cutoff July 17, bandwidth 7 days, degree 1, no donut, $N=15$ days, HAC lags 2) and is treated as a temporal robustness check, not as the main design.
+\item \textit{Notes:} Outcome: daily percentage of eligible users with observable productive GitHub activity; effects are averages over July 18--23, 2024, in percentage points. The inference column reports different objects that are not directly comparable. The rank values are the share of the 15 countries whose estimate is at least as extreme as Bangladesh's; $1/15$ is the minimum attainable and means that Bangladesh is the most extreme unit, not $p<0.05$. The RDiT $p$-value is a conventional time-series (HAC) $p$-value for the preferred specification (cutoff July 17, bandwidth 7 days, degree 1). Levels, fit statistics, and full inference are in \cref{tab:sc_main,tab:did,tab:rdit}.
 \end{tablenotes}
 \end{threeparttable}
 \end{table}

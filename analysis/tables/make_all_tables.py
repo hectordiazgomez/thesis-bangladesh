@@ -106,33 +106,35 @@ def primary_sc() -> dict:
 def tab_main_estimates(sc: dict) -> None:
     did = pd.read_csv(FINAL / "table_DiD_all_outcomes.csv")
     did = did[did.outcome == "active_rate_pp"].set_index("remove_holidays")
+    did_inf = pd.read_csv(RES / "did" / "did_main_placebo_inference.csv").set_index("remove_holidays")
     rd = pd.read_csv(RES / "rdit" / "main_rdit_summary.csv").set_index("specification")
     rdm = rd.loc["Main local linear"]
     check("RDiT effect", rdm.effect, -0.092836, 1e-9)
-    rows = [
-        f"Synthetic control & {num(sc['actual'])} & {num(sc['cf'])} & {num(sc['att'])} & "
-        f"{pct(sc['rel'])} & Pre RMSPE {num(sc['pre'])}; ratio {num(sc['ratio'])}",
-    ]
-    for flag, lab, diag in [(False, "International DiD", "All donor countries"),
-                            (True, "International DiD, no holidays",
-                             "National holidays excluded")]:
-        r = did.loc[flag]
-        rows.append(f"{lab} & {num(r.BD_blackout)} & {num(r.counterfactual)} & {num(r.ATT)} & "
-                    f"{pct(r.relative_effect_pct)} & {diag}")
-    rows.append(f"RDiT, local linear & -- & -- & {num(100 * rdm.effect)} & -- & "
-                f"HAC SE {num(100 * rdm.se_hac)} pp; $p={rdm.p_hac:.3f}$")
-    note = (r"The outcome is the daily percentage of eligible users with observable productive "
-            r"GitHub activity; effects are averages over July 18--23, 2024. SC placebo rank "
-            r"values are $1/15=0.0667$ for both the absolute-ATT and RMSPE-ratio tests, the "
-            r"minimum attainable with 14 placebo countries (\cref{tab:sc_placebos}). The RDiT "
-            r"row is the preferred specification (cutoff July 17, bandwidth 7 days, degree 1, "
-            r"no donut, $N=15$ days, HAC lags 2) and is treated as a temporal robustness check, "
-            r"not as the main design.")
+    plc = pd.read_csv(RES / "synthetic_control" / "sc_inspace_placebos.csv")
+    p_att = (plc.ATT.abs() >= abs(sc["att"])).sum() / len(plc)
+    check("SC rank p", p_att, 1 / 15, 1e-12)
+    rows = [f"Synthetic control & {num(sc['att'])} & {pct(sc['rel'])} & "
+            f"In-space placebo rank: $1/15 = 0.0667$ (14 placebo countries) & Primary causal design"]
+    for flag, lab, role in [(False, "International DiD", "Magnitude check"),
+                            (True, "DiD, holidays excluded", "Robustness")]:
+        r, f = did.loc[flag], did_inf.loc[flag]
+        check(f"DiD {lab}", f.theta_pp, r.ATT, 1e-9)
+        rows.append(f"{lab} & {num(r.ATT)} & {pct(r.relative_effect_pct)} & "
+                    f"Donor-placebo rank: $1/15$; placebo SD {num(f.placebo_sd_pp, 2)} pp & {role}")
+    rows.append(f"RDiT, local linear & {num(100 * rdm.effect)} & -- & "
+                f"HAC $p = {rdm.p_hac:.3f}$ (SE {num(100 * rdm.se_hac, 2)} pp) & Temporal robustness")
+    note = (r"Outcome: daily percentage of eligible users with observable productive GitHub activity; "
+            r"effects are averages over July 18--23, 2024, in percentage points. The inference column "
+            r"reports different objects that are not directly comparable. The rank values are the "
+            r"share of the 15 countries whose estimate is at least as extreme as Bangladesh's; $1/15$ "
+            r"is the minimum attainable and means that Bangladesh is the most extreme unit, not "
+            r"$p<0.05$. The RDiT $p$-value is a conventional time-series (HAC) $p$-value for the "
+            r"preferred specification (cutoff July 17, bandwidth 7 days, degree 1). Levels, fit "
+            r"statistics, and full inference are in \cref{tab:sc_main,tab:did,tab:rdit}.")
     write("tab_main_estimates", table(
         "Summary of estimates across designs: daily active-user rate", "tab:main",
-        r"lrrrr>{\raggedright\arraybackslash}p{3.4cm}",
-        r"Specification & Actual & Counter- & ATT & Relative & Diagnostic \\" "\n"
-        r" & BD (\%) & factual (\%) & (pp) & effect & ",
+        r"l r r >{\raggedright\arraybackslash}p{5.0cm} >{\raggedright\arraybackslash}p{2.3cm}",
+        r"Design & Effect (pp) & Relative effect & Inference & Role",
         rows, note, size=r"\footnotesize"))
 
 
@@ -420,9 +422,9 @@ def tab_sector_recovery() -> None:
     write("tab_sector_recovery", table(
         "Recovery of observable GitHub push activity by repository sector", "tab:sector_recovery",
         "lrrrrrrrrr",
-        r"& & Pre & Pre rate & \multicolumn{5}{c}{Recovery index (pre-period mean = 100)} & First wk \\"
+        r"& & Pre & Pre rate & \multicolumn{5}{c}{Recovery index (pre-period mean = 100)} & First two- \\"
         "\n" r"\cmidrule(lr){5-9}" "\n"
-        r"Sector & NAICS & users & (\%) & Shutdown & +1 & +2 & +4 & +8 & $\geq$80, 2 wks",
+        r"Sector & NAICS & users & (\%) & Shutdown & +1 & +2 & +4 & +8 & week run $\geq$80",
         rows,
         r"Fixed sample of 20,000 Bangladesh-associated accounts. Repository sectors from the "
         r"historical-README classifier with confidence $\geq$ 0.80. The outcome is the share of "
@@ -431,7 +433,7 @@ def tab_sector_recovery() -> None:
         r"\textit{Pre rate}: mean daily outcome over the baseline period (May 23--July 17, 2024, "
         r"the final eight complete pre-shutdown weeks), in percent of all 20,000 users. "
         r"Shutdown: July 18--23; week +1: July 24--30; subsequent 7-day bins. "
-        r"\textit{First wk $\geq$80, 2 wks}: first post-shutdown week that begins two consecutive "
+        r"\textit{First two-week run $\geq$80}: first post-shutdown week that begins two consecutive "
         r"weeks with an index of at least 80 (observed through week +17, November 13--19); "
         r"it does not imply that the index stays above 80 thereafter. -- indicates no such week. "
         r"Within-Bangladesh comparison with the sector's own pre-period; not a causal effect "
@@ -458,7 +460,7 @@ def tab_sector_threshold() -> None:
     write("tab_sector_threshold", table(
         "Sectoral recovery indices by classifier-confidence threshold", "tab:sector_threshold",
         "llrrrrr",
-        r"Sector & Threshold & Pre users & Week +1 & Week +4 & Week +8 & First wk $\geq$80, 2 wks",
+        r"Sector & Threshold & Pre users & Week +1 & Week +4 & Week +8 & First two-week run $\geq$80",
         rows,
         r"Each row repeats the main specification (\cref{tab:sector_recovery}) keeping only "
         r"repositories whose classifier confidence is at least the stated threshold; 0.80 is the "

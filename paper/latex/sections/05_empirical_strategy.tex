@@ -35,13 +35,6 @@ where $\bar{Y}_{c,k}$ is country $c$'s mean daily active-user rate in event peri
 
 Because treatment varies only at the country level and there are fifteen countries, I do not rely on user-clustered standard errors. Uncertainty is instead summarized with in-space placebos: each donor is assigned the treatment in turn and compared with the equal-weighted mean of the remaining thirteen donors. I report the standard deviation of the fourteen placebo estimates, a donor-placebo reference interval equal to $\hat\theta_k \pm 1.96$ times that standard deviation, and the rank of Bangladesh's absolute estimate among the fifteen units. These reference intervals describe how far donor countries move under the same calculation; they are not conventional sampling confidence intervals, and because Bangladesh's pre-period is more volatile than any donor's, they are not fully calibrated measures of uncertainty for Bangladesh.
 
-A user-level analogue of the comparison is the two-way fixed-effects specification in \cref{eq:did}, which would absorb time-invariant user heterogeneity and common date shocks. It is not the estimator behind the reported DiD or event-study results: because the archived implementation of the user-day specifications is not fully documented, their estimates are not reported, and all DiD and event-study results in this paper come from \cref{eq:did_agg,eq:es_agg}.
-\begin{equation}
-  Y_{it} = \beta\,(\text{Bangladesh}_{i} \times \text{Shutdown}_{t}) + \alpha_{i} + \lambda_{t}
-  + \text{controls}_{it} + \varepsilon_{it}
-  \label{eq:did}
-\end{equation}
-
 \subsection{Regression discontinuity in time}
 \label{sec:rdit_method}
 

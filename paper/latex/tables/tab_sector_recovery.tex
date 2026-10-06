@@ -7,9 +7,9 @@
 \begin{threeparttable}
 \begin{tabular}{lrrrrrrrrr}
 \toprule
-& & Pre & Pre rate & \multicolumn{5}{c}{Recovery index (pre-period mean = 100)} & First wk \\
+& & Pre & Pre rate & \multicolumn{5}{c}{Recovery index (pre-period mean = 100)} & First two- \\
 \cmidrule(lr){5-9}
-Sector & NAICS & users & (\%) & Shutdown & +1 & +2 & +4 & +8 & $\geq$80, 2 wks \\
+Sector & NAICS & users & (\%) & Shutdown & +1 & +2 & +4 & +8 & week run $\geq$80 \\
 \midrule
 Finance & 52 & 382 & 0.078 & 30.9 & 92.2 & 67.6 & 89.5 & 91.3 & 3 \\
 Information & 51 & 1,528 & 0.442 & 11.7 & 75.9 & 72.2 & 106.0 & 94.5 & 3 \\
@@ -22,7 +22,7 @@ Accommodation/Food & 72 & 480 & 0.144 & 3.5 & 44.3 & 42.8 & 54.2 & 62.6 & -- \\
 \end{tabular}
 \begin{tablenotes}[flushleft]
 \footnotesize\raggedright
-\item \textit{Notes:} Fixed sample of 20,000 Bangladesh-associated accounts. Repository sectors from the historical-README classifier with confidence $\geq$ 0.80. The outcome is the share of sampled users with at least one PushEvent to a repository of the sector on a given day. \textit{Pre users}: sampled users with such activity in the baseline period. \textit{Pre rate}: mean daily outcome over the baseline period (May 23--July 17, 2024, the final eight complete pre-shutdown weeks), in percent of all 20,000 users. Shutdown: July 18--23; week +1: July 24--30; subsequent 7-day bins. \textit{First wk $\geq$80, 2 wks}: first post-shutdown week that begins two consecutive weeks with an index of at least 80 (observed through week +17, November 13--19); it does not imply that the index stays above 80 thereafter. -- indicates no such week. Within-Bangladesh comparison with the sector's own pre-period; not a causal effect relative to an untreated control. Sources: \texttt{results/sector\_recovery/sectorwide/sectorwide\_recovery\_summary.csv}, verified against \texttt{results/sector\_recovery/final/table\_sector\_recovery\_main.csv}.
+\item \textit{Notes:} Fixed sample of 20,000 Bangladesh-associated accounts. Repository sectors from the historical-README classifier with confidence $\geq$ 0.80. The outcome is the share of sampled users with at least one PushEvent to a repository of the sector on a given day. \textit{Pre users}: sampled users with such activity in the baseline period. \textit{Pre rate}: mean daily outcome over the baseline period (May 23--July 17, 2024, the final eight complete pre-shutdown weeks), in percent of all 20,000 users. Shutdown: July 18--23; week +1: July 24--30; subsequent 7-day bins. \textit{First two-week run $\geq$80}: first post-shutdown week that begins two consecutive weeks with an index of at least 80 (observed through week +17, November 13--19); it does not imply that the index stays above 80 thereafter. -- indicates no such week. Within-Bangladesh comparison with the sector's own pre-period; not a causal effect relative to an untreated control. Sources: \texttt{results/sector\_recovery/sectorwide/sectorwide\_recovery\_summary.csv}, verified against \texttt{results/sector\_recovery/final/table\_sector\_recovery\_main.csv}.
 \end{tablenotes}
 \end{threeparttable}
 \end{table}

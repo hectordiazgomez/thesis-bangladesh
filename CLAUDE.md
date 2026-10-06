@@ -4,8 +4,8 @@
 
 This repository contains my economics thesis:
 
-"Causal Effect of a Government Internet Shutdown on Software Production:
-Evidence from the July 2024 Nationwide Internet Shutdown in Bangladesh"
+"Internet Shutdowns and Software Development:
+Evidence from Bangladesh"
 
 Author: Hector Alberto Diaz Gomez.
 
@@ -103,10 +103,11 @@ Use this hierarchy when discussing the evidence:
    Primary causal specification.
 
 2. International Difference-in-Differences
-   Confirmatory specification.
+   Confirmatory specification / magnitude check.
 
 3. Event Study
-   Dynamics and pre-treatment behavior.
+   Diagnostic analysis of timing and pre-treatment behavior.
+   Do not interpret it as an identified dynamic causal treatment path.
 
 4. Regression Discontinuity in Time
    Temporal robustness.
@@ -114,8 +115,15 @@ Use this hierarchy when discussing the evidence:
 5. Commit authored-time / committed-time versus push-time
    Mechanism analysis.
 
+6. Sector Recovery
+   Descriptive within-Bangladesh analysis of post-restoration recovery
+   across repository sectors.
+
+   This is NOT a sector-specific causal design.
+   Do not interpret recovery indices above 100 as gains caused by the shutdown.
+
 These are complementary analyses of the same shock.
-Do not describe them as five independent natural experiments.
+Do not describe them as six independent natural experiments.
 
 ## Main Synthetic Control result
 
@@ -148,6 +156,9 @@ Correct interpretation:
 Bangladesh is the most extreme unit in the placebo distribution, but
 the resolution of exact placebo inference is limited by the donor-pool
 size.
+
+Synthetic DiD is reported only as an appendix sensitivity analysis.
+It is not a headline estimator.
 
 ## Difference-in-Differences
 

@@ -2,8 +2,8 @@
 
 ## Thesis project
 
-**Causal Effects of a Government Internet Shutdown on Software Production:  
-Evidence from Bangladesh's Nationwide Internet Shutdown in July 2024**
+**Internet Shutdowns and Software Development:  
+Evidence from Bangladesh**
 
 Author: Hector Alberto Diaz Gomez
 

@@ -396,7 +396,7 @@ def sector_panels(nrows: int, height: float, sharey: bool):
 
 def fig_sector_recovery_index(png_dir):
     e = sector_eventstudy()
-    e = e[e.event_time.between(-8, 8)]
+    e = e[e.event_time.between(-8, 17)]  # full observed window
     top = 200
     fig, axes = sector_panels(2, 3.6, sharey=True)
     for ax, (sector, short) in zip(axes, SECTORS):
@@ -414,7 +414,7 @@ def fig_sector_recovery_index(png_dir):
             ax.annotate(f"{r.recovery_index:.0f}", (r.event_time, top), xytext=(4, -8),
                         textcoords="offset points", fontsize=7, color=BD)
         ax.set_title(short, loc="left")
-        ax.set_xticks([-8, -4, 0, 4, 8])
+        ax.set_xticks([-8, 0, 8, 16])
         ax.set_ylim(0, top)
     for ax in axes[4:7]:
         ax.set_xlabel("Event week")

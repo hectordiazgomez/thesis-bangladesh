@@ -42,5 +42,13 @@ This appendix reports the detailed tables behind the synthetic-control, differen
 
 \subsection{Sectoral recovery}
 
+\begin{figure}[H]
+\centering
+\caption{Sectoral event study: change in daily push-activity probability relative to the pre-shutdown baseline}
+\label{fig:sector_es}
+\includegraphics[width=\textwidth]{fig6_sector_eventstudy.pdf}
+\fignote{Points are $\beta_{sk}$ from \cref{eq:sector}: the mean change, across the fixed sample of 20,000 Bangladesh-associated accounts, in the daily probability of a PushEvent in a sector-$s$ repository during event week $k$, relative to each user's mean over May 23--July 17, 2024, in percentage points. Vertical lines are 95 percent confidence intervals from the cross-user standard deviation of these differences; they capture sampling variation across users but not common weekly shocks. Shaded: July 18--23 shutdown; the window ends at week $+17$ (November 13--19). Vertical scales differ across panels. Within-Bangladesh descriptive comparison, not a causal effect relative to an untreated control. Source: Author's calculations using GH Archive.}
+\end{figure}
+
 \input{tables/tab_sector_threshold}
 \input{tables/tab_sector_fixed_repo}

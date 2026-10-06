@@ -214,3 +214,55 @@
   in-time pseudo-ATTs -3.076 to +7.349; weekly SC gaps (pre range -2.86 to 5.88;
   weeks +1..+6: -3.11, -2.89, 0.52, 4.24, 4.67, 2.67).
 - Not reported: archived SDID SE (0.4999) and p-value (0.0) - computation undocumented.
+
+## 2026-10-06 — Editorial/presentation pass (advisor-ready version)
+
+- Advisor comment addressed: none recorded; requested by the author. No new estimators,
+  no re-estimation; all headline estimates unchanged.
+- Title: "Internet Shutdowns and Software Development: Evidence from Bangladesh";
+  date "Draft -- October 2026". README title updated. CLAUDE.md still lists the old
+  title (not edited).
+- Abstract rewritten (275 words; fits on page 1), organized around three contributions.
+- Introduction: "This paper makes three contributions" paragraph added; mechanism and
+  recovery paragraphs relabelled as the second and third contributions; literature
+  paragraph cites Allcott et al. (2016) and Akerman et al. (2015); "sustained run" ->
+  "two-week run" (also in Section 6.5).
+- Section 3 restructured into four paragraphs (Internet as input; outages/shutdowns;
+  GitHub measurement; comparative-case inference).
+- Citations added (all verified 2026-10-06):
+  - abadie2003 AER 93(1):113-132, doi 10.1257/000282803321455188
+  - allcott2016 AER 106(3):587-624, doi 10.1257/aer.20140389
+  - akerman2015 QJE 130(4):1781-1824, doi 10.1093/qje/qjv028
+  - nagle2019 Management Science 65(3):1191-1215, doi 10.1287/mnsc.2017.2977
+  - birkholz2026 JDE 180:103708, doi 10.1016/j.jdeveco.2025.103708 (Crossref API)
+  - quispe2026naics: author-supplied BibTeX on the Hugging Face model card for
+    aquiro1994/naics-github-classifier-multilingual (identical in local clone
+    tools/naics-github-train, commit 3a041fb; cached weights snapshot e40747e9). No paper exists.
+  - isoc2024pakbal, isoc2024pakpun: Internet Society Pulse pages for Pakistan regional
+    shutdowns (Balochistan Jul 14-17; Punjab Jul 16), replacing the Bangladesh page
+    previously cited for the Pakistan claim (Section 6.1).
+  - kreitmeir2024 updated to SoDa Laboratories WP 2024-01 (+ arXiv:2403.01964); still
+    unpublished. gunsilius2023 still arXiv:2309.14630 (v3, May 2025); unchanged.
+- Section 2.1: political-context sentence now cites belson2024 (Cloudflare, Aug 1 2024),
+  which states that student protests against quotas in government jobs preceded the
+  shutdown order; wording aligned with the source.
+- Section 4.4: [CITATION NEEDED] replaced by quispe2026naics. Section 8.3: added the
+  model card's own caveats (GPT-4.1 training labels; roughly half of confident labels on
+  public GitHub may belong to no sector).
+- Section 4.2: removed claim that counts are winsorized "in user-level regressions"
+  (no user-level regressions are reported).
+- Section 5.2: user-level TWFE paragraph and equation removed (and the Section 6.2
+  sentence justifying unreported user-day estimates). Equations now: (1) SC ATT,
+  (2) aggregate DiD, (3) event study, (4) RDiT, (5) sector recovery.
+- Table 3 restructured: Design | Effect (pp) | Relative effect | Inference | Role.
+- Table 8 and Table A13: column renamed "First two-week run >= 80".
+- Figure notes (main text) shortened by 36% (953 -> 610 words); file provenance replaced
+  by "Source: Author's calculations using GH Archive" (provenance remains in code,
+  README, and this log).
+- Figure 5 extended to week +17; former Figure 6 (sector event study) moved to the
+  appendix (Figure A2).
+- Section 7 heading: "Mechanism: Offline Work and Delayed Synchronization".
+- Source-only TODO comments removed. Open item moved here: the selection script for the
+  20,000-account sector sample is not in the repository, and whether bot filters were
+  applied is undocumented.
+- PDF: 45 pages before and after.
