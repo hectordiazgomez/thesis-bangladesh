@@ -52,8 +52,8 @@ def write(name: str, body: str) -> None:
 
 # Appendix tables are placed with [H] so each stays under its subsection
 # heading and the appendix packs without stranded headings or blank pages.
-APPENDIX_LABELS = {"tab:weights", "tab:loo", "tab:sc_placebos", "tab:weights_specific",
-                   "tab:rdit", "tab:mech_placebos", "tab:metadata", "tab:push_completeness",
+APPENDIX_LABELS = {"tab:weights", "tab:sc_placebos", "tab:weights_specific",
+                   "tab:did_es_full", "tab:did_secondary", "tab:mech_placebos", "tab:metadata", "tab:push_completeness",
                    "tab:push_size", "tab:concentration", "tab:sector_threshold",
                    "tab:sector_fixed_repo"}
 
@@ -129,7 +129,7 @@ def tab_main_estimates(sc: dict) -> None:
             r"no donut, $N=15$ days, HAC lags 2) and is treated as a temporal robustness check, "
             r"not as the main design.")
     write("tab_main_estimates", table(
-        "Main estimates for the daily active-user rate", "tab:main",
+        "Summary of estimates across designs: daily active-user rate", "tab:main",
         r"lrrrr>{\raggedright\arraybackslash}p{3.4cm}",
         r"Specification & Actual & Counter- & ATT & Relative & Diagnostic \\" "\n"
         r" & BD (\%) & factual (\%) & (pp) & effect & ",
@@ -485,9 +485,148 @@ def tab_sector_fixed_repo() -> None:
         size=r"\footnotesize"))
 
 
+# ---------------------------------------------------------------------------
+# Synthetic control: main-text table (estimates, placebo inference, weights)
+# ---------------------------------------------------------------------------
+def tab_sc_main(sc: dict) -> None:
+    plc = pd.read_csv(RES / "synthetic_control" / "sc_inspace_placebos.csv")
+    bd = plc.loc[plc.country == "Bangladesh"].iloc[0]
+    n = len(plc)
+    p_att = (plc.ATT.abs() >= abs(bd.ATT)).sum() / n
+    p_ratio = (plc.RMSPE_ratio >= bd.RMSPE_ratio).sum() / n
+    check("SC ATT rank", p_att, 1 / 15, 1e-9)
+    check("SC ratio rank", p_ratio, 1 / 15, 1e-9)
+    w = pd.read_csv(FINAL / "table_primary_SC_weights.csv")
+    sub = lambda t: rf"\multicolumn{{2}}{{l}}{{\textit{{{t}}}}}"
+    rows = [
+        sub("A. Estimates, July 18--23, 2024"),
+        f"Bangladesh, actual (\\%) & {num(sc['actual'])}",
+        f"Synthetic counterfactual (\\%) & {num(sc['cf'])}",
+        f"ATT (percentage points) & {num(sc['att'])}",
+        f"Relative effect & {pct(sc['rel'])}",
+        r"\addlinespace " + sub("B. Fit and in-space placebo inference"),
+        f"Pre-treatment RMSPE (pp) & {num(sc['pre'])}",
+        f"Post-treatment RMSPE (pp) & {num(bd.post_RMSPE)}",
+        f"Post/pre RMSPE ratio & {num(sc['ratio'])}",
+        f"Placebo countries & {n - 1}",
+        f"Rank $p$-value, absolute ATT & {num(p_att, 4)}",
+        f"Rank $p$-value, RMSPE ratio & {num(p_ratio, 4)}",
+        r"\addlinespace " + sub("C. Donor weights"),
+    ] + [f"{r.country} & {pct(r.weight_pct, 1)}" for r in w.itertuples()]
+    write("tab_sc_main", table(
+        "Synthetic control: main estimates and placebo inference", "tab:sc_main", "lr",
+        r"Statistic & Value", rows,
+        r"Outcome: daily percentage of eligible users with observable productive GitHub activity. "
+        r"Weights are chosen on May 1--July 17, 2024; the other eleven donors receive zero weight. "
+        r"Rank $p$-values compare Bangladesh with 14 in-space placebos; $1/15=0.0667$ is the minimum "
+        r"attainable value, so it indicates that Bangladesh is the most extreme unit, not $p<0.05$. "
+        r"Full placebo ranking in \cref{tab:sc_placebos}. Sources: "
+        r"\texttt{results/synthetic\_control/sc\_inspace\_placebos.csv}, "
+        r"\texttt{results/final/table\_primary\_SC\_weights.csv}.",
+        width=r"0.72\textwidth"))
+
+
+# ---------------------------------------------------------------------------
+# International DiD and aggregate event study (results/did/)
+# ---------------------------------------------------------------------------
+DID = RES / "did"
+
+
+def tab_did() -> None:
+    m = pd.read_csv(DID / "did_main_placebo_inference.csv").set_index("remove_holidays")
+    a = pd.read_csv(FINAL / "table_DiD_all_outcomes.csv")
+    a = a[a.outcome == "active_rate_pp"].set_index("remove_holidays")
+    es = pd.read_csv(DID / "did_eventstudy_weekly.csv").set_index("event_week")
+    rows = [r"\multicolumn{8}{l}{\textit{A. Difference-in-differences, July 18--23 vs.\ May 1--July 17}}"]
+    for flag, lab in [(False, "All days"), (True, "Holidays excluded")]:
+        r, f = a.loc[flag], m.loc[flag]
+        check(f"DiD {lab}", f.theta_pp, r.ATT, 1e-9)
+        rows.append(f"{lab} & {num(r.BD_pre, 2)} & {num(r.BD_blackout, 2)} & {num(r.control_change, 2)} & "
+                    f"{num(r.ATT, 2)} & {pct(r.relative_effect_pct)} & {num(f.placebo_sd_pp, 2)} & "
+                    f"{num(f.rank_p, 4)}")
+    rows.append(r"\addlinespace \multicolumn{8}{l}{\textit{B. Event study, selected weeks "
+                r"(all weeks in \cref{tab:did_es_full})}}")
+    rows.append(r"\multicolumn{4}{l}{Event week (dates)} & $\hat\theta_k$ (pp) & Placebo-based interval & Placebo SD & Rank $p$")
+    for k in [-5, -2, -1, 0, 1, 2, 3, 4, 5, 6]:
+        r = es.loc[k]
+        dates = f"{pd.Timestamp(r.start):%b %-d}--{pd.Timestamp(r.end):%b %-d}"
+        lab = f"${'+' if k > 0 else ''}{k}$ ({dates})"
+        rows.append(f"\\multicolumn{{4}}{{l}}{{{lab}}} & {num(r.theta_pp, 2)} & "
+                    f"[{num(r.ci_low_pp, 2)}, {num(r.ci_high_pp, 2)}] & {num(r.placebo_sd_pp, 2)} & "
+                    f"{num(r.rank_p, 4)}")
+    write("tab_did", table(
+        "International difference-in-differences and aggregate event study", "tab:did",
+        "lrrrrrrr",
+        r"& BD pre & BD shut- & Donor & ATT & Relative & Placebo & Rank \\" "\n"
+        r"Specification & (\%) & down (\%) & change & (pp) & effect & SD & $p$",
+        rows,
+        r"Outcome: daily percentage of eligible users with observable productive GitHub activity. "
+        r"Panel A compares Bangladesh's change from May 1--July 17 to July 18--23 with the "
+        r"equal-weighted mean change of the 14 donor countries (\cref{eq:did_agg}); the ATT reproduces "
+        r"\texttt{results/final/table\_DiD\_all\_outcomes.csv}. Panel B reports $\hat\theta_k$ "
+        r"(\cref{eq:es_agg}) for weekly bins; week 0 equals the Panel A all-days ATT. Weeks $-5$ and "
+        r"$-2$ are the most negative and most positive pre-shutdown estimates. Inference uses in-space "
+        r"placebos: each donor is compared in turn with the mean of the other 13. \textit{Placebo SD}: "
+        r"standard deviation of the 14 placebo estimates. \textit{Placebo-based interval}: "
+        r"$\hat\theta_k\pm1.96\times$SD, a donor-placebo reference interval, not a conventional "
+        r"sampling confidence interval. \textit{Rank $p$}: share of the 15 units whose absolute "
+        r"estimate is at least as large as Bangladesh's (minimum 0.0667). Bangladesh's pre-period "
+        r"weekly estimates are more volatile than any donor's, so these placebo-based measures are not "
+        r"fully calibrated sampling uncertainty for Bangladesh. The pre-period does not show a clean "
+        r"parallel-trends pattern, and the weekly coefficients are a diagnostic, not an identified dynamic "
+        r"treatment path; the synthetic control remains the main design. Sources: "
+        r"\texttt{results/did/did\_main\_placebo\_inference.csv}, "
+        r"\texttt{results/did/did\_eventstudy\_weekly.csv}.",
+        size=r"\footnotesize"))
+
+
+def tab_did_eventstudy_full() -> None:
+    es = pd.read_csv(DID / "did_eventstudy_weekly.csv")
+    rows = [f"${'+' if r.event_week > 0 else ''}{r.event_week}$ & "
+            f"{pd.Timestamp(r.start):%b %-d}--{pd.Timestamp(r.end):%b %-d} & {r.days} & "
+            f"{num(r.theta_pp, 2)} & [{num(r.ci_low_pp, 2)}, {num(r.ci_high_pp, 2)}] & "
+            f"[{num(r.placebo_min_pp, 2)}, {num(r.placebo_max_pp, 2)}] & {num(r.rank_p, 4)}"
+            for r in es.itertuples()]
+    write("tab_did_eventstudy_full", table(
+        "Aggregate event study: all weekly estimates", "tab:did_es_full", "lllrrrr",
+        r"Week & Dates (2024) & Days & $\hat\theta_k$ (pp) & Placebo-based interval & Placebo range & Rank $p$",
+        rows,
+        r"$\hat\theta_k$ from \cref{eq:es_agg}, relative to the May 1--July 17 mean. Week $-11$ "
+        r"includes May 1; September 4 (a partial week) is omitted. \textit{Placebo range}: minimum "
+        r"and maximum of the 14 in-space placebo estimates. \textit{Placebo-based interval}: "
+        r"$\hat\theta_k\pm1.96$ times the placebo standard deviation; a donor-placebo reference "
+        r"interval, not a conventional confidence interval. Other definitions as in \cref{tab:did}. "
+        r"Source: \texttt{results/did/did\_eventstudy\_weekly.csv}.",
+        size=r"\footnotesize"))
+
+
+def tab_did_secondary() -> None:
+    a = pd.read_csv(FINAL / "table_DiD_all_outcomes.csv")
+    rows = []
+    labels = {"active_rate_pp": "Active-user rate (primary)", **OUTCOME_LABELS}
+    for k, lab in labels.items():
+        g = a[a.outcome == k].set_index("remove_holidays")
+        rows.append(f"{lab} & {num(g.loc[False, 'ATT'])} & {pct(g.loc[False, 'relative_effect_pct'])} & "
+                    f"{num(g.loc[True, 'ATT'])} & {pct(g.loc[True, 'relative_effect_pct'])}")
+    write("tab_did_secondary", table(
+        "International difference-in-differences by outcome", "tab:did_secondary", "lrrrr",
+        r"& \multicolumn{2}{c}{All days} & \multicolumn{2}{c}{Holidays excluded} \\"
+        "\n" r"\cmidrule(lr){2-3}\cmidrule(lr){4-5}" "\n"
+        r"Outcome & ATT & Relative & ATT & Relative",
+        rows,
+        r"Aggregate DiD as in \cref{tab:did}, Panel A, for each outcome; rates in percentage points, "
+        r"counts per 1,000 eligible users. No placebo inference is stored for these specifications. "
+        r"Source: \texttt{results/final/table\_DiD\_all\_outcomes.csv}.",
+        size=r"\footnotesize"))
+
+
 def main() -> None:
     sc = primary_sc()
     tab_main_estimates(sc)
+    tab_sc_main(sc)
+    tab_did()
+    tab_did_eventstudy_full()
+    tab_did_secondary()
     tab_secondary()
     tab_mechanism_main()
     tab_weights()

@@ -7,18 +7,19 @@
 \setcounter{figure}{0}
 \renewcommand{\thefigure}{A\arabic{figure}}
 
-This appendix reports the detailed tables behind the synthetic-control, RDiT, mechanism, and sectoral recovery results discussed in the main text. All tables are generated from the stored result files by \texttt{analysis/tables/make\_all\_tables.py}.
+This appendix reports the detailed tables behind the synthetic-control, difference-in-differences, mechanism, and sectoral recovery results discussed in the main text. All tables are generated from the stored result files by \texttt{analysis/tables/make\_all\_tables.py}.
 
 \subsection{Synthetic control}
 
 \input{tables/tab_donor_weights}
-\input{tables/tab_leave_one_out}
 \input{tables/tab_sc_placebos}
 \input{tables/tab_donor_weights_specific}
 
-\subsection{Regression discontinuity in time}
+\subsection{Difference-in-differences and event study}
 
-\input{tables/tab_rdit}
+\input{tables/tab_did_eventstudy_full}
+\input{tables/tab_did_secondary}
+
 
 \subsection{Mechanism}
 

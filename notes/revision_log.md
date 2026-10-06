@@ -102,3 +102,78 @@
     score >= 0.80) are read from `data/sector_recovery/repo_sector.sqlite`.
 - `paper/thesis.txt` and `paper/thesis.docx` were not modified and do not contain
   the sectoral extension.
+
+## 2026-10-06 — Empirical presentation: figure + table for every design
+
+- Advisor comment addressed: none recorded; requested by the author.
+- New analysis code and outputs (no archived estimate changed):
+  - `analysis/did/01_aggregate_did_eventstudy.py` -> `results/did/`
+    (`did_main_placebo_inference.csv`, `did_eventstudy_weekly.csv`,
+    `did_pre_period_volatility.csv`). Aggregate DiD and weekly event study from
+    `results/synthetic_control/country_day_donor_pool_with_holidays.parquet`;
+    the script stops unless the DiD reproduces `results/final/table_DiD_all_outcomes.csv`
+    (-13.0875 / -13.3791; reproduced exactly).
+  - New numbers reported (in-space placebo inference for the DiD and event study):
+    placebo SD 1.17 / 1.19 pp, placebo ATT range -1.72 to 1.60 pp, rank 0.0667;
+    weekly event-study coefficients -4.89 to 6.10 pp before the shutdown;
+    Bangladesh pre-period weekly SD 3.04 pp vs 0.70-2.18 pp for donors.
+  - `results/rdit/figure_rdit_fitted_jumps.csv` (visual-guide fits for the RDiT figure).
+- Figures added (`analysis/figures/make_all_figures.py`): `fig3_did_eventstudy.pdf`
+  (Figure 3, Section 6.2), `fig7_rdit_cutoff.pdf` (Figure 4, Section 6.3).
+- Tables added (`analysis/tables/make_all_tables.py`): `tab_sc_main` (Table 4,
+  Section 6.1), `tab_did` (Table 5, Section 6.2), `tab_did_eventstudy_full`
+  (Table A4), `tab_did_secondary` (Table A5).
+- Tables moved: `tab_rdit` appendix -> Section 6.3 (Table 6); `tab_leave_one_out`
+  appendix -> Section 8.1 (Table 10); `tab_main_estimates` moved to the start of
+  Section 6 and retitled "Summary of estimates across designs".
+- Text: Section 5.2 rewritten with Eqs. (2)-(3) (aggregate DiD and event study,
+  placebo inference); original Eq. (4) user-day equation kept. Section 5.3: RDiT
+  Eq. (5) added; sentence claiming bandwidth/polynomial/donut/placebo-cutoff
+  sensitivity replaced by a statement that those results are not reported.
+  Section 6 restructured into 6.1 SC, 6.2 DiD/event study, 6.3 RDiT. Cross-references
+  added in Sections 8, 9, 10.
+- Flags:
+  - Archived RDiT estimate (-0.092836, SE 0.050344) cannot be reproduced exactly from
+    stored files (closest: -0.0899 on the SC country-day panel; -0.0925 on
+    `data/processed/panel_clean.parquet`). Table reports archived values; figure
+    caption discloses the plotted fit (-8.99 pp).
+  - Assignment of July 17 (t = 0) to the post-cutoff side is inferred from the
+    archived README (N = 15, bandwidth 7) and the reproduction; TODO added.
+  - Archived event-study coefficients (`data/processed/fig1_daily_zoom.csv`,
+    `fig2_event_study_weekly.csv`) and `other/fig3_rdit.png` remain unused
+    (undocumented specifications; the RDiT figure uses a residualized donut series).
+- `paper/thesis.txt` and `paper/thesis.docx` not modified.
+
+## 2026-10-06 — Methodological consistency pass (DiD/event study, RDiT)
+
+- Advisor comment addressed: none recorded; requested by the author.
+- RDiT reproduced exactly. `analysis/rdit/01_reproduce_rdit.py` recovers the archived
+  preferred design and asserts all three rows of `results/rdit/main_rdit_summary.csv`
+  (effect, HAC SE, CI, p, Durbin-Watson) to six decimals: series = daily share of users
+  with productive_events > 0 in `data/processed/panel_user_day_{bangladesh,philippines}.parquet`
+  (balanced panels: 10,329 BD and 3,025 PH accounts); window July 10-24; D = 1{date >= July 17}
+  (July 17 on the post-cutoff side); local linear; Newey-West HAC, 2 lags, small-sample
+  factor n/(n-k). Main estimate -0.092836 reproduced.
+  - New output: `results/rdit/rdit_daily_series.csv`. Removed the earlier untracked
+    `results/rdit/figure_rdit_fitted_jumps.csv` (plotted an alternative -8.99 pp jump).
+  - `fig7_rdit_cutoff.pdf` rebuilt on the reproduced series; its fitted discontinuity is
+    asserted equal to the archived estimate. No alternative RDiT number appears in the paper.
+- Unresolved, documented here only: `data/processed/table3_rdit_sensitivity.csv`
+  (bandwidth/polynomial/donut grid) is inconsistent with the archived preferred estimate
+  (e.g., bandwidth 7, linear, no donut = -0.14 vs -0.0928) and is not used. The source-only
+  TODO comments about it were removed from the manuscript.
+- Section 5.2: event study described as the country-day estimator actually computed (no
+  regression, no user fixed effects); pre-period volatility and absence of a clean
+  parallel-trends pattern stated; weekly coefficients framed as diagnostic, not an identified
+  dynamic path; intervals renamed donor-placebo reference intervals (not confidence intervals).
+- Section 5.3: rewritten to describe only the archived preferred specification, HAC
+  inference, the Bangladesh-minus-Philippines controlled specification, and the Philippines
+  placebo; no sensitivity grid mentioned.
+- Consistency fixes elsewhere: Section 2.1 no longer claims "alternative phase definitions"
+  robustness (not reported); Section 3 no longer claims SDID is used as a robustness exercise
+  (not reported); Section 8.4 no longer refers to "date fixed effects" (not used by the
+  reported estimators); Conclusion labels the event study as diagnostic.
+- Tables `tab_did`, `tab_did_eventstudy_full`: "95% interval" relabelled
+  "Placebo-based interval" with explanatory notes.
+- Empirical numbers changed: none. Section 6.3 daily values now quoted from the RDiT series
+  (19.03 / 10.74 / 0.48-1.23) instead of the country-day series.

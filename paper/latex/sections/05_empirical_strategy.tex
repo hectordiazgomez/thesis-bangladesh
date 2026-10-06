@@ -17,9 +17,25 @@ where $\mathcal{T}_{1}$ denotes the shutdown days.
 \subsection{Difference-in-differences and event study}
 \label{sec:did}
 
-As a complementary design, I compare the change in Bangladesh's mean outcome from the pre-period to the shutdown with the average corresponding change across the donor countries. Because treatment varies at the country-by-time level, I do not treat user-clustered standard errors from micro regressions as the sole source of inference. The aggregate DiD is used primarily as a magnitude check against the synthetic-control estimate, while placebo and time-series diagnostics provide additional information about whether the Bangladesh break is unusual.
+As a complementary design, I compare the change in Bangladesh's mean outcome from the pre-period to the shutdown with the average corresponding change across the donor countries:
+\begin{equation}
+  \mathrm{ATT}_{\mathrm{DiD}} = \bigl[\bar{Y}_{\mathrm{BD},1} - \bar{Y}_{\mathrm{BD},0}\bigr]
+  - \frac{1}{14}\sum_{j=1}^{14}\bigl[\bar{Y}_{j,1} - \bar{Y}_{j,0}\bigr],
+  \label{eq:did_agg}
+\end{equation}
+where $\bar{Y}_{c,0}$ is country $c$'s mean daily active-user rate over May 1--July 17 and $\bar{Y}_{c,1}$ its mean over July 18--23. Unlike the synthetic control, which chooses donor weights to reproduce Bangladesh before the shutdown, this comparison gives equal weight to every donor. It is used primarily as a magnitude check against the synthetic-control estimate.
 
-I also estimate user-day fixed-effects specifications and event studies around the shutdown in auxiliary analyses. These models absorb time-invariant user heterogeneity and common date shocks and trace the treatment effect over relative time. The event-study evidence is used diagnostically to assess whether the collapse in activity is concentrated around the treatment window rather than being the continuation of a smooth pre-existing decline.
+To trace the dynamics of the gap, I replace the shutdown window with weekly event periods $k$ and compute
+\begin{equation}
+  \hat\theta_{k} = \bigl[\bar{Y}_{\mathrm{BD},k} - \bar{Y}_{\mathrm{BD},0}\bigr]
+  - \frac{1}{14}\sum_{j=1}^{14}\bigl[\bar{Y}_{j,k} - \bar{Y}_{j,0}\bigr],
+  \label{eq:es_agg}
+\end{equation}
+where $\bar{Y}_{c,k}$ is country $c$'s mean daily active-user rate in event period $k$; $k=-11,\dots,-1$ are seven-day bins ending July 17 (bin $-11$ also contains May 1), $k=0$ is the shutdown (July 18--23), and $k=+1,\dots,+6$ are seven-day bins from July 24 to September 3. \Cref{eq:es_agg} is computed directly from the stored country-day panel of the fifteen countries; it involves no regression and no user-level fixed effects. By construction, $\hat\theta_0 = \mathrm{ATT}_{\mathrm{DiD}}$, so the shutdown-week coefficient reproduces the aggregate DiD magnitude. Under parallel pre-shutdown paths, the coefficients for $k<0$ would fluctuate narrowly around zero. As shown in \cref{sec:did_results}, Bangladesh's pre-period is volatile and does not display a clean conventional parallel-trends pattern. The weekly coefficients are therefore not interpreted as an identified dynamic causal treatment path. They are diagnostic evidence on whether the largest break in the series is concentrated at the shutdown, and they complement, rather than replace, the synthetic control.
+
+Because treatment varies only at the country level and there are fifteen countries, I do not rely on user-clustered standard errors. Uncertainty is instead summarized with in-space placebos: each donor is assigned the treatment in turn and compared with the equal-weighted mean of the remaining thirteen donors. I report the standard deviation of the fourteen placebo estimates, a donor-placebo reference interval equal to $\hat\theta_k \pm 1.96$ times that standard deviation, and the rank of Bangladesh's absolute estimate among the fifteen units. These reference intervals describe how far donor countries move under the same calculation; they are not conventional sampling confidence intervals, and because Bangladesh's pre-period is more volatile than any donor's, they are not fully calibrated measures of uncertainty for Bangladesh.
+
+A user-level analogue of the comparison is the two-way fixed-effects specification in \cref{eq:did}, which would absorb time-invariant user heterogeneity and common date shocks. It is not the estimator behind the reported DiD or event-study results: because the archived implementation of the user-day specifications is not fully documented, their estimates are not reported, and all DiD and event-study results in this paper come from \cref{eq:did_agg,eq:es_agg}.
 \begin{equation}
   Y_{it} = \beta\,(\text{Bangladesh}_{i} \times \text{Shutdown}_{t}) + \alpha_{i} + \lambda_{t}
   + \text{controls}_{it} + \varepsilon_{it}
@@ -29,9 +45,13 @@ I also estimate user-day fixed-effects specifications and event studies around t
 \subsection{Regression discontinuity in time}
 \label{sec:rdit_method}
 
-A regression discontinuity in time at the July 17 cutoff provides a third temporal comparison. I estimate local linear models on daily Bangladesh activity and on a Bangladesh-minus-control residualized series, with heteroskedasticity-and-autocorrelation-consistent standard errors.
-% TODO: VERIFY RDIT SENSITIVITY FILE BEFORE FINAL SUBMISSION
-Following \citet{hausman2018}, I vary bandwidths and polynomial order, report donut specifications that omit dates immediately adjacent to the cutoff, inspect autocorrelation, and use placebo cutoffs. Because time itself is the running variable and other contemporaneous events can occur at the same date, the RDiT is interpreted as a robustness check rather than a standalone source of causal identification.
+A regression discontinuity in time provides a third temporal comparison. The preferred specification uses a cutoff at July 17, 2024, a bandwidth of $h=7$ days (July 10--24, fifteen daily observations), and a local linear fit on each side. With $\tilde{t} = t - \text{July 17}$ and $D_t = \mathbf{1}\{\tilde{t} \geq 0\}$, so that July 17 itself lies on the post-cutoff side, I estimate
+\begin{equation}
+  Y_{t} = \alpha + \tau D_{t} + \gamma_{1}\tilde{t} + \gamma_{2} D_{t}\tilde{t} + u_{t},
+  \qquad |\tilde{t}| \leq h,
+  \label{eq:rdit}
+\end{equation}
+where $\tau$ is the discontinuity and $Y_t$ is the daily share of users with at least one productive GitHub event in a balanced user-day panel of 10,329 Bangladesh-associated and 3,025 Philippines-associated accounts. This eligible sample differs slightly from the 10,241 Bangladesh accounts of the country-day panel used for the synthetic control. I estimate \cref{eq:rdit} for Bangladesh, for the Bangladesh-minus-Philippines gap as a controlled specification, and for the Philippines alone as a geographic placebo. Inference uses heteroskedasticity-and-autocorrelation-consistent (HAC) Newey--West standard errors with two lags, following the cautions in \citet{hausman2018} regarding serial correlation in time-series discontinuity designs. Because time itself is the running variable and other contemporaneous events can occur at the same date, the RDiT is interpreted as a robustness check rather than a standalone source of causal identification.
 
 \subsection{Inference and robustness}
 \label{sec:inference}

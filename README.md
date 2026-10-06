@@ -65,8 +65,15 @@ Commit-timing and push-timing mechanism results and robustness checks.
 Sectoral recovery outputs; `final/` holds the advisor-ready tables and
 threshold-robustness files used in the manuscript.
 
+`results/did/`
+Aggregate international DiD event study and in-space placebo inference,
+computed by `analysis/did/01_aggregate_did_eventstudy.py` from the stored
+country-day panel (reproduces the archived DiD ATT exactly).
+
 `results/rdit/`
-Archived preferred RDiT result and documentation.
+Archived preferred RDiT result and documentation. The archived estimates are
+reproduced exactly by `analysis/rdit/01_reproduce_rdit.py`, which also writes
+the daily series plotted in the manuscript (`rdit_daily_series.csv`).
 
 `data/processed/`
 Processed datasets used in the empirical analysis.

@@ -233,6 +233,81 @@ def fig_mechanism_release(png_dir):
 
 
 # ---------------------------------------------------------------------------
+# International DiD event study (weekly, in-space placebo intervals)
+# ---------------------------------------------------------------------------
+def fig_did_eventstudy(png_dir):
+    es = pd.read_csv(RES / "did" / "did_eventstudy_weekly.csv")
+    did = pd.read_csv(RES / "final" / "table_DiD_all_outcomes.csv")
+    att = did[(did.outcome == "active_rate_pp") & ~did.remove_holidays].ATT.iloc[0]
+    check("event week 0 = archived DiD ATT", es.loc[es.event_week == 0, "theta_pp"].iloc[0], att, 1e-9)
+    pre = es[es.event_week < 0]
+
+    fig, ax = plt.subplots(figsize=(FULL_W, 3.0))
+    ax.axvspan(-0.5, 0.5, color=SHADE, lw=0, zorder=0, label="Shutdown (Jul 18–23)")
+    ax.axhline(0, color="black", lw=0.6)
+    for i, v in enumerate([pre.theta_pp.min(), pre.theta_pp.max()]):
+        ax.axhline(v, color=COMP, lw=0.7, ls=":",
+                   label="Range of pre-shutdown weekly estimates" if i == 0 else None)
+    ax.vlines(es.event_week, es.ci_low_pp, es.ci_high_pp, color=BD, lw=1.0,
+              label="Donor-placebo reference interval")
+    ax.plot(es.event_week, es.theta_pp, "o", color=BD, ms=4, label="Bangladesh − donor mean")
+    ax.annotate(f"{att:.2f}".replace("-", "−"), (0, att), xytext=(6, -2), textcoords="offset points",
+                fontsize=8, color=BD)
+    ax.set_xticks(es.event_week)
+    ax.set_xlabel("Event week (0 = July 18–23; +1 = July 24–30)")
+    ax.set_ylabel("Change relative to pre-period,\nBangladesh minus donors (pp)")
+    ax.grid(axis="y", color="#DDDDDD", lw=0.5)
+    ax.legend(loc="lower left", ncol=1)
+    save(fig, "fig3_did_eventstudy", png_dir)
+
+
+# ---------------------------------------------------------------------------
+# RDiT: daily series around the July 17 cutoff (archived preferred design)
+# ---------------------------------------------------------------------------
+RD_CUT = pd.Timestamp("2024-07-17")
+RD_BW = 7
+
+
+def fig_rdit(png_dir):
+    # Series and design recovered by analysis/rdit/01_reproduce_rdit.py, which
+    # reproduces results/rdit/main_rdit_summary.csv exactly.
+    s = pd.read_csv(RES / "rdit" / "rdit_daily_series.csv", parse_dates=["date"]).set_index("date")
+    arch = pd.read_csv(RES / "rdit" / "main_rdit_summary.csv").set_index("specification")
+    win_lo, win_hi = RD_CUT - pd.Timedelta(days=RD_BW), RD_CUT + pd.Timedelta(days=RD_BW)
+
+    fig, axes = plt.subplots(1, 2, figsize=(FULL_W, 2.9), sharey=True)
+    for ax, col, spec, title in [
+            (axes[0], "bangladesh_pct", "Main local linear", "(a) Bangladesh"),
+            (axes[1], "philippines_pct", "Geographic placebo", "(b) Philippines (geographic placebo)")]:
+        y = s[col]
+        inwin = (y.index >= win_lo) & (y.index <= win_hi)
+        ax.axvspan(SHUT_START - HALF_DAY, SHUT_END + HALF_DAY, color=SHADE, zorder=0, lw=0,
+                   label="Shutdown (Jul 18–23)")
+        ax.plot(y.index[~inwin], y[~inwin], "o", mfc="white", mec=COMP, ms=3.5, mew=0.8)
+        ax.plot(y.index[inwin], y[inwin], "o", color=BD, ms=3.5)
+        # Local linear fits of the archived design: July 17 (t = 0) is on the post side.
+        icpt = {}
+        for side, sel in [("pre", inwin & (y.index < RD_CUT)), ("post", inwin & (y.index >= RD_CUT))]:
+            t = (y.index[sel] - RD_CUT).days.to_numpy(float)
+            b = np.polyfit(t, y[sel].to_numpy(), 1)
+            icpt[side] = b[1]
+            tt = np.array([0.0, t.max()]) if side == "post" else np.array([t.min(), 0.0])
+            ax.plot(RD_CUT + pd.to_timedelta(tt, unit="D"), np.polyval(b, tt), color=BD, lw=1.2)
+        check(f"RDiT {spec}", icpt["post"] - icpt["pre"], 100 * arch.loc[spec, "effect"], 1e-4)
+        ax.axvline(RD_CUT - HALF_DAY, color="black", lw=0.8, ls="--", label="RDiT cutoff")
+        ax.axvline(SHUT_START - HALF_DAY, color="black", lw=0.8, ls=":", label="Shutdown onset")
+        ax.set_title(title, loc="left")
+        date_axis(ax)
+        ax.set_xlim(y.index.min() - HALF_DAY, y.index.max() + HALF_DAY)
+        ax.grid(axis="y", color="#DDDDDD", lw=0.5)
+    axes[0].set_ylabel("Users with productive\nGitHub activity (%)")
+    axes[0].set_ylim(0, None)
+    axes[1].legend(loc="lower right")
+    fig.tight_layout(w_pad=1.5)
+    save(fig, "fig7_rdit_cutoff", png_dir)
+
+
+# ---------------------------------------------------------------------------
 # Figures 5-6: within-Bangladesh sectoral recovery (classifier score >= 0.80)
 # ---------------------------------------------------------------------------
 SECTOR_DIR = RES / "sector_recovery"
@@ -327,6 +402,8 @@ def main() -> None:
     fig_sc_actual_vs_synthetic(args.png_dir)
     fig_sc_placebos(args.png_dir)
     fig_mechanism_release(args.png_dir)
+    fig_did_eventstudy(args.png_dir)
+    fig_rdit(args.png_dir)
     fig_sector_recovery_index(args.png_dir)
     fig_sector_eventstudy(args.png_dir)
 
