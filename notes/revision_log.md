@@ -177,3 +177,40 @@
   "Placebo-based interval" with explanatory notes.
 - Empirical numbers changed: none. Section 6.3 daily values now quoted from the RDiT series
   (19.03 / 10.74 / 0.48-1.23) instead of the country-day series.
+
+## 2026-10-06 — SC reproducibility, SDID, in-time placebos, mechanism weighting
+
+- Advisor comment addressed: none recorded; approved by the author.
+- New code (no archived estimate changed):
+  - `analysis/synthetic_control/01_reproduce_sc.py`: canonical SC refit from
+    `results/synthetic_control/country_day_donor_pool.parquet` (simplex-constrained least
+    squares via NNLS). Reproduces exactly: weights (Pakistan 0.4758, Ghana 0.3249,
+    Kenya 0.1993; max deviation 0), ATT -13.2559, relative -86.769%, pre-RMSPE 3.2596,
+    post-RMSPE 13.6658, ratio 4.1924, 14 in-space placebos (max deviation 1e-6),
+    rank p 1/15 for both statistics, 14 leave-one-out ATTs. Fails loudly otherwise.
+    Also writes the descriptive full path (May 1-Sep 4) and weekly gaps.
+  - `analysis/synthetic_control/02_sdid_archived_check.py`: archived SDID weights reproduce
+    the archived SDID ATT (-17.9495); decomposition by unit/time weights.
+  - `analysis/synthetic_control/03_intime_placebos.py`: pre-specified in-time placebos
+    (8 eligible windows).
+  - `analysis/mechanism/01_placebo_weighting_audit.py`: placebo weights identified as
+    inverse daily metadata-query rates; all archived rows reproduced exactly.
+- Mechanism weighting diagnosis: metadata were queried for a daily sample (7-17%) of
+  commits pushed Jul 1-17 and for all commits pushed from Jul 18. The archived
+  inverse-probability-weighted placebo rates are the valid comparison; blackout commits
+  receive weight one (same estimator). Unweighted placebo means would be 1.73 / 1.33 /
+  1.08% (>24/48/72h) instead of 1.10 / 0.72 / 0.46%. Archived numbers unchanged.
+- Manuscript changes:
+  - Figure 1 extended descriptively to Sep 4 with archived weights; new caption states the
+    shutdown interval defines the estimand and post-restoration gaps are descriptive.
+    Section 6.1: one sentence on the descriptive post-restoration gap.
+  - Section 7.1: one sentence on inverse-probability weighting of placebo rates;
+    Table A6 note expanded.
+  - Section 8.1: in-time placebo paragraph and SDID paragraph.
+  - Appendix: Table A4 (SDID), Figure A1 and Table A5 (in-time placebos). Later appendix
+    tables renumbered (mechanism placebo comparison: former A6, now A8).
+- New numbers reported: SDID -17.9495 (archived); SDID time-weight shares 72.2% (Jul 1-17),
+  27.1% (Jul 2), 30.2% (Jul 10); baselines 22.54% vs 17.25%; decomposition (-13.86 to -17.99);
+  in-time pseudo-ATTs -3.076 to +7.349; weekly SC gaps (pre range -2.86 to 5.88;
+  weeks +1..+6: -3.11, -2.89, 0.52, 4.24, 4.67, 2.67).
+- Not reported: archived SDID SE (0.4999) and p-value (0.0) - computation undocumented.

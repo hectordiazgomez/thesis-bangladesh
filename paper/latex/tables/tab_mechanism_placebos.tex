@@ -18,7 +18,7 @@ Delay $>$120h & 13.88\% & 0.32\% & 0.46\% \\
 \end{tabular}
 \begin{tablenotes}[flushleft]
 \footnotesize\raggedright
-\item \textit{Notes:} Placebo windows are six six-day authoring windows between July 1 and July 11, with six-day subsequent release windows that end before treatment. Windows overlap, so the comparison is descriptive rather than an exact independent randomization test.
+\item \textit{Notes:} Placebo windows are six six-day authoring windows between July 1 and July 11, with six-day subsequent release windows that end before treatment. Windows overlap, so the comparison is descriptive rather than an exact independent randomization test. Commit metadata were queried for all first-push commits pushed on or after July 18 but for a daily sample of those pushed July 1--17 (7--17 percent of commits per push date). Placebo rates therefore weight each commit by the inverse of its push date's query rate (number of first-push commits divided by number queried); commits authored July 18--23 can only be pushed on or after July 18 and receive weight one, so all rows estimate the same population share. Without weights, placebo rates would over-represent late pushes. Mean placebo $N$ is 4,144 observed commits per window. Sources: \texttt{results/final/table\_mechanism\_placebos.csv}, reproduced by \texttt{analysis/mechanism/01\_placebo\_weighting\_audit.py}.
 \end{tablenotes}
 \end{threeparttable}
 \end{table}

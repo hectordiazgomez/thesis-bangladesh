@@ -14,6 +14,17 @@ This appendix reports the detailed tables behind the synthetic-control, differen
 \input{tables/tab_donor_weights}
 \input{tables/tab_sc_placebos}
 \input{tables/tab_donor_weights_specific}
+\input{tables/tab_sdid}
+
+\begin{figure}[H]
+\centering
+\caption{Synthetic-control in-time placebos: ATT over six-day pseudo-treatment windows}
+\label{fig:sc_intime}
+\includegraphics[width=\textwidth]{figA1_sc_intime_placebos.pdf}
+\fignote{Each grey row is a six-day pre-treatment window chosen by the rule in \cref{sec:sc_diagnostics}; donor weights are re-estimated using only the days before each window, and the ATT is the mean gap between Bangladesh and its synthetic control over the window, as in the primary specification (blue row). ``Holiday'' marks windows containing a Bangladesh national holiday. All eight eligible windows are shown. Details in \cref{tab:sc_intime}. Source: \texttt{results/synthetic\_control/reproduced/sc\_intime\_placebos.csv}.}
+\end{figure}
+
+\input{tables/tab_sc_intime}
 
 \subsection{Difference-in-differences and event study}
 

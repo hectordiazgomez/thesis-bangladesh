@@ -57,6 +57,12 @@ Consolidated final result tables used for manuscript verification.
 
 `results/synthetic_control/`
 Synthetic-control, placebo, donor-weight, DiD, and related outputs.
+The canonical synthetic control now reproduces exactly from the stored
+country-day panel: `analysis/synthetic_control/01_reproduce_sc.py` refits the
+weights and stops unless the archived weights, ATT (-13.2559 pp), relative
+effect, RMSPEs, in-space placebos and leave-one-out estimates are reproduced.
+In-time placebos (`03_intime_placebos.py`) and a check of the archived SDID
+estimate (`02_sdid_archived_check.py`) write to `reproduced/`.
 
 `results/mechanism/`
 Commit-timing and push-timing mechanism results and robustness checks.

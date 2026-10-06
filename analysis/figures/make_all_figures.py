@@ -112,17 +112,31 @@ def fig_sc_actual_vs_synthetic(png_dir):
     check("SC pre RMSPE",
           np.sqrt(((pre.Bangladesh - pre.Synthetic_Control) ** 2).mean()), base.pre_RMSPE)
 
-    fig, ax = plt.subplots(figsize=(FULL_W, 2.9))
+    # Descriptive extension through September 4 with the archived weights, from
+    # analysis/synthetic_control/01_reproduce_sc.py; must match the archived
+    # daily series wherever both exist (May 1 - July 23).
+    full = pd.read_csv(RES / "synthetic_control" / "reproduced" / "sc_daily_path_full.csv",
+                       parse_dates=["date"])
+    both = full.merge(d, on="date", suffixes=("", "_arch"))
+    check("extended path vs archived (max abs diff)",
+          (both.Synthetic_Control - both.Synthetic_Control_arch).abs().max(), 0.0, 1e-3)
+    check("extended actual vs archived (max abs diff)",
+          (both.Bangladesh - both.Bangladesh_arch).abs().max(), 0.0, 1e-9)
+
+    restore_start = SHUT_END + pd.Timedelta(days=1)
+    fig, ax = plt.subplots(figsize=(FULL_W, 3.0))
     shade_shutdown(ax)
-    ax.plot(d.date, d.Bangladesh, color=BD, label="Bangladesh (actual)")
-    ax.plot(d.date, d.Synthetic_Control, color=COMP, ls="--",
+    ax.axvspan(restore_start - HALF_DAY, full.date.max() + HALF_DAY, color="#E8EFF6", zorder=0,
+               lw=0, label="Post-restoration (descriptive)")
+    ax.plot(full.date, full.Bangladesh, color=BD, label="Bangladesh (actual)")
+    ax.plot(full.date, full.Synthetic_Control, color=COMP, ls="--",
             label="Synthetic Bangladesh")
     ax.set_ylabel("Eligible users with productive\nGitHub activity (%)")
-    ax.set_ylim(0, max(d.Bangladesh.max(), d.Synthetic_Control.max()) * 1.08)
-    ax.set_xlim(d.date.min() - HALF_DAY, d.date.max() + HALF_DAY)
-    date_axis(ax)
+    ax.set_ylim(0, max(full.Bangladesh.max(), full.Synthetic_Control.max()) * 1.08)
+    ax.set_xlim(full.date.min() - HALF_DAY, full.date.max() + HALF_DAY)
+    date_axis(ax, interval=14)
     ax.grid(axis="y", color="#DDDDDD", lw=0.5)
-    ax.legend(loc="lower center", bbox_to_anchor=(0.5, 1.0), ncol=3)
+    ax.legend(loc="lower center", bbox_to_anchor=(0.5, 1.0), ncol=2)
     save(fig, "fig1_sc_actual_vs_synthetic", png_dir)
 
 
@@ -230,6 +244,41 @@ def fig_mechanism_release(png_dir):
     a2.set_xlim(daily.index.min() - HALF_DAY, daily.index.max() + HALF_DAY)
     fig.tight_layout(w_pad=2)
     save(fig, "fig4_mechanism_release", png_dir)
+
+
+# ---------------------------------------------------------------------------
+# SC in-time (backdated) placebos
+# ---------------------------------------------------------------------------
+def fig_sc_intime_placebos(png_dir):
+    p = pd.read_csv(RES / "synthetic_control" / "reproduced" / "sc_intime_placebos.csv",
+                    parse_dates=["start", "end"]).sort_values("start")
+    real = p[p.type == "real"].iloc[0]
+    plc = pd.read_csv(RES / "synthetic_control" / "sc_inspace_placebos.csv").set_index("country")
+    check("in-time real ATT = archived", real.ATT, plc.loc["Bangladesh", "ATT"], 1e-4)
+    labels = [f"{s:%b %-d}–{e:%b %-d}" for s, e in zip(p.start, p.end)]
+    is_real = (p.type == "real").to_numpy()
+    colors = np.where(is_real, BD, COMP)
+    y = np.arange(len(p))
+
+    fig, ax = plt.subplots(figsize=(FULL_W, 2.9))
+    ax.axvline(0, color="black", lw=0.6)
+    ax.hlines(y, 0, p.ATT, color=colors, lw=1.4)
+    ax.scatter(p.ATT, y, color=colors, s=22, zorder=3)
+    for yi, (att, hol) in enumerate(zip(p.ATT, p.bd_holidays_in_window.fillna(""))):
+        txt = f"{att:.2f}".replace("-", "−") + (" (holiday)" if hol else "")
+        ax.annotate(txt, (att, yi), xytext=(5 if att >= 0 else -5, -3), textcoords="offset points",
+                    ha="left" if att >= 0 else "right", fontsize=7.5,
+                    color=BD if is_real[yi] else "#333333")
+    ax.set_yticks(y)
+    ax.set_yticklabels([("Actual shutdown, " if r else "") + l for l, r in zip(labels, is_real)])
+    for lab, r in zip(ax.get_yticklabels(), is_real):
+        if r:
+            lab.set_color(BD)
+            lab.set_fontweight("bold")
+    ax.set_xlim(p.ATT.min() - 3.5, p.ATT.max() + 3.5)
+    ax.set_xlabel("Synthetic-control ATT over the six-day window (pp)")
+    ax.grid(axis="x", color="#DDDDDD", lw=0.5)
+    save(fig, "figA1_sc_intime_placebos", png_dir)
 
 
 # ---------------------------------------------------------------------------

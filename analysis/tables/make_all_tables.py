@@ -55,7 +55,7 @@ def write(name: str, body: str) -> None:
 APPENDIX_LABELS = {"tab:weights", "tab:sc_placebos", "tab:weights_specific",
                    "tab:did_es_full", "tab:did_secondary", "tab:mech_placebos", "tab:metadata", "tab:push_completeness",
                    "tab:push_size", "tab:concentration", "tab:sector_threshold",
-                   "tab:sector_fixed_repo"}
+                   "tab:sector_fixed_repo", "tab:sdid", "tab:sc_intime"}
 
 
 def table(caption: str, label: str, colspec: str, head: str, rows: list[str],
@@ -297,7 +297,19 @@ def tab_mechanism_placebos() -> None:
         r"Metric & Real shutdown & Mean placebo & Maximum placebo", rows,
         rf"Placebo windows are {WORDS[len(plc)]} six-day authoring windows between July 1 and July 11, "
         r"with six-day subsequent release windows that end before treatment. Windows overlap, so "
-        r"the comparison is descriptive rather than an exact independent randomization test."))
+        r"the comparison is descriptive rather than an exact independent randomization test. "
+        r"Commit metadata were queried for all first-push commits pushed on or after July 18 but for "
+        r"a daily sample of those pushed July 1--17 (7--17 percent of commits per push date). "
+        r"Placebo rates therefore weight each commit by the inverse of its push date's query rate "
+        r"(number of first-push commits divided by number queried); commits authored July 18--23 "
+        r"can only be pushed on or after July 18 and receive weight one, so all rows estimate the "
+        r"same population share. Without weights, placebo rates would over-represent late pushes. "
+        rf"Mean placebo $N$ is {plc.N_observed.mean():,.0f} observed commits per window. Sources: "
+        r"\texttt{results/final/table\_mechanism\_placebos.csv}, reproduced by "
+        r"\texttt{analysis/mechanism/01\_placebo\_weighting\_audit.py}."))
+    audit = pd.read_csv(RES / "mechanism" / "placebo_weighting_audit.csv").set_index("window")
+    for r in pl.itertuples():
+        check(f"{r.window} weighted >24h", audit.loc[r.window, "ipw_delay_gt24h_pct"], r.delay_gt24h_pct, 1e-6)
 
 
 def tab_metadata_coverage() -> None:
@@ -620,6 +632,73 @@ def tab_did_secondary() -> None:
         size=r"\footnotesize"))
 
 
+# ---------------------------------------------------------------------------
+# Synthetic DiD (archived) and SC in-time placebos (appendix)
+# ---------------------------------------------------------------------------
+REPRO = RES / "synthetic_control" / "reproduced"
+
+
+def tab_sdid() -> None:
+    arch = pd.read_csv(RES / "synthetic_control" / "main_synthetic_results.csv").set_index("method")
+    dec = pd.read_csv(REPRO / "sdid_decomposition.csv").set_index(["unit_weights", "time_weights"])
+    sm = pd.read_csv(REPRO / "sdid_time_weights_summary.csv").iloc[0]
+    sdid = arch.loc["Synthetic DiD", "ATT_pp"]
+    check("SDID decomposition = archived", dec.loc[("SDID", "SDID"), "ATT_pp"], sdid, 1e-4)
+    rows = [r"\multicolumn{3}{l}{\textit{A. Estimates, July 18--23, 2024 (pp)}}",
+            f"Synthetic DiD (archived) & {num(sdid, 4)} & --",
+            f"Canonical synthetic control (primary) & {num(arch.loc['Synthetic Control', 'ATT_pp'], 3)} & --",
+            r"\addlinespace \multicolumn{3}{l}{\textit{B. Decomposition by weighting scheme (pp)}}",
+            r"Unit weights & SDID time weights & Uniform time weights"]
+    for u, lab in [("SDID", "SDID unit weights"), ("SC", "SC unit weights"), ("Equal", "Equal unit weights")]:
+        rows.append(f"{lab} & {num(dec.loc[(u, 'SDID'), 'ATT_pp'], 2)} & {num(dec.loc[(u, 'Uniform'), 'ATT_pp'], 2)}")
+    rows += [r"\addlinespace \multicolumn{3}{l}{\textit{C. SDID time weights}}",
+             f"Share of weight on July 1--17 & {pct(100 * sm.lambda_mass_jul01_17, 1)} &",
+             f"Weight on July 2 / July 10 & {pct(100 * sm.lambda_jul02, 1)} / {pct(100 * sm.lambda_jul10, 1)} &",
+             f"Days with positive weight (of 78) & {int(sm.n_days_positive_lambda)} &",
+             f"Bangladesh baseline, SDID-weighted (\\%) & {num(sm.bd_lambda_weighted_pre_pp, 2)} &",
+             f"Bangladesh baseline, uniform pre-period mean (\\%) & {num(sm.bd_uniform_pre_mean_pp, 2)} &"]
+    write("tab_sdid", table(
+        "Synthetic difference-in-differences: sensitivity to the pre-treatment baseline", "tab:sdid",
+        "lrr", r"Statistic & \multicolumn{2}{c}{Value}", rows,
+        r"Panel A: the archived SDID estimate \citep{arkhangelsky2021} and the primary synthetic control. "
+        r"The archived SDID standard error and $p$-value are not reported because their computation is "
+        r"undocumented. Panel B recomputes the point estimate from the archived SDID unit and time "
+        r"weights, replacing one set at a time; equal unit weights with uniform time weights reproduce "
+        r"the aggregate DiD. Panel C summarizes the archived time weights over May 1--July 17. Nothing "
+        r"is re-estimated. Sources: \texttt{results/synthetic\_control/main\_synthetic\_results.csv}, "
+        r"\texttt{sdid\_time\_weights.csv}, \texttt{donor\_weights.csv}; computed by "
+        r"\texttt{analysis/synthetic\_control/02\_sdid\_archived\_check.py}.",
+        size=r"\footnotesize", width=r"0.85\textwidth"))
+
+
+def tab_sc_intime() -> None:
+    p = pd.read_csv(REPRO / "sc_intime_placebos.csv", parse_dates=["start", "end"])
+    plc = pd.read_csv(RES / "synthetic_control" / "sc_inspace_placebos.csv").set_index("country")
+    real = p[p.type == "real"].iloc[0]
+    check("in-time real ATT = archived", real.ATT, plc.loc["Bangladesh", "ATT"], 1e-4)
+    rows = []
+    for r in p.itertuples():
+        lab = f"{r.start:%b %-d}--{r.end:%b %-d}" + (r" (actual)" if r.type == "real" else "")
+        if r.type == "real":
+            lab = r"\textbf{" + lab + "}"
+        hol = "" if pd.isna(r.bd_holidays_in_window) else ", ".join(dict.fromkeys(
+            x.split(" ", 2)[2] for x in r.bd_holidays_in_window.split("; ")))
+        rows.append(f"{lab} & {r.fit_days} & {num(r.ATT)} & {num(r.pre_RMSPE)} & {num(r.RMSPE_ratio)} & "
+                    f"{r.rank_abs_ATT} & {r.rank_RMSPE_ratio} & {hol}")
+    write("tab_sc_intime", table(
+        "Synthetic-control in-time placebos", "tab:sc_intime", "lrrrrrrl",
+        r"Window (2024) & Fit days & ATT (pp) & Pre RMSPE & Ratio & Rank $|$ATT$|$ & Rank ratio & "
+        r"Holiday", rows,
+        r"Pre-specified rule: six-day pseudo-treatment windows, non-overlapping, moving backward from "
+        r"July 17, each with at least 28 days of fitting data from May 1. Donor weights are re-estimated "
+        r"for each window using only days before it; ATT and RMSPE definitions are those of the primary "
+        r"specification. Ranks are among the nine windows. The windows differ in fit length and are not "
+        r"exchangeable, so the ranks are descriptive and not a formal $p$-value. Source: "
+        r"\texttt{results/synthetic\_control/reproduced/sc\_intime\_placebos.csv}, computed by "
+        r"\texttt{analysis/synthetic\_control/03\_intime\_placebos.py}.",
+        size=r"\footnotesize"))
+
+
 def main() -> None:
     sc = primary_sc()
     tab_main_estimates(sc)
@@ -639,6 +718,8 @@ def main() -> None:
     tab_push_completeness()
     tab_push_size()
     tab_concentration()
+    tab_sdid()
+    tab_sc_intime()
     tab_sector_recovery()
     tab_sector_threshold()
     tab_sector_fixed_repo()
