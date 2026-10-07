@@ -1,0 +1,8 @@
+fig1_sc_actual_vs_synthetic.pdf          píxeles distintos 0.000% | texto idéntico True
+fig2_sc_placebo_rmspe_ratio.pdf          píxeles distintos 0.000% | texto idéntico True
+fig3_did_eventstudy.pdf                  píxeles distintos 0.000% | texto idéntico True
+fig4_mechanism_release.pdf               píxeles distintos 0.000% | texto idéntico True
+fig5_sector_recovery_index.pdf           píxeles distintos 0.000% | texto idéntico True
+fig6_sector_eventstudy.pdf               píxeles distintos 0.000% | texto idéntico True
+fig7_rdit_cutoff.pdf                     píxeles distintos 0.000% | texto idéntico True
+figA1_sc_intime_placebos.pdf             píxeles distintos 0.000% | texto idéntico True

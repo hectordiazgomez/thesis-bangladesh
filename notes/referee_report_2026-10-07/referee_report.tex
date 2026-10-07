@@ -1,0 +1,618 @@
+% Informe de arbitraje y auditoría de replicación.
+% Compilar dentro de esta carpeta:  tectonic referee_report.tex
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=2.4cm]{geometry}
+\usepackage{fontspec}
+\setmainfont{texgyretermes}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,
+  ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setmonofont{lmmono10-regular.otf}[Scale=0.92]
+\usepackage{unicode-math}
+\setmathfont{texgyretermes-math.otf}
+\usepackage[spanish,es-nodecimaldot,es-noshorthands,es-tabla,es-nolists,es-nosectiondot]{babel}
+\usepackage{booktabs,longtable,array,tabularx,xcolor,enumitem,caption}
+\usepackage{xurl}
+\usepackage[colorlinks=true,linkcolor=black,urlcolor=blue!45!black]{hyperref}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt plus 1pt}
+\setlist{itemsep=2pt,topsep=3pt,parsep=0pt,leftmargin=1.5em}
+\captionsetup{font=small,labelfont=bf,justification=raggedright,singlelinecheck=false,skip=4pt}
+\renewcommand{\arraystretch}{1.12}
+\emergencystretch=2em
+
+\newcommand{\coment}[2]{\medskip\noindent\textbf{#1.\enspace #2}\par\nopagebreak}
+\newcommand{\pide}{\par\noindent\textbf{Qué se pide.}\enspace}
+\newcommand{\cod}[1]{\texttt{#1}}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+
+\begin{document}
+
+\begin{center}
+{\Large\bfseries Informe de arbitraje y auditoría de replicación}\\[6pt]
+{\large \emph{Internet Shutdowns and Software Development: Evidence from Bangladesh}}\\[10pt]
+\begin{tabular}{@{}ll@{}}
+Autor del manuscrito: & Hector Alberto Diaz Gomez (borrador de octubre de 2026) \\
+Revisión solicitada por: & Alexander Quispe (asesor) \\
+Versión auditada: & commit \cod{7346f22}, \path{paper/latex/main.tex} \\
+Fecha: & 7 de octubre de 2026 \\
+\end{tabular}
+\end{center}
+
+\smallskip
+{\small Este informe se elaboró con Claude Code ejecutando el repositorio completo. Toda cifra que no
+proviene del manuscrito sale de los scripts de \path{audit_scripts/}, cuyas salidas están en
+\path{audit_scripts/output/}. Los cálculos marcados como \emph{diagnóstico} son verificaciones de
+arbitraje; no son especificaciones nuevas del paper.\par}
+
+\section{Resumen}
+
+\textbf{Replicación.} Las cifras del manuscrito se reproducen exactamente a partir de los datos
+procesados que están en el repositorio: control sintético, placebos, diferencias en diferencias, RDiT y
+mecanismo; 20 de 22 tablas y las 8 figuras se regeneran idénticas. El paquete todavía no es replicable
+desde los datos crudos, y los outcomes secundarios tienen un error de muestra que cambia sus magnitudes
+en puntos porcentuales.
+
+\textbf{Arbitraje.} El resultado principal es creíble en signo y orden de magnitud. En su forma actual
+no pasaría una revista top-5 por cuatro razones: (i) el hallazgo central es casi mecánico, porque sin
+Internet no se puede publicar en GitHub; (ii) la evidencia de trabajo offline, leída en niveles, indica
+que la creación de código casi se detuvo, lo contrario del énfasis del texto; (iii) hay un quiebre en
+la serie de Bangladesh el 2 de julio, antes del tratamiento, que afecta al contrafactual; y (iv) la
+inferencia está limitada por un grupo de 14 donantes que el autor eligió.
+
+\textbf{Lo que está bien hecho.} Los scripts \cod{01\_reproduce\_*} detienen la ejecución si no
+reproducen el valor archivado. Las tablas se generan por código. El lenguaje es prudente y el valor
+$1/15$ está bien explicado. La ponderación de los placebos del mecanismo está documentada y auditada.
+
+\textbf{Cinco prioridades, en orden.}
+\begin{enumerate}
+\item Corregir los outcomes secundarios (R1).
+\item Rehacer el mecanismo por fecha de autoría y en niveles (M1).
+\item Fijar la elegibilidad antes del período de estimación y tratar el quiebre de julio (M2).
+\item Ampliar el grupo de donantes y la inferencia (M4).
+\item Reencuadrar las contribuciones; llevar el análisis sectorial y el RDiT al apéndice (M6 a M8).
+\end{enumerate}
+
+\textbf{Regla de trabajo.} Ningún cambio debe adoptarse porque produzca resultados más fuertes. Varios
+de los pedidos reducen magnitudes. Cuando una especificación cambie, hay que reportar la original junto
+a la nueva. Los cambios de M2 y M4 son metodológicos mayores: conviene acordarlos con el asesor antes de
+implementarlos.
+
+\section{Auditoría de replicación}
+
+\subsection{Procedimiento}
+
+Copié el repositorio a un directorio temporal y ejecuté todo ahí, sin tocar los archivos originales.
+Entorno: Python 3.12, pandas 3.0.6, numpy 2.5.3, scipy 1.18.1, pyarrow 25.0.1, matplotlib 3.11.2;
+\cod{tectonic} para LaTeX. Ejecuté, en este orden, los tres scripts de
+\path{analysis/synthetic_control/}, y los de \path{analysis/did/}, \path{analysis/rdit/},
+\path{analysis/mechanism/}, \path{analysis/tables/} y \path{analysis/figures/}. Comparé las salidas con
+lo versionado: archivos CSV y \cod{.tex} byte a byte, figuras píxel a píxel a 150 dpi, y el texto del
+PDF recompilado contra \path{paper/latex/thesis.pdf}.
+
+\subsection{Estado por componente}
+
+\begin{table}[h]
+\small
+\begin{tabularx}{\textwidth}{@{}L{6.2cm}Y@{}}
+\toprule
+Componente & Resultado \\
+\midrule
+Control sintético, placebos entre países, leave-one-out & Reproduce exacto: 66 verificaciones, 0 fallos \\
+Placebos en el tiempo, DiD, event study, RDiT, placebos del mecanismo & Reproducen exacto \\
+SDID & Solo se recalcula con los pesos archivados; no se reestima \\
+Tablas LaTeX & 20 de 22 idénticas; 2 fallan (R3) \\
+Figuras & 8 de 8 idénticas; la A1 no se regenera sola (R3) \\
+PDF & Compila sin referencias rotas; texto idéntico al PDF versionado \\
+Panel país-día del outcome principal & Lo reconstruí exacto desde \path{data/processed/}; el código no está en el repo \\
+Tablas principales del mecanismo & Las reconstruí exactas; el código no está en el repo \\
+Outcomes secundarios & Reconstruí las tablas archivadas, pero tienen un error de muestra (R1) \\
+Análisis sectorial & No replicable: los insumos están en Google Drive \\
+Extracción de GH Archive, elegibilidad, filtro de bots, muestreo de metadata & Sin código (R6) \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Hallazgos}
+
+\coment{R1}{Los outcomes secundarios mezclan dos muestras}
+En \path{results/synthetic_control/country_day_outcomes_enriched.parquet} el numerador cuenta a los
+150,017 usuarios del archivo usuario-día, y el denominador solo a los 59,158 elegibles. Las 1,905
+celdas país-día coinciden exactamente con esa construcción, y no con la de solo elegibles. El numerador incluye,
+por tanto, cuentas no elegibles y las excluidas como bots. La tabla \ref{tab:r1} compara lo publicado
+con mi reconstrucción usando solo elegibles. Los efectos relativos casi no cambian; los puntos
+porcentuales bajan entre 17\% y 37\%.
+
+\begin{table}[h]
+\small
+\caption{Outcomes secundarios: manuscrito frente a reconstrucción con usuarios elegibles}
+\label{tab:r1}
+\begin{tabularx}{\textwidth}{@{}Yrrrrrr@{}}
+\toprule
+ & \multicolumn{2}{c}{Manuscrito} & \multicolumn{2}{c}{Corregido} & \multicolumn{2}{c}{Rango placebo corregido} \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(l){6-7}
+Outcome & ATT & Relativo & ATT & Relativo & ATT & Ratio RMSPE \\
+\midrule
+\multicolumn{7}{@{}l}{\emph{A. Pesos primarios fijos}} \\
+Productiva (pp) & −15.179 & −86.5\% & −11.665 & −86.6\% & & \\
+Shipping (pp) & −1.333 & −94.2\% & −0.979 & −93.3\% & & \\
+Colaboración (pp) & −0.780 & −93.6\% & −0.611 & −93.5\% & & \\
+Eventos de colaboración / 1,000 & −24.095 & −95.1\% & −19.956 & −95.5\% & & \\
+Shipping output / 1,000 & −23.981 & −93.9\% & −17.913 & −93.0\% & & \\
+\addlinespace
+\multicolumn{7}{@{}l}{\emph{B. Pesos específicos por outcome}} \\
+Productiva (pp) & −14.870 & −86.2\% & −11.720 & −86.7\% & 0.067 & 0.067 \\
+Shipping (pp) & −0.964 & −92.2\% & −0.668 & −90.5\% & 0.067 & 0.067 \\
+Colaboración (pp) & −0.630 & −92.1\% & −0.480 & −91.9\% & 0.067 & 0.133 \\
+Eventos de colaboración / 1,000 & −18.589 & −93.7\% & −11.640 & −92.5\% & 0.267 & 0.133 \\
+Shipping output / 1,000 & −18.192 & −92.1\% & −13.274 & −90.8\% & 0.067 & 0.067 \\
+\bottomrule
+\end{tabularx}
+\par\smallskip{\footnotesize \emph{Notas:} «Corregido» usa las mismas columnas del archivo usuario-día
+(\cod{productive\_output\_active}, \cod{shipping\_active}, \cod{collaboration\_active} y los conteos)
+restringidas a los elegibles, con el estimador de \path{01_reproduce_sc.py}. Es mi reconstrucción; la
+versión definitiva debe salir del código original. Fuente: \path{03_secondary_sc_reproduce.py}.\par}
+\end{table}
+
+El DiD por outcome tiene el mismo problema: para actividad productiva pasa de −14.669 a −11.748 pp.
+Además, el manuscrito no reporta rangos placebo para los dos outcomes de conteo. Con el panel archivado
+dan 0.200 y 0.200 para eventos de colaboración, y 0.133 y 0.067 para \emph{shipping output}.
+\pide Reconstruir el panel de outcomes secundarios solo con elegibles; regenerar
+\path{results/final/table_secondary_*.csv} y \path{table_DiD_all_outcomes.csv}; actualizar las tablas
+\cod{tab:secondary}, \cod{tab:did\_secondary} y \cod{tab:weights\_specific}, la sección 6.4 y la frase
+de la introducción con −86.2, −92.2 y −92.1. Reportar los rangos placebo de los outcomes de conteo.
+Subir el código al repositorio.
+
+\coment{R2}{El outcome primario y la elegibilidad no están definidos de forma reproducible}
+El outcome primario es \cod{productive\_events > 0}. Esa variable no es la suma de ninguna combinación
+de las columnas del archivo: incluye tipos de evento que no figuran ni en los datos ni en el texto. De
+los 1,103,680 usuario-día elegibles con actividad «productiva», 104,786 (9.5\%) no tienen push, pull
+request, issue, release, review ni comentario. La Tabla 2 del manuscrito define «productive activity»
+de otra manera (commits, issues cerrados, pull requests cerrados o releases); con esa definición la
+tasa previa de Bangladesh es 15.38\% y no 17.25\%.
+
+La elegibilidad («at least four pre-treatment active days») cuenta días con \emph{cualquier} evento,
+no días productivos. Con esa regla hay 60,729 usuarios; el archivo de elegibles tiene 59,158. Los 1,571
+restantes se excluyeron con una regla de bots que no puedo reconstruir: las columnas \cod{name\_bot} y
+\cod{behavior\_bot} valen cero para todos los elegibles.
+\pide Listar en la sección 4.2 los tipos de evento de GH Archive que componen el outcome primario.
+Escribir la regla de elegibilidad y la de bots con sus umbrales. Indicar que los días son UTC (ver M5).
+Subir el código que construye \path{eligible_users_donors.parquet}.
+
+\coment{R3}{Los scripts de tablas y figuras fallan en un clon limpio}
+\begin{itemize}
+\item \path{analysis/tables/make_all_tables.py} se detiene en \cod{tab\_sector\_recovery}: lee
+\path{results/sector_recovery/sectorwide/sectorwide_support.csv}, que está en \cod{.gitignore}.
+\cod{tab\_sector\_fixed\_repo} falla igual con \path{pre8/sector_recovery_summary_pre8.csv}.
+\item \path{analysis/figures/make_all_figures.py} define \cod{fig\_sc\_intime\_placebos} pero
+\cod{main()} no la llama. Llamada a mano funciona.
+\item \path{analysis/sector_recovery/10_make_sector_results_final.py} falla: falta
+\path{sectorwide_070/sectorwide_user_eventstudy.csv}.
+\end{itemize}
+\pide Versionar esos archivos pequeños o eliminar la dependencia, y llamar a la figura A1 desde
+\cod{main()}. Criterio de aceptación: ambos scripts terminan sin error en un clon nuevo.
+
+\coment{R4}{Cifras del texto que no se pueden verificar con el repositorio}
+Sección 4.4: 23,866 cuentas, 168,875 repositorios, 92,979 README recuperados, 32,491 repositorios
+clasificados. Sección 8.3: el 82.5\% de \emph{Arts}. Tabla \cod{tab:sector\_fixed\_repo}: las cuatro
+columnas de repositorios fijos, y con ellas el rango «10.1 a 31.4» de la sección 6.5.
+\pide Guardar en \path{results/sector_recovery/} un archivo pequeño con esos conteos y el resumen
+\cod{pre8}.
+
+\coment{R5}{Conflicto sobre el 5 de agosto}
+La nota de la Figura 1 dice que las caídas del 17 de junio y del 5 de agosto «coincide with national
+holidays». El panel codifica el 5, 6 y 7 de agosto como «Public Holiday». Pero
+\path{data/processed/panel_clean.parquet}, del análisis previo del autor, codifica el 4 y 5 de agosto
+como \cod{f4\_second} y el 28 de julio al 3 de agosto como \cod{f3\_socialblock}. El 5 de agosto
+Bangladesh registra 4.93\% frente a 13.89\% del sintético. El manuscrito no menciona un segundo corte.
+\pide Documentar con fuentes qué ocurrió entre el 4 y el 7 de agosto [CITATION NEEDED] y corregir la
+nota de la Figura 1 y el párrafo de la sección 6.5 que dice que los datos «do not identify the source
+of this second-week decline»: la semana +2 (31 de julio a 6 de agosto) contiene esos días.
+
+\coment{R6}{Falta el código aguas arriba}
+No están en el repositorio: las consultas a GH Archive y la construcción de
+\path{data/processed/*.parquet}; la obtención de las listas de usuarios por país; la agregación a
+país-día y la codificación de feriados; la estimación por outcome y sus placebos; la estimación SDID
+(su error estándar no está documentado); la grilla de sensibilidad del RDiT; la extracción de
+PushEvents, el muestreo diario de commits anteriores al 18 de julio (sin semilla), la consulta de
+metadata y las tablas \path{table_mechanism_*.csv}; y la selección de la muestra de 20,000 cuentas
+(sin semilla). Los scripts 01, 03 y 04 de esta auditoría reconstruyen tres de esos pasos y pueden
+servir de base.
+
+\coment{R7}{Empaquetado}
+No hay \cod{requirements.txt} para el análisis principal. Tres archivos de \path{data/processed/}
+guardan la fecha con el tipo \cod{dbdate} y exigen el paquete \cod{db-dtypes}. \path{README.md} dice
+que el manuscrito principal es \path{paper/thesis.docx} y \path{main.tex} dice que es
+\path{paper/thesis.txt}; ambos están desactualizados frente al LaTeX. El \path{manifest.csv} omite 33
+archivos versionados.
+
+\subsection{Cifras del texto}
+
+Crucé más de cien cifras escritas a mano en el resumen y las secciones contra los archivos de resultados.
+Coinciden, con dos observaciones menores. La sección 6.5 dice que el índice de \emph{Information} está
+«between 111.5 and 126.4» en las semanas +10 a +15; el máximo es 126.35. La misma sección dice que
+\emph{Real Estate} supera 100 en las semanas +5 y +6; también lo supera en la +7 (108.3).
+
+\section{Informe de arbitraje}
+
+\subsection{Resumen del manuscrito}
+
+El paper estima el efecto del apagón nacional de Internet de Bangladesh (18 al 23 de julio de 2024)
+sobre la actividad pública en GitHub de 10,241 cuentas asociadas al país. Con un control sintético
+sobre 14 países, la proporción diaria de cuentas con actividad cae de un contrafactual de 15.28\% a
+2.02\%: −13.26 pp, −86.8\%. Añade dos piezas: commits con fecha de autoría durante el apagón que se
+publican después, y una descripción de la recuperación por sector económico del repositorio.
+
+\subsection{Evaluación general}
+
+La caída existe y es enorme; ninguna de las pruebas que hice cambia eso. El problema para una revista
+top-5 es de contribución. El efecto sobre publicar en GitHub cuando no hay Internet es casi una
+identidad. Las preguntas con contenido económico son otras: si la producción se perdió o se desplazó,
+si hubo recuperación posterior, y si el costo persiste. El paper las plantea en las contribuciones dos
+y tres, que son las de evidencia más débil. Con el rediseño que sigue puede ser un buen artículo de
+revista de campo.
+
+\subsection{Comentarios mayores}
+
+\coment{M1}{El mecanismo: la participación es alta, el nivel es mínimo}
+El 28.3\% promedia dos poblaciones. La ventana «18 al 23 de julio» en UTC empieza quince horas antes
+del corte total, que Belson (2024) sitúa cerca de las 15:00 UTC del 18. La tabla \ref{tab:m1} separa
+la cohorte.
+
+\begin{table}[h]
+\small
+\caption{Commits de la muestra estricta con fecha de autoría del 18 al 23 de julio}
+\label{tab:m1}
+\begin{tabularx}{\textwidth}{@{}Yrrrr@{}}
+\toprule
+Fecha de autoría (UTC) & Commits & Usuarios & Publicados desde el 24 & Rezago \\
+\midrule
+18 de julio & 1,939 & 722 & 153 & 7.9\% \\
+19 de julio & 182 & 77 & 139 & 76.4\% \\
+20 de julio & 182 & 79 & 149 & 81.9\% \\
+21 de julio & 179 & 69 & 133 & 74.3\% \\
+22 de julio & 172 & 66 & 125 & 72.7\% \\
+23 de julio & 278 & 101 & 130 & 46.8\% \\
+\addlinespace
+Antes de las 15:00 UTC del 18 & 1,835 & 692 & 77 & 4.2\% \\
+Desde las 15:00 UTC del 18 & 1,097 & 250 & 752 & 68.6\% \\
+\addlinespace
+Total (manuscrito) & 2,932 & 835 & 829 & 28.3\% \\
+\bottomrule
+\end{tabularx}
+\par\smallskip{\footnotesize Fuente: \path{04_mechanism_reproduce.py}.\par}
+\end{table}
+
+El 63\% de los commits «creados durante el apagón» se creó antes del corte, con conectividad; 1,758
+de esos 1,835 se publicaron antes del 24. Entre los creados ya sin conexión, el rezago es 68.6\%.
+
+El nivel importa más. Las seis ventanas placebo de seis días tienen en promedio 33,787 commits de la
+muestra estricta, ponderados. Durante el corte total hubo 1,097: el 3.2\% de lo normal. Los 829
+commits del rezago equivalen al 2.5\%. Es decir, la creación de código que termina siendo pública
+cayó cerca de 97\%, y el trabajo offline recuperó una fracción muy pequeña. La frase del resumen
+(«local work followed by delayed synchronization») es correcta para quienes siguieron trabajando,
+pero la introducción («a substantial margin of work») y la discusión («displaced across time rather
+than destroyed») no se sostienen en niveles. Advertencia: las ventanas placebo son del 1 al 11 de
+julio, cuando la actividad estaba inusualmente alta (M2); aun reduciendo esa base a la mitad la
+conclusión no cambia.
+\pide
+\begin{enumerate}
+\item Definir la cohorte desde el inicio del corte total y reportar ambas definiciones.
+\item Presentar la serie diaria de commits por fecha de autoría (con los pesos de muestreo antes del
+18 de julio) como outcome propio: es la medida más cercana a producción que tiene el paper.
+\item Reescribir resumen, introducción, sección 7, discusión y conclusión con el nivel además de la
+participación.
+\item Discutir la censura: los pushes se observan hasta el 10 de agosto, y 35 commits del rezago
+llegan entre el 5 y el 10.
+\item Explicar los 345 commits creados durante el corte total y publicados antes del 24 (64
+usuarios; 246 el 23 de julio). Los publicados entre el 18 y el 22 indican cuentas con conectividad:
+fuera del país o con acceso especial.
+\end{enumerate}
+
+\coment{M2}{Quiebre previo al tratamiento y regla de elegibilidad}
+La tasa de Bangladesh pasa de 19.1\% el 1 de julio a 25.5\% el 2 de julio, y se mantiene entre 18.6\%
+y 25.8\% hasta el 17. El sintético no muestra ese salto. La brecha media del 1 al 17 de julio es +4.8 pp, y
+reaparece del 14 al 27 de agosto (+4.5 pp). Dos hechos:
+\begin{itemize}
+\item \textbf{Composición.} 891 usuarios tratados (8.7\% de la muestra) tienen su primera actividad
+productiva el 29 de junio o después. En los donantes esa proporción va de 2.1\% a 4.5\%. Entran porque
+la elegibilidad se define hasta el 17 de julio. Explican 440 de los 1,035 usuarios activos diarios
+adicionales, y del 14 de agosto al 3 de septiembre son casi el doble de activos que el resto (28.2\% frente a
+15.1\%).
+\item \textbf{Nivel.} Sin esa cohorte, la tasa también sube: de 16–18\% a fines de junio a 18–24\% del
+2 al 10 de julio.
+\end{itemize}
+El contrafactual depende de cómo se trate ese período (tabla \ref{tab:m2}). Ajustado solo con mayo y
+junio, el sintético subestima a Bangladesh en 6.8 pp durante los 17 días previos al tratamiento: falla
+la validación fuera de muestra más cercana que hay.
+
+\begin{table}[h]
+\small
+\caption{Diagnóstico: control sintético según la ventana de ajuste}
+\label{tab:m2}
+\begin{tabularx}{\textwidth}{@{}L{3.6cm}rrrrrY@{}}
+\toprule
+ & ATT & Contra- & Efecto & Brecha & Brecha & \\
+Ventana de ajuste & (pp) & factual & relativo & 1–17 jul & 14–27 ago & Donantes con peso \\
+\midrule
+1 may – 17 jul (paper) & −13.26 & 15.28 & −86.8\% & +4.82 & +4.46 & Pakistán, Ghana, Kenia \\
+1 may – 30 jun & −11.32 & 13.34 & −84.8\% & +6.84 & +6.13 & Marruecos, Pakistán, Filipinas, Jordania, Indonesia \\
+20 jun – 17 jul & −14.70 & 16.72 & −87.9\% & +3.11 & +4.08 & Ghana, Kenia \\
+1 jul – 17 jul & −15.57 & 17.59 & −88.5\% & +2.47 & +3.53 & Kenia, Ghana \\
+\bottomrule
+\end{tabularx}
+\par\smallskip{\footnotesize \emph{Notas:} mismo estimador, mismos 14 donantes y misma ventana de
+tratamiento que el manuscrito. El SDID archivado da −17.95 pp. Fuente:
+\path{07_referee_diagnostics.py}.\par}
+\end{table}
+
+El efecto relativo es estable (−85\% a −89\%); el efecto en puntos porcentuales no. Y la afirmación
+de que la brecha «narrowed quickly» depende de la base: frente al nivel de julio, las semanas +1 y +2
+siguen muy por debajo.
+\pide
+\begin{enumerate}
+\item Definir la elegibilidad en una ventana anterior al período de estimación, de modo que no dependa
+de julio. Exige decidir entre extraer datos anteriores a mayo o partir el período actual.
+\item Averiguar qué ocurrió a inicios de julio y documentarlo con fuentes [CITATION NEEDED]. Verificar
+con la fecha de creación de las cuentas si la cohorte es de cuentas nuevas.
+\item Reportar la tabla \ref{tab:m2} en el texto principal como incertidumbre de especificación.
+\item Matizar las frases sobre recuperación rápida en las secciones 6.2, 9 y 10.
+\end{enumerate}
+
+\coment{M3}{Apagón frente a disturbios}
+El tratamiento es un paquete. La sección 8.4 lo reconoce, pero sus cuatro argumentos no discriminan:
+el momento del quiebre y la recuperación son igual de compatibles con un toque de queda que empieza y
+termina en las mismas fechas, y el rezago de commits, visto en niveles, es muy pequeño (M1).
+\pide
+\begin{enumerate}
+\item Una cronología con fuentes de todo lo que cambió esos días, no solo la conectividad
+[CITATION NEEDED].
+\item Un análisis horario alrededor de los cambios de conectividad, que no coinciden entre sí: corte
+total el 18 de julio hacia las 15:00 UTC, banda ancha fija el 23 hacia las 13:00 UTC, móvil el 28
+hacia las 09:00 UTC (Belson 2024). GH Archive tiene resolución horaria.
+\item Usar el período del 1 al 17 de julio. Si ya había movilizaciones sin apagón, la actividad
+\emph{subió}; eso contradice que los disturbios por sí solos reduzcan la actividad, y hoy no se usa.
+\item Buscar episodios comparables: apagones sin disturbios, como el de Rajasthan que estudian
+Gunsilius y Van Dijcke (2023), y disturbios sin apagón.
+\end{enumerate}
+
+\coment{M4}{Inferencia}
+\begin{itemize}
+\item El valor $1/15$ es una restricción elegida. GH Archive cubre todos los países y el texto no
+justifica por qué 14.
+\item El test de rango no está calibrado. En el event study Bangladesh es la unidad más extrema de las
+15 en 4 de las 11 semanas previas (−5, −3, −2 y −1) y en 5 de las 6 posteriores. Lo que distingue a la
+semana 0 es la magnitud (13.09 frente a un máximo previo de 6.10), no el rango.
+\item Bangladesh tiene el peor ajuste previo de las 15 unidades: RMSPE de 3.26 frente a un máximo de
+2.87 entre los donantes (Kenia).
+\item Un placebo en el tiempo (30 de junio a 5 de julio) alcanza un ratio de RMSPE de 3.79 frente al
+4.19 real.
+\item El patrón semanal difiere (tabla \ref{tab:m4}). El sintético cae sábado y domingo; Bangladesh
+cae sobre todo el viernes. Eso genera brechas sistemáticas de +1.9 y +2.5 pp en sábado y domingo.
+\end{itemize}
+
+\begin{table}[h]
+\small
+\caption{Diagnóstico: tasa media por día de la semana, 1 de mayo a 30 de junio (\%, fechas UTC)}
+\label{tab:m4}
+\begin{tabularx}{\textwidth}{@{}Yrrrrrrr@{}}
+\toprule
+ & Lun & Mar & Mié & Jue & Vie & Sáb & Dom \\
+\midrule
+Bangladesh & 16.43 & 17.32 & 17.69 & 16.34 & 14.76 & 15.75 & 16.08 \\
+Sintético & 17.29 & 17.64 & 17.56 & 16.81 & 15.71 & 13.89 & 13.57 \\
+Brecha & −0.86 & −0.32 & 0.13 & −0.47 & −0.95 & 1.86 & 2.51 \\
+\bottomrule
+\end{tabularx}
+\par\smallskip{\footnotesize Excluye los feriados de Bangladesh. Fuente:
+\path{07_referee_diagnostics.py}.\par}
+\end{table}
+
+\pide
+\begin{enumerate}
+\item Ampliar el grupo de donantes con una regla fijada de antemano (por ejemplo, todos los países por
+encima de un mínimo de usuarios elegibles) y exclusiones basadas en datos de conectividad de terceros.
+\item Añadir inferencia que use las 78 observaciones previas, como la conformal de Chernozhukov,
+Wüthrich y Zhu (2021), y discutir el ajuste imperfecto con Ferman y Pinto (2021).
+\item Agregar a frecuencia semanal o quitar el efecto de día de la semana antes de ajustar.
+\item Presentar el DiD como una diferencia de medias sobre los mismos datos, no como confirmación
+independiente.
+\end{enumerate}
+
+\coment{M5}{Medición}
+\begin{itemize}
+\item \textbf{Días UTC y día parcial.} El 18 de julio tiene quince horas con conexión y una tasa de
+10.41\%. Del 19 al 22 la tasa es 0.20\%, 0.18\%, 0.25\% y 0.22\%. El efecto en esos cuatro días es
+−14.47 pp, −98.6\%. El −86.8\% del titular subestima el efecto de un día completo sin conexión.
+\item \textbf{Ubicación.} Ese 0.2\% residual, unas 22 cuentas por día, acota cuántas cuentas
+«de Bangladesh» operan desde fuera. Es una validación del autorreporte que el paper no usa.
+\item \textbf{Selección sobre el outcome.} La muestra exige actividad dentro del período previo. Eso
+induce reversión a la media: los donantes caen 2.15 pp entre el período previo y el apagón.
+\item \textbf{Definiciones.} Ver R2. \textbf{Outcomes secundarios.} Ver R1.
+\end{itemize}
+\pide Reportar el efecto del 19 al 22 de julio junto al de la ventana completa; reportar la actividad
+residual como cota del error de ubicación; declarar el huso horario; y discutir la reversión a la
+media, que se resuelve con el punto 1 de M2.
+
+\coment{M6}{RDiT}
+El corte está en el 17 de julio, un día antes del tratamiento y del lado tratado, con 15
+observaciones. El resultado depende de esas dos elecciones (tabla \ref{tab:m6}). El repositorio guarda
+además una grilla anterior de 16 especificaciones, entre −12.4 y −23.7 pp, que el manuscrito no
+reporta. Usa otra muestra (10,329 cuentas; 174 no están en la del control sintético), cuya actividad
+residual durante el apagón es 0.5\% y no 0.2\%.
+
+\begin{table}[h]
+\small
+\caption{Diagnóstico: estimado del RDiT (pp) según corte y ancho de banda $h$, con error estándar HAC}
+\label{tab:m6}
+\begin{tabularx}{\textwidth}{@{}Yrrrrr@{}}
+\toprule
+Corte & $h=4$ & $h=5$ & $h=7$ & $h=10$ & $h=14$ \\
+\midrule
+17 de julio (paper: $h=7$) & −4.45 (3.45) & −7.30 (4.36) & −9.28 (5.03) & −13.70 (6.05) & −16.80 (5.64) \\
+18 de julio & −11.09 (2.72) & −12.98 (3.12) & −17.49 (4.48) & −18.06 (3.94) & −19.52 (3.47) \\
+19 de julio & −9.00 (2.49) & −11.54 (2.91) & −16.59 (4.24) & −16.76 (3.15) & −17.60 (2.99) \\
+\bottomrule
+\end{tabularx}
+\par\smallskip{\footnotesize Mismo estimador que \path{analysis/rdit/01_reproduce_rdit.py}. No es una
+propuesta de nueva especificación. Fuente: \path{05_definitions_rdit.py}.\par}
+\end{table}
+
+\pide Eliminarlo, o rehacerlo con datos horarios y corte en el inicio del apagón. Si se queda, reportar
+la grilla completa y justificar el corte. No elegir la especificación por su resultado.
+
+\coment{M7}{Recuperación sectorial}
+No tiene nivel de contribución principal.
+\begin{itemize}
+\item La ficha del clasificador dice que cerca de la mitad de lo que etiqueta con confianza no
+pertenece a ningún sector, y el paper no lo valida en repositorios de Bangladesh.
+\item Las celdas son pequeñas: de 213 a 1,528 usuarios, con tasas diarias de 0.06\% a 0.44\%.
+\item No hay grupo de control ni contraste formal de diferencias entre sectores. «Finance recovered
+fastest» compara índices sin error estándar de la diferencia.
+\item Las líneas base son inestables: \emph{Accommodation/Food} tiene 254.1 y 127.3 en las dos
+primeras semanas base; \emph{Finance}, 193.6 en la semana −1.
+\item La ventana contiene los días de R5.
+\item «Primera corrida de dos semanas $\geq 80$» es un estadístico ad hoc.
+\end{itemize}
+\pide Moverlo al apéndice como descripción, o reemplazarlo por heterogeneidad según rasgos del usuario
+fijados antes del apagón (por ejemplo, pertenencia a organizaciones o patrón de actividad en días
+laborables), que no necesita clasificador.
+
+\coment{M8}{Pregunta económica y encuadre}
+Faltan tres cantidades que el paper ya puede calcular: la pérdida acumulada en días-usuario activos
+hasta que la serie vuelve a su nivel; si hubo recuperación por encima del contrafactual que compense
+lo perdido; y la persistencia, para la que la muestra sectorial llega a noviembre. El párrafo de
+política de la sección 9 (mirrors locales, redundancia internacional) no se apoya en ningún resultado.
+La frase «GitHub timestamps reveal all three margins» promete más de lo que la sección 7 muestra.
+
+\subsection{Comentarios menores}
+
+\begin{enumerate}
+\item Pakistán pesa 47.6\%. Belson (2024), ya citado, documenta una disrupción nacional allí el 31 de
+julio, dentro de la semana +2; el texto solo menciona la del 14 al 17 de julio.
+\item Ghana (1,373 cuentas) y Jordania (446) son donantes pequeños y ruidosos; considerar un tamaño
+mínimo.
+\item La sección 4.3 presenta 86,065 pares repositorio-SHA como «analysis target» sin decir que antes
+del 18 de julio es una muestra de 17,000 de 134,479 (12.6\%). Eso aparece recién en la sección 7.
+\item La marca de tiempo del \emph{committer} no es una verificación independiente: sale del mismo
+reloj local.
+\item Al quitar los diez usuarios con más rezago obtengo $N=2{,}740$ y 23.76\%; la tabla dice 2,739 y
+23.77\%. Es un empate en el orden; conviene fijar el criterio.
+\item «The two indices are 94.5 and 91.3» (sección 6.5): el orden es \emph{Information} y luego
+\emph{Finance}, al revés de como se nombran en el párrafo.
+\item «Returned to within its pre-shutdown range in the first week» (sección 9): con un rango previo
+de −4.9 a +6.1 pp, ese criterio es poco exigente.
+\item La fila «July 17 holiday» de la Tabla 1 no tiene fuente.
+\item \path{paper/thesis.txt} y \path{paper/thesis.docx} tienen otro título y no incluyen la sección
+sectorial; decidir cuál es la versión vigente y retirar las demás.
+\end{enumerate}
+
+\section{Bibliografía}
+
+La verificación se hizo con búsqueda web (Crossref por DOI y lectura directa de las fuentes); no la
+repetí de forma independiente, así que cada punto trae su enlace. Las 25 entradas existen. Ninguna
+clave citada falta en \path{references.bib}.
+
+\textbf{Correcciones a \path{references.bib}.}
+\begin{itemize}
+\item \cod{cloudflare2024}: el autor es David Belson; falta la URL
+\url{https://blog.cloudflare.com/q2-2024-internet-disruption-summary/}.
+\item \cod{isoc2024}: la URL apunta al listado general. La específica es
+\url{https://pulse.internetsociety.org/en/shutdowns/internet-suspended-in-bangladesh-18-july-2024/}.
+\item \cod{githubevents}: la página actual ya no contiene el tope de 20 commits; GitHub cambió los
+payloads en 2025. Citar una versión fechada, por ejemplo
+\url{https://docs.github.com/en/enterprise-server@3.14/rest/using-the-rest-api/github-event-types}.
+\item \cod{schachenhofer2023}: faltan el volumen 98 y el número de artículo 104101.
+\item \cod{aceto2018}: el apellido es Pescapé. \cod{kreitmeir2024}: quitar el comentario «VERIFY».
+\item \cod{aceto2018} y \cod{schachenhofer2023} solo entran por \cod{\textbackslash nocite}: citarlas
+o quitarlas.
+\end{itemize}
+
+\textbf{Afirmaciones que la fuente respalda solo en parte.}
+\begin{itemize}
+\item Sección 2.1, «Internet Society Pulse independently records»: esa página se apoya en Cloudflare
+Radar e IODA. Mejor «also records».
+\item Sección 2.1, «some residential fixed networks returned later»: Belson no dice «residential».
+\item Tabla 1, fila del 16 y 17 de julio: el bloqueo selectivo lo respalda Internet Society, no
+Belson.
+\item Sección 3, sobre Kreitmeir y Raschky: usan indicadores binarios porque las acciones son raras;
+no hablan de distribuciones asimétricas.
+\item Sección 6.3, «consistent with Hausman and Rapson»: paráfrasis laxa; el artículo pide cautela,
+no esa regla.
+\end{itemize}
+
+\textbf{Literatura que un árbitro esperaría} (existencia verificada por DOI).
+\begin{itemize}
+\item Chernozhukov, Wüthrich y Zhu (2021), \emph{JASA} 116(536): 1849–1864.
+\url{https://doi.org/10.1080/01621459.2021.1920957}
+\item Abadie, Diamond y Hainmueller (2015), \emph{AJPS} 59(2): 495–510. Origen del ratio RMSPE y los
+placebos en el tiempo. \url{https://doi.org/10.1111/ajps.12116}
+\item Ferman y Pinto (2021), \emph{Quantitative Economics} 12(4): 1197–1221.
+\url{https://doi.org/10.3982/QE1596}
+\item Ben-Michael, Feller y Rothstein (2021), \emph{JASA} 116(536): 1789–1803.
+\url{https://doi.org/10.1080/01621459.2021.1929245}
+\item Conley y Taber (2011), \emph{REStat} 93(1): 113–125. \url{https://doi.org/10.1162/REST_a_00049}
+\item Zhang y Zhu (2011), \emph{AER} 101(4): 1601–1615. Bloqueo de acceso como shock a contribuciones
+en línea. \url{https://doi.org/10.1257/aer.101.4.1601}
+\item McDermott y Hansen (2021), NBER WP 29598. GitHub como medida de trabajo en tiempo real.
+\url{https://doi.org/10.3386/w29598}
+\end{itemize}
+
+\section{Plan de trabajo}
+
+Prioridad 1: antes de cualquier otra cosa. Prioridad 2: necesario para enviar. Prioridad 3: limpieza.
+
+{\small\renewcommand{\arraystretch}{1.35}
+\begin{longtable}{@{}L{0.9cm}L{5.6cm}L{4.7cm}L{2.0cm}c@{}}
+\toprule
+ID & Qué hacer & Dónde & ¿Análisis nuevo? & Prior. \\
+\midrule
+\endhead
+R1 & Reconstruir los outcomes secundarios solo con elegibles; regenerar tablas y texto; reportar rangos de conteos &
+  \path{country_day_outcomes_enriched.parquet}; \path{results/final/}; sección 6.4; introducción & Recalcular & 1 \\
+R2 & Definir outcome primario, elegibilidad, bots y huso horario & Sección 4; Tabla 2 & No & 1 \\
+R3 & Hacer que tablas y figuras corran en un clon limpio & \cod{.gitignore}; \path{make_all_tables.py}; \path{make_all_figures.py} & No & 1 \\
+R5 & Documentar el 4 al 7 de agosto; corregir nota de la Figura 1 y sección 6.5 & Figura 1; secciones 2.1 y 6.5 & No & 1 \\
+M1 & Mecanismo por fecha de autoría, cohorte desde el corte total, niveles & Sección 7; Figura 4; resumen; introducción; secciones 9 y 10 & Sí & 1 \\
+M2 & Elegibilidad en ventana previa; causa del salto de julio; tabla de sensibilidad & Secciones 4.1, 6.1, 6.2 y 8.1 & Sí; acordar antes & 1 \\
+M4 & Más donantes con regla previa; inferencia conformal; frecuencia semanal & Secciones 5.1, 5.4 y 6.1 & Sí; acordar antes & 2 \\
+M3 & Cronología con fuentes; análisis horario; usar 1 al 17 de julio & Secciones 2.1 y 8.4 & Sí & 2 \\
+M5 & Efecto del 19 al 22 de julio; cota de ubicación; reversión a la media & Secciones 6.1 y 8.2 & Ya calculado & 2 \\
+M8 & Pérdida acumulada; reencuadre de contribuciones & Resumen; introducción; secciones 9 y 10 & Cálculo simple & 2 \\
+R4 & Guardar conteos sectoriales y resumen \cod{pre8} & \path{results/sector_recovery/} & No & 2 \\
+R6 & Subir el código aguas arriba & \path{analysis/} & No & 2 \\
+M6 & Eliminar o rehacer el RDiT; reportar la grilla & Secciones 5.3 y 6.3 & Depende & 3 \\
+M7 & Sectorial al apéndice o reemplazo & Secciones 4.4, 5.5 y 6.5 & Depende & 3 \\
+Bib. & Correcciones y literatura & \path{references.bib}; secciones 2 y 3 & No & 3 \\
+R7 & \cod{requirements.txt}; README; manifest & Raíz del repo & No & 3 \\
+Men. & Comentarios menores 1 a 9 & Varios & No & 3 \\
+\bottomrule
+\end{longtable}
+}
+
+\appendix
+\section{Scripts de auditoría}
+
+Están en \path{audit_scripts/} y solo leen el repositorio. Cada uno se ejecuta con
+\cod{python <script>.py}; la salida de esta auditoría está en \path{audit_scripts/output/}.
+
+\begin{table}[h]
+\small
+\begin{tabularx}{\textwidth}{@{}L{5.3cm}Y@{}}
+\toprule
+Script & Qué verifica \\
+\midrule
+\path{01_rebuild_country_day.py} & Reconstruye el panel país-día del outcome principal y la regla de elegibilidad \\
+\path{02_secondary_sample_check.py} & Muestra que los outcomes secundarios usan numerador de todos los usuarios (R1) \\
+\path{03_secondary_sc_reproduce.py} & Reproduce las tablas secundarias archivadas y calcula la versión corregida (R1) \\
+\path{04_mechanism_reproduce.py} & Reproduce las tablas del mecanismo; cohortes por fecha y hora de autoría; niveles (M1) \\
+\path{05_definitions_rdit.py} & Contenido de \cod{productive\_events} (R2); muestra y sensibilidad del RDiT (M6) \\
+\path{06_text_claims.py} & Cruza cifras del texto con los archivos de resultados \\
+\path{07_referee_diagnostics.py} & Ventana de ajuste, composición diaria del ATT, cohorte de julio, día de la semana (M2, M4, M5) \\
+\path{08_context_checks.py} & Feriados, fases del análisis previo, calibración del test de rango (R5, M4) \\
+\path{09_compare_figures.py} & Compara figuras versionadas y regeneradas \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\end{document}

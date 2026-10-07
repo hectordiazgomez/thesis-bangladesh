@@ -266,3 +266,18 @@
   20,000-account sector sample is not in the repository, and whether bot filters were
   applied is undocumented.
 - PDF: 45 pages before and after.
+
+## 2026-10-07 — Advisor review: replication audit and referee report
+
+- Advisor comment addressed: none. This entry records the advisor's review itself; the
+  comments to address are now listed in `notes/advisor_feedback.md`.
+- Files created: `notes/referee_report_2026-10-07/` (`referee_report.pdf`,
+  `referee_report.tex`, `revision_checklist.md`, and `audit_scripts/` with nine read-only
+  scripts, a README, `requirements.txt`, and their outputs in `output/`).
+- Files changed: `notes/advisor_feedback.md` (placeholder replaced by the numbered comment
+  list: R1-R7 replication, M1-M8 referee, bibliography, minor comments).
+- Sections changed: none. The manuscript, data, and result files were not modified.
+- Empirical numbers changed: none. The report contains diagnostic calculations (labelled as
+  such) that are not specifications of the paper; each is traceable to a script in
+  `audit_scripts/`.
+- Audited version: commit `7346f22`.
