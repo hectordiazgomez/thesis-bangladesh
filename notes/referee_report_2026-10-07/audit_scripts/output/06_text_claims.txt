@@ -1,0 +1,43 @@
+[06] SD semanal pre: BD 3.04 (texto 3.04) | donantes 0.70–2.18 (texto 0.70–2.18)
+[06] ES: sem+1 -2.665, +2 -2.761 (texto −2.66, −2.76) | +4..+6 4.31 4.84 2.53 (texto 2.53 a 4.84) | pre min -4.89 max 6.10
+columnas eventstudy sectorial: ['sector', 'naics_code', 'event_time', 'period', 'start', 'end', 'n_users_fixed', 'mean_user_daily_activity_pct', 'mean_pre8_user_daily_activity_pct', 'beta_vs_pre8_pp', 'se_pp', 'ci_low_pp', 'ci_high_pp', 'recovery_index'] | event_time -8 17
+[06] Finance sem −1: [193.6] (texto 193.6) | Finance post <80 en semanas: [5, 7, 11, 12, 13, 17]
+[06] Accom/Food base −8..−1: [254.1, 127.3, 68.6, 40.8, 62.2, 95.5, 70.6, 81.0] (texto: 254.1 y 127.3; resto 40.8–95.5)
+[06] Real Estate +1..+8: [33.0, 25.1, 33.0, 44.4, 115.1, 157.3, 108.3, 85.5] | +12..+17: [46.7, 36.5, 39.9, 43.3, 46.7, 31.9] (texto: 25.1–44.4 hasta +4; 115.1, 157.3; 85.5; +12→ 31.9–46.7)
+[06] Retail +1..+9: [52.0, 52.3, 77.9, 153.7, 76.5, 78.2, 81.6, 79.6, 89.1] (texto ~52, 153.7 en +4, 76.5 en +5, corrida desde +9)
+[06] Information +10..+17: [122.8, 126.3, 111.5, 120.2, 123.9, 122.5, 99.0, 144.3] (texto 111.5–126.4 en +10..+15; 144.3 en +17)
+[06] IC95 excluye 0 en apagón, todos los sectores: True | fechas semana +17: [{'start': '2024-11-13', 'end': '2024-11-19'}]
+[08] completitud de push:
+   period  pushes  mean_push_size  median_push_size  push_gt20_N  push_gt20_%  complete_push_%  nominal_commits  nominal_commits_in_complete_pushes  nominal_commit_coverage_%
+     PRE  121960        1.294146               1.0          263     0.215644        99.784356           157834                              142477                  90.270157
+BLACKOUT    2738        1.704529               1.0           13     0.474799        99.525201             4667                                3412                  73.109064
+    POST   58110        1.686835               1.0          200     0.344175        99.655825            98022                               70039                  71.452327
+[08] robustez umbral:
+                                       sector  threshold  pre_users  week1_recovery_index  week4_recovery_index  week8_recovery_index  first_sustained2_ge_80
+             Accommodation and Food Services        0.7        514                  46.0                  59.3                  64.9                     NaN
+             Accommodation and Food Services        0.8        480                  44.3                  54.2                  62.6                     NaN
+             Accommodation and Food Services        0.9        394                  39.2                  45.1                  60.3                     NaN
+         Administrative and Support Services        0.7        268                  30.8                  83.0                  77.0                     9.0
+         Administrative and Support Services        0.8        196                  32.2                  72.9                  84.7                    10.0
+         Administrative and Support Services        0.9         48                   5.2                  61.9                  56.8                     NaN
+                        Educational Services        0.7       1345                  61.6                  75.4                  79.4                     5.0
+                        Educational Services        0.8       1234                  59.1                  75.4                  81.9                     6.0
+                        Educational Services        0.9       1029                  57.8                  73.3                  77.0                     6.0
+                       Finance and Insurance        0.7        437                  91.6                  92.4                  89.2                     3.0
+                       Finance and Insurance        0.8        382                  92.2                  89.5                  91.3                     3.0
+                       Finance and Insurance        0.9        275                 101.7                  82.5                 101.7                     3.0
+           Health Care and Social Assistance        0.7        542                  40.8                  76.4                  88.3                     6.0
+           Health Care and Social Assistance        0.8        514                  40.7                  77.5                  89.4                     6.0
+           Health Care and Social Assistance        0.9        455                  41.1                  75.5                  87.6                     8.0
+                                 Information        0.7       2123                  73.0                 116.6                 101.3                     3.0
+                                 Information        0.8       1528                  75.9                 106.0                  94.5                     3.0
+                                 Information        0.9        968                  79.5                  97.6                  91.5                     3.0
+Professional, Scientific, Technical Services        0.7       1241                  57.9                  66.9                  91.2                     7.0
+Professional, Scientific, Technical Services        0.8        577                  64.9                  64.9                  91.0                     7.0
+Professional, Scientific, Technical Services        0.9        125                  94.4                  65.6                  78.7                     1.0
+                      Real Estate and Rental        0.7        228                  33.1                  45.5                  90.0                     5.0
+                      Real Estate and Rental        0.8        213                  33.0                  44.4                  85.5                     5.0
+                      Real Estate and Rental        0.9        153                  44.9                  44.9                  75.5                     5.0
+                                Retail Trade        0.7       1090                  52.2                 159.1                  82.5                     4.0
+                                Retail Trade        0.8       1012                  52.0                 153.7                  79.6                     9.0
+                                Retail Trade        0.9        829                  50.1                 157.4                  80.9                     7.0

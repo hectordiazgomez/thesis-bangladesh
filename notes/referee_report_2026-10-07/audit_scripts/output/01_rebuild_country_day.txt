@@ -1,0 +1,39 @@
+user-day enriched: rows 1461273 | countries 15 | users 150017 | dates 2024-05-01 -> 2024-09-04
+users por país en user-day vs elegibles:
+country        Bangladesh  Ghana  Indonesia  Jordan  Kenya  Malaysia  Morocco  Nepal  Nigeria  Pakistan  Philippines  Sri Lanka  Thailand  Tunisia  Vietnam
+users_userday       22613   3264      27349    1449   8198      4292     4110   5885    16841     22019         7985       7958      6535     2917     8602
+eligible            10241   1373      10965     446   3553      1396     1651   2373     6961      7276         2926       3068      2317     1012     3600
+filas tras restringir a elegibles: 1116267 de 1461273
+
+¿Qué definición reproduce active_users del panel archivado?
+  productive_events>0          celdas idénticas  1905/1905 | max|dif| 0 | corr 1.000000
+  interactive_events>0         celdas idénticas     0/1905 | max|dif| 2600 | corr 0.760781
+  any row                      celdas idénticas    91/1905 | max|dif| 32 | corr 0.999971
+  pushes>0                     celdas idénticas     2/1905 | max|dif| 357 | corr 0.998880
+  productive_output_active     celdas idénticas     2/1905 | max|dif| 350 | corr 0.998913
+  broad_interaction_active     celdas idénticas     0/1905 | max|dif| 2482 | corr 0.855984
+  prod|interactive             celdas idénticas    91/1905 | max|dif| 32 | corr 0.999971
+
+active_rate_pp reconstruido vs archivado: max|dif| = 3.552713678800501e-15
+  suma pushes               max|dif| 0
+  suma commits              max|dif| 0
+  suma pr_merged            max|dif| 0
+  suma releases             max|dif| 0
+  suma pr_reviews           max|dif| 0
+  suma issues_closed        max|dif| 0
+  suma pr_closed            max|dif| 0
+  suma pr_opened            max|dif| 0
+  suma interactive_events   max|dif| 0
+  productive_active_users      max|dif| 719
+  shipping_active_users        max|dif| 82
+  collaboration_active_users   max|dif| 34
+  suma collaboration_events    max|dif| 176
+  suma shipping_output         max|dif| 312
+  suma productive_output       max|dif| 569455
+elegibilidad con 'productive_events>0': pre_active_days coincide en 55178/59158
+elegibilidad con 'any row': pre_active_days coincide en 59158/59158
+elegibilidad con 'interactive_events>0': pre_active_days coincide en 174/59158
+usuarios en user-day con >=4 días productivos pre: 59891 | elegibles archivados: 59158 | excluidos pese a >=4: 733
+bots en archivo elegible: name_bot 0 behavior_bot 0 | max_daily_commits máx: 500 | commit_day_share máx: 0.9487179487179487
+usuarios con >=4 días pre con cualquier evento: 60,729 | elegibles archivados: 59,158 | diferencia (excluidos por la regla de bots, no reproducible desde el repo): 1,571
+todos los elegibles cumplen >=4 días con cualquier evento: True

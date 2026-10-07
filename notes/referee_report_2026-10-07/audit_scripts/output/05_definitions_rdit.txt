@@ -1,0 +1,25 @@
+A. ¿Qué contiene productive_events? (el outcome primario es productive_events > 0)
+  sumas de componentes que reproducen productive_events exactamente: ninguna
+  usuario-día elegibles con productive_events > 0: 1,103,680
+    sin ningún componente enumerado en los datos: 104,786 = 9.5%
+    sin ningún push: 130,461 = 11.8%
+  tasa de Bangladesh según la definición usada (media de porcentajes diarios):
+    primario archivado: productive_events > 0                              pre 17.25 | Jul 18-23 2.02 | Jul 19-22 0.212
+    Tabla 2 'productive': commits | issues_closed | pr_closed | releases   pre 15.38 | Jul 18-23 1.80 | Jul 19-22 0.205
+    cualquier evento enumerado                                             pre 15.61 | Jul 18-23 1.83 | Jul 19-22 0.210
+
+B. Muestra del RDiT frente a la muestra del control sintético
+  Bangladesh: RDiT 10,329 | SC 10,241 | en ambas 10,155 | solo RDiT 174 | solo SC 86
+  Philippines: RDiT 3,025 | SC 2,926 | en ambas 2,903 | solo RDiT 122 | solo SC 23
+  serie diaria de Bangladesh (%), panel RDiT frente a panel SC:
+date  2024-07-14  2024-07-15  2024-07-16  2024-07-17  2024-07-18  2024-07-19  2024-07-20  2024-07-21  2024-07-22  2024-07-23  2024-07-24  2024-07-25  2024-07-26
+RDiT       22.67       21.77       20.05       19.03       10.74         0.5        0.48        0.57        0.54        1.23        6.55       10.55       12.10
+SC         22.37       21.39       19.64       19.36       10.41         0.2        0.18        0.25        0.22        0.87        6.15       10.09       11.65
+
+C. Sensibilidad del RDiT en Bangladesh (pp; error estándar HAC entre paréntesis)
+   el día de corte queda del lado posterior, como en la especificación archivada
+  corte 2024-07-17 | h=4:  -4.45 (3.45) | h=5:  -7.30 (4.36) | h=7:  -9.28 (5.03) | h=10: -13.70 (6.05) | h=14: -16.80 (5.64)
+  corte 2024-07-18 | h=4: -11.09 (2.72) | h=5: -12.98 (3.12) | h=7: -17.49 (4.48) | h=10: -18.06 (3.94) | h=14: -19.52 (3.47)
+  corte 2024-07-19 | h=4:  -9.00 (2.49) | h=5: -11.54 (2.91) | h=7: -16.59 (4.24) | h=10: -16.76 (3.15) | h=14: -17.60 (2.99)
+
+  grilla anterior guardada en data/processed/table3_rdit_sensitivity.csv: 16 especificaciones, tau entre -23.7 y -12.4 pp (no reportada en el manuscrito)

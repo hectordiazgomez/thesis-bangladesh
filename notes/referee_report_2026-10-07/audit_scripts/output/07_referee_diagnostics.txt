@@ -1,0 +1,41 @@
+A. Sensibilidad del SC a la ventana de ajuste (mismo estimador, mismos donantes, misma ventana de tratamiento Jul 18-23)
+  ajuste May 1 - Jul 17 (paper)               ATT  -13.26 pp | contrafactual 15.28% | rel  -86.8% | RMSPE ajuste 3.26 | brecha media Jul 1-17  4.82 | brecha Aug 14-27  4.46 | Pakistan 0.48; Ghana 0.32; Kenya 0.20
+  ajuste May 1 - Jun 30 (excluye julio)       ATT  -11.32 pp | contrafactual 13.34% | rel  -84.8% | RMSPE ajuste 1.69 | brecha media Jul 1-17  6.84 | brecha Aug 14-27  6.13 | Morocco 0.34; Pakistan 0.33; Philippines 0.17; Jordan 0.09; Indonesia 0.06
+  ajuste Jul 1 - Jul 17 (solo julio)          ATT  -15.57 pp | contrafactual 17.59% | rel  -88.5% | RMSPE ajuste 4.33 | brecha media Jul 1-17  2.47 | brecha Aug 14-27  3.53 | Kenya 0.84; Ghana 0.16
+  ajuste Jun 20 - Jul 17 (últimas 4 semanas)  ATT  -14.70 pp | contrafactual 16.72% | rel  -87.9% | RMSPE ajuste 4.08 | brecha media Jul 1-17  3.11 | brecha Aug 14-27  4.08 | Ghana 0.57; Kenya 0.43
+
+B. Composición diaria del ATT principal (pesos del paper)
+date  2024-07-17  2024-07-18  2024-07-19  2024-07-20  2024-07-21  2024-07-22  2024-07-23  2024-07-24
+BD         19.36       10.41        0.20        0.18        0.25        0.22        0.87        6.15
+sint       16.12       16.96       15.57       13.22       12.88       17.08       15.96       16.73
+gap         3.25       -6.55      -15.37      -13.04      -12.63      -16.86      -15.09      -10.58
+  ATT Jul 18-23: -13.26 | ATT Jul 19-23: -14.60 | ATT Jul 19-22: -14.47 (-98.6%)
+
+C. ¿Qué explica el salto de Bangladesh desde el 2 de julio? (usuarios elegibles)
+  Bangladesh  elegibles  10241 | 1.ª actividad productiva en/después de Jun 29:   891 ( 8.7%) | activos/día Jun 17-30:    1397 -> Jul 2-10:    2432 (Δ  +1035); de ellos, usuarios nuevos (1.ª act. ≥ Jun 29):    440
+  Pakistan    elegibles   7276 | 1.ª actividad productiva en/después de Jun 29:   295 ( 4.1%) | activos/día Jun 17-30:     967 -> Jul 2-10:    1177 (Δ   +210); de ellos, usuarios nuevos (1.ª act. ≥ Jun 29):     85
+  Indonesia   elegibles  10965 | 1.ª actividad productiva en/después de Jun 29:   267 ( 2.4%) | activos/día Jun 17-30:    1710 -> Jul 2-10:    1589 (Δ   -121); de ellos, usuarios nuevos (1.ª act. ≥ Jun 29):     79
+  Nigeria     elegibles   6961 | 1.ª actividad productiva en/después de Jun 29:   215 ( 3.1%) | activos/día Jun 17-30:    1177 -> Jul 2-10:    1291 (Δ   +114); de ellos, usuarios nuevos (1.ª act. ≥ Jun 29):     69
+  cohorte BD con 1.ª actividad ≥ Jun 29: 891 usuarios (8.7% de la muestra tratada)
+  tasa BD (%) con todos vs excluyendo esa cohorte (denominador ajustado):
+date         2024-06-27  2024-06-28  2024-06-29  2024-06-30  2024-07-01  2024-07-02  2024-07-03  2024-07-04  2024-07-05  2024-07-06  2024-07-07  2024-07-08  2024-07-09  2024-07-10  2024-07-11  2024-07-12  2024-07-13  2024-07-14  2024-07-15  2024-07-16  2024-07-17  2024-07-18
+todos              15.9        14.5        16.1        17.0        19.1        25.5        24.8        23.2        18.6        21.8        24.1        24.3        25.8        25.7        20.5        19.3        21.2        22.4        21.4        19.6        19.4        10.4
+sin_cohorte        17.4        15.9        17.2        18.1        20.1        23.7        22.7        21.9        17.9        19.7        21.3        21.6        21.8        21.2        19.5        18.4        19.8        19.9        18.9        17.6        16.5         8.6
+  días activos pre (mediana): cohorte 7 vs resto 10
+  activos/día Aug 14-Sep 3: cohorte 251 de 891 (28.2%) | resto 15.1%
+  % de elegibles cuya 1.ª actividad productiva es ≥ Jun 29, por país: {'Bangladesh': 8.7, 'Ghana': 3.0, 'Indonesia': 2.4, 'Jordan': 4.5, 'Kenya': 2.1, 'Malaysia': 3.5, 'Morocco': 3.1, 'Nepal': 3.3, 'Nigeria': 3.1, 'Pakistan': 4.1, 'Philippines': 3.7, 'Sri Lanka': 2.5, 'Thailand': 3.7, 'Tunisia': 3.8, 'Vietnam': 2.8}
+
+D. Estacionalidad semanal: Bangladesh vs sintético por día de la semana (May 1 - Jun 30; fechas UTC; pesos del paper)
+dow   Monday  Tuesday  Wednesday  Thursday  Friday  Saturday  Sunday
+BD     16.43    17.32      17.69     16.34   14.76     15.75   16.08
+sint   17.29    17.64      17.56     16.81   15.71     13.89   13.57
+gap    -0.86    -0.32       0.13     -0.47   -0.95      1.86    2.51
+  RMSPE May-Jun (sin feriados BD): 2.08 | tras quitar la media por día de semana: 1.58
+  RMSPE con datos semanales (11 semanas May 2 - Jul 17): 2.59 pp vs diario 3.26
+
+E. Peor ajuste pre-tratamiento entre las 15 unidades:
+   country  pre_RMSPE  post_RMSPE  RMSPE_ratio     ATT
+Bangladesh      3.260      13.666        4.192 -13.256
+     Kenya      2.873       2.837        0.987   2.439
+    Jordan      2.457       3.151        1.283  -0.194
+   Tunisia      2.011       2.682        1.334  -2.563

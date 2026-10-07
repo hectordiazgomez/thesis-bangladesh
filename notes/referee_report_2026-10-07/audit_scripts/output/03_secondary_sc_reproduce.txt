@@ -1,0 +1,27 @@
+A. PESOS PRIMARIOS FIJOS  (archivado = lo que está en el paper | reproducido con panel archivado | corregido = numerador solo elegibles)
+outcome                         ATT arch  ATT repr | rel arch rel repr || actual corr  cf corr  ATT corr rel corr
+productive_active_rate_pp        -15.179   -15.179 |   -86.47   -86.47 ||       1.805   13.469   -11.665   -86.60
+shipping_active_rate_pp           -1.333    -1.333 |   -94.25   -94.25 ||       0.070    1.049    -0.979   -93.33
+collaboration_active_rate_pp      -0.780    -0.780 |   -93.56   -93.56 ||       0.042    0.654    -0.611   -93.53
+collaboration_events_per_1000    -24.095   -24.095 |   -95.06   -95.06 ||       0.944   20.900   -19.956   -95.48
+shipping_output_per_1000         -23.981   -23.981 |   -93.88   -93.88 ||       1.351   19.264   -17.913   -92.99
+
+B. PESOS ESPECÍFICOS POR OUTCOME
+outcome                         ATT arch  ATT repr | rel arch rel repr | p_ATT p_RMSPE (arch) | p_ATT p_RMSPE (repr) ||  ATT corr rel corr p_ATT p_RMSPE (corr)
+productive_active_rate_pp        -14.870   -14.870 |   -86.22   -86.22 | 0.0667 0.0667 | 0.0667 0.0667 ||   -11.720   -86.66 0.0667 0.0667
+shipping_active_rate_pp           -0.964    -0.964 |   -92.22   -92.22 | 0.0667 0.0667 | 0.0667 0.0667 ||    -0.668   -90.52 0.0667 0.0667
+collaboration_active_rate_pp      -0.630    -0.630 |   -92.14   -92.14 | 0.0667 0.2000 | 0.0667 0.2000 ||    -0.480   -91.90 0.0667 0.1333
+collaboration_events_per_1000    -18.589   -18.589 |   -93.68   -93.68 |    --     --   | 0.2000 0.2000 ||   -11.640   -92.50 0.2667 0.1333
+shipping_output_per_1000         -18.192   -18.192 |   -92.09   -92.09 |    --     --   | 0.1333 0.0667 ||   -13.274   -90.76 0.0667 0.0667
+
+C. DiD todos los outcomes: archivado vs reproducido con panel archivado vs corregido
+productive_active_rate_pp      hol_removed=False arch   -14.669 | repr   -14.669 | corregido   -11.748
+productive_active_rate_pp      hol_removed=True  arch   -14.975 | repr   -14.975 | corregido   -12.007
+shipping_active_rate_pp        hol_removed=False arch    -0.771 | repr    -0.771 | corregido    -0.565
+shipping_active_rate_pp        hol_removed=True  arch    -0.806 | repr    -0.806 | corregido    -0.590
+collaboration_active_rate_pp   hol_removed=False arch    -0.302 | repr    -0.302 | corregido    -0.266
+collaboration_active_rate_pp   hol_removed=True  arch    -0.311 | repr    -0.311 | corregido    -0.269
+collaboration_events_per_1000  hol_removed=False arch   -10.855 | repr   -10.855 | corregido   -10.575
+collaboration_events_per_1000  hol_removed=True  arch   -11.532 | repr   -11.532 | corregido   -10.685
+shipping_output_per_1000       hol_removed=False arch   -14.017 | repr   -14.017 | corregido   -10.380
+shipping_output_per_1000       hol_removed=True  arch   -14.631 | repr   -14.631 | corregido   -10.827
