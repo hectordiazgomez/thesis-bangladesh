@@ -380,3 +380,6 @@
 
 ## 2026-10-08 — Minor 1
 - Added sourced Pakistan July 31 disruption and implications for recovery counterfactual to Section 8. Original weight 47.6% unchanged; no estimate changed. Source opened: https://blog.cloudflare.com/a-recent-spate-of-internet-disruptions-july-2024/.
+
+## 2026-10-08 — Minor 2
+- Replaced unqualified sizable-community claim with verified Ghana 1,373 and Jordan 446 counts and sampling-noise limitation. No donor or estimate changed.
