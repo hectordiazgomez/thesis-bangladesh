@@ -342,3 +342,8 @@
 - Empirical numbers changed in manuscript: none. No archived result, processed
   dataset, treatment date, donor pool or estimator changed. `paper/thesis.txt`
   and `paper/thesis.docx` not modified.
+
+## 2026-10-08 — R5: second shutdown and holiday conflict
+- Files: analysis/round2/r5_holidays.py; new results/diagnostics/round2/r5_*; notes/round2_R5.md; LaTeX Figure 1 note, Section 6.5 and bibliography.
+- Old: August 5 dip described only as holiday; source of week +2 decline unidentified. New: sourced August 4–5 shutdown and initially declared August 5–7 holidays, with August 6 reopening conflict explicit.
+- Numbers: alternative August 6/7 holiday flags 1 → 0 only in the new comparison; original files unchanged. DiD -13.087502 → -13.087502 pp; holiday-excluded DiD -13.379098 → -13.379098 pp. No headline change. Figure/table regeneration and PDF validation scheduled at Phase A close.
