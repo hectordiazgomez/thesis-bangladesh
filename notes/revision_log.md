@@ -389,3 +389,6 @@
 
 ## 2026-10-08 — Minor 4
 - Qualified authoredDate/committedDate agreement as dependent metadata fields, not independent clock validation. No numbers changed.
+
+## 2026-10-08 — Minor 6
+- Corrected the reversed Finance/Information ordering in Section 6.5: Finance 91.3, Information 94.5; stored results unchanged.
