@@ -357,3 +357,8 @@
 - Authorized Documents/Downloads search found legacy thesis scripts and downloaded sector script versions. Added distinct byte-for-byte copies under archive/upstream_local with SHA-256 provenance and duplicate mapping; no upload/push performed, as instructed.
 - Added user-supplied report to notes/referee_report.pdf. Documented missing current upstream extraction, definitions, bot filters, seeds and estimator provenance in archive/upstream_local/README.md.
 - Empirical numbers: none changed. Historical code is not adopted as the current specification; absent upstream stages remain blocked.
+
+## 2026-10-08 — M5: complete shutdown days and selection
+- Added analysis/round2/m5_core_window.py and new diagnostic CSVs; Section 6.1 reports primary and July 19–22 sensitivity side by side with unchanged weights.
+- Original: actual 2.021287%, counterfactual 15.277226%, ATT -13.255939 pp (-86.769280%). Additional core window: 0.212382%, 14.686946%, -14.474564 pp (-98.553943%). Neither replaces the headline.
+- Residual 21.75 active accounts/day bounds the observed active potentially mislocated component, NOT total location error; Section 8 discusses mean reversion and donor decline -2.145761 pp.
