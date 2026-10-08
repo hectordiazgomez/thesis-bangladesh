@@ -373,3 +373,7 @@
 - Added cumulative daily audit, all five return criteria, and summary under results/diagnostics/round2. Revised abstract, introduction, results, discussion and conclusion; dropped unsupported policy prescriptions and “timestamps reveal all three margins”.
 - Old: qualitative first-week return/range framing. Added: 8,145.244 user-day shutdown deficit; first daily crossing July 27, deficit 10,186.006; first seven-day-mean crossing August 13, deficit 12,067.693; first seven consecutive nonnegative days ending August 16. Own-pre-mean crossings August 14/22.
 - Added negative area 13,526.274, positive area 9,893.465, net deficit through September 4 of 3,632.809; largest cumulative deficit 13,236.567 on August 9. No causal catch-up claim, no new headline estimator.
+
+## 2026-10-08 — M6: full RDiT grid
+- Added reproducible cutoff × bandwidth × series grid (45 fits), preserved 16 archived rows in separate new output, and audited sample overlap. Added both full grids to appendix/table generator and methodological limitations to text; created advisor memo M6 recommendation.
+- Original preferred estimate unchanged: -9.2836 pp (SE 5.0344). Added Bangladesh grid range -4.4457 to -19.5230 pp; archived 16-row range -12.4 to -23.7 pp. Conflict: archived h=7 linear/no-donut -14.0 pp vs reproduced -9.2836, distinct unknown provenance. RDiT-only 174 accounts; SCM-only 86. No specification selected by results.

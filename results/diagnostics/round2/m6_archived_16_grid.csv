@@ -1,0 +1,17 @@
+bw_pre,poly,donut,tau,se_hac,dw,n,provenance
+7,lin,False,-0.14,0.022,1.785,14,archived; cutoff/outcome/sample/SE provenance unresolved
+7,lin,True,-0.204,0.015,2.058,12,archived; cutoff/outcome/sample/SE provenance unresolved
+7,quad_pre,False,-0.161,0.028,1.853,14,archived; cutoff/outcome/sample/SE provenance unresolved
+7,quad_pre,True,-0.212,0.025,2.065,12,archived; cutoff/outcome/sample/SE provenance unresolved
+10,lin,False,-0.131,0.019,1.777,17,archived; cutoff/outcome/sample/SE provenance unresolved
+10,lin,True,-0.185,0.01,1.925,15,archived; cutoff/outcome/sample/SE provenance unresolved
+10,quad_pre,False,-0.152,0.027,1.97,17,archived; cutoff/outcome/sample/SE provenance unresolved
+10,quad_pre,True,-0.205,0.017,2.202,15,archived; cutoff/outcome/sample/SE provenance unresolved
+14,lin,False,-0.148,0.024,1.683,21,archived; cutoff/outcome/sample/SE provenance unresolved
+14,lin,True,-0.206,0.015,1.627,19,archived; cutoff/outcome/sample/SE provenance unresolved
+14,quad_pre,False,-0.132,0.023,1.698,21,archived; cutoff/outcome/sample/SE provenance unresolved
+14,quad_pre,True,-0.181,0.014,1.743,19,archived; cutoff/outcome/sample/SE provenance unresolved
+21,lin,False,-0.177,0.032,1.176,28,archived; cutoff/outcome/sample/SE provenance unresolved
+21,lin,True,-0.237,0.025,0.947,26,archived; cutoff/outcome/sample/SE provenance unresolved
+21,quad_pre,False,-0.124,0.021,1.539,28,archived; cutoff/outcome/sample/SE provenance unresolved
+21,quad_pre,True,-0.175,0.012,1.475,26,archived; cutoff/outcome/sample/SE provenance unresolved

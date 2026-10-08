@@ -38,7 +38,7 @@ Because treatment varies only at the country level and there are fifteen countri
 \subsection{Regression discontinuity in time}
 \label{sec:rdit_method}
 
-A regression discontinuity in time provides a third temporal comparison. The preferred specification uses a cutoff at July 17, 2024, a bandwidth of $h=7$ days (July 10--24, fifteen daily observations), and a local linear fit on each side. With $\tilde{t} = t - \text{July 17}$ and $D_t = \mathbf{1}\{\tilde{t} \geq 0\}$, so that July 17 itself lies on the post-cutoff side, I estimate
+A regression discontinuity in time provides a third temporal comparison. The archived preferred specification uses a cutoff at July 17, 2024, a bandwidth of $h=7$ days (July 10--24, fifteen daily observations), and a local linear fit on each side. With $\tilde{t} = t - \text{July 17}$ and $D_t = \mathbf{1}\{\tilde{t} \geq 0\}$, so that July 17 itself lies on the post-cutoff side, I estimate
 \begin{equation}
   Y_{t} = \alpha + \tau D_{t} + \gamma_{1}\tilde{t} + \gamma_{2} D_{t}\tilde{t} + u_{t},
   \qquad |\tilde{t}| \leq h,
@@ -68,3 +68,6 @@ where $N=20{,}000$ and users without activity in sector $s$ contribute zeros. Th
 Because the activity measure counts pushes to any classified repository, including repositories first observed after the shutdown, it captures recovery through new projects and through switching across repositories. As a complementary specification, I also follow only the repositories pushed to during the baseline weeks, whose activity cannot be replaced by new projects.
 
 This analysis compares each sector with its own pre-shutdown baseline and has no untreated comparison group. It therefore describes the heterogeneity and timing of recovery within Bangladesh; it does not estimate sector-specific causal effects. Post-shutdown deviations from the baseline may also reflect trends, seasonality, or other Bangladesh-specific developments. The confidence intervals capture sampling variation across users but not common shocks that affect all users in a given week. The pre-shutdown coefficients ($k<0$) indicate how much weekly activity fluctuates around the baseline in the absence of a shutdown and serve as a benchmark for interpreting post-shutdown deviations.
+
+
+For the RDiT, July 17 is retained to make the historical estimate reproducible, not because its effect is preferable. Provider-level mobile outages began late on July 17 UTC, but the nationwide near-total cutoff was around 15:00 UTC July 18 \citep{belson2024}. Neither a July 17 midnight nor a July 18 midnight cutoff exactly identifies that event. A complete July 17/18/19 by 4/5/7/10/14-day grid is reported in \cref{tab:rdit_grid}, with the separate archived 16-specification grid in \cref{tab:rdit_arch_grid}. A change to the preferred cutoff or an hourly design requires a separate methodological decision.
