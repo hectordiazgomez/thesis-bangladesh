@@ -377,3 +377,6 @@
 ## 2026-10-08 — M6: full RDiT grid
 - Added reproducible cutoff × bandwidth × series grid (45 fits), preserved 16 archived rows in separate new output, and audited sample overlap. Added both full grids to appendix/table generator and methodological limitations to text; created advisor memo M6 recommendation.
 - Original preferred estimate unchanged: -9.2836 pp (SE 5.0344). Added Bangladesh grid range -4.4457 to -19.5230 pp; archived 16-row range -12.4 to -23.7 pp. Conflict: archived h=7 linear/no-donut -14.0 pp vs reproduced -9.2836, distinct unknown provenance. RDiT-only 174 accounts; SCM-only 86. No specification selected by results.
+
+## 2026-10-08 — Minor 1
+- Added sourced Pakistan July 31 disruption and implications for recovery counterfactual to Section 8. Original weight 47.6% unchanged; no estimate changed. Source opened: https://blog.cloudflare.com/a-recent-spate-of-internet-disruptions-july-2024/.
