@@ -352,3 +352,8 @@
 - Section 4.1/4.2 and Table 2 distinguish stored primary productive_events>0 from verified secondary productive_output_active. UTC stated; any-event eligibility reconstructed; missing bot thresholds and exact event-type mapping flagged.
 - New audit script, outputs and pending BigQuery query; no original data or outcomes modified.
 - Numbers added, not substituted: primary pre-rate 17.254550%, secondary 15.379483%; 60,729 eligibility candidates, 59,158 retained, 1,571 unexplained exclusions; 104,786 of 1,103,680 active days lack documented components. Original headline unchanged. Exact event list and full sample builder remain blocked on upstream provenance.
+
+## 2026-10-08 — R6: recover local upstream/history
+- Authorized Documents/Downloads search found legacy thesis scripts and downloaded sector script versions. Added distinct byte-for-byte copies under archive/upstream_local with SHA-256 provenance and duplicate mapping; no upload/push performed, as instructed.
+- Added user-supplied report to notes/referee_report.pdf. Documented missing current upstream extraction, definitions, bot filters, seeds and estimator provenance in archive/upstream_local/README.md.
+- Empirical numbers: none changed. Historical code is not adopted as the current specification; absent upstream stages remain blocked.
