@@ -724,7 +724,7 @@ def tab_rdit_round2():
     rows = [f"{r.bw_pre} & {str(r.poly).replace('_', ' ')} & {r.donut} & {100*r.tau:.1f} & {100*r.se_hac:.1f} & {r.n}" for r in a.itertuples()]
     write('tab_rdit_archived_grid', table('RDiT: preserved archived 16-specification grid', 'tab:rdit_arch_grid', 'rlrrrr',
         'Pre bandwidth & Polynomial & Donut & Effect (pp) & SE (pp) & $n$', rows,
-        'Transcribed without re-estimation from data/processed/table3\_rdit\_sensitivity.csv. '
+        r'Transcribed without re-estimation from data/processed/table3\_rdit\_sensitivity.csv. '
         'The historical cutoff, outcome, sample and variance procedure are not documented. '
         'The row labelled linear, 7 days, no donut is -14.0 pp, compared with -9.28 pp in the '
         'reproduced preferred specification; this is an unresolved provenance conflict, not '

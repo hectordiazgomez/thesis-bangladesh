@@ -57,3 +57,6 @@ results/sector_recovery/sectorwide_090/sectorwide_recovery_index.png
 results/sector_recovery/sectorwide_090/sectorwide_support.csv
 results/sector_recovery/sectorwide_090/sectorwide_user_eventstudy.csv
 results/sector_recovery/sector_week_main.csv
+
+# XeLaTeX intermediate
+paper/latex/*.xdv

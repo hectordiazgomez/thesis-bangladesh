@@ -403,3 +403,10 @@
 ## 2026-10-08 — Referee 2.4: sector numerical details
 - Verified stored sectorwide_user_eventstudy.csv: Real Estate week +7 = 108.262108; added +7 (108.3) to the list of above-baseline weeks alongside +5/+6.
 - Information weeks +10–+15 maximum = 126.34984833164808; changed 126.4 → 126.3 to avoid double rounding from the referee's 126.35. Original result files unchanged.
+
+## 2026-10-08 — R7 / Minor 9: current manuscript and reproducible packaging
+- Added pinned main requirements (including db-dtypes, jinja2), clean-clone audit driver and manifest updater. README and main.tex identify LaTeX as current; DOCX/TXT explicitly retired as obsolete historical drafts. XeLaTeX is the documented/default latexmk engine.
+- Manifest now enumerates every tracked/staged file, preserving known source mappings and leaving unknown original paths blank. Generated Phase A figures/tables include the new mechanism levels and complete RDiT grids. No empirical estimate changed by packaging.
+- Phase A build and clone validation are recorded below after execution. Full upstream reproducibility is not asserted where required data/code are absent.
+- Phase A initial clone exposed five sector scripts depending on ignored local files. Added byte-identical parquet replication copies and a new SQLite projection of the exact 19 columns needed downstream (all rows, no threshold changes); originals retained. Materialization fills only absent legacy paths. Provenance and hashes recorded. This improves clean-clone coverage without collecting new observations or changing a specification.
+- Phase A final verification: both make_all_* scripts passed; portable XeLaTeX/latexmk produced a 50-page thesis.pdf with zero errors, undefined references/citations, or overfull boxes. Clean-clone audit: 22 stored-input analyses passed; 2 external acquisition/classifier entry points passed --help only and remain explicitly unverified end-to-end. All pre-existing versioned data/ and results/ file hashes match the pre-revision snapshot. No push.
