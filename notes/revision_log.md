@@ -420,3 +420,8 @@
 - Added m4_inference.py, complete conformal grid, weekday adjustment and referee weekday table, DiD four means, local donor-size screen and exact pending global-candidate query. Advisor memo states proposed rule, missing added-country data and recommendation. Main donor pool/inference unchanged.
 - Original SCM -13.255939 pp; weekday-adjusted diagnostic -14.023087. DiD reproduced -13.087502 and holiday-excluded -13.379098. Conformal sharp constant-path prototype p0=0.011905, accepted grid [-19,-6.5] pp; NOT adopted, not an unrestricted ATT interval, and NOT a replacement for country rank p=0.0667. Pre residual AR1=0.674, May–June gap=0.095187 vs July=4.824122 explicitly question validity.
 - Proposed minimum 1,000 excludes archived Jordan 446 and retains Ghana 1,373 on size only; external eligibility and added countries remain unavailable. No original outputs changed.
+
+## 2026-10-08 — M3: sourced chronology and hourly diagnostic
+- Added chronology, sourced candidate episodes (Rajasthan 2021 exams; Venezuela 2024 unrest without national cut), hourly PushEvent diagnostic/figure, and pending comparable all-event query. All remain outside main specification.
+- Added 12-hour before/after active users per hour: total onset 130.000→2.4167; fixed restoration 1.250→8.6667; mobile restoration 67.9167→139.500. Every 6/12/24-hour comparison exported.
+- Flagged 182,808 stored rows vs 182,807 unique events (one exact duplicate); deduplicated NEW diagnostic only. Fixed denominator 10,241, 7,750 observed actors. No main outcome/estimate changed. OHCHR PDF access failed (403); chronology uses opened alternatives.

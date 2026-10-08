@@ -49,3 +49,19 @@ DiD como diferencia de medias en exactamente los mismos datos:
 **Prototipo conformal CWZ:** 78 días pre + 6 de tratamiento. Para cada trayectoria nula constante tau, imputar Y−tau en tratamiento, reestimar pesos sobre los 84 días bajo esa nula, obtener residuos y calcular S1 con las 84 rotaciones circulares, incluida identidad. La grilla tau=-25…5 pp, paso 0,25, acepta -19 a -6,5 al 5%; para la nula cero p=1/84=0,011905. Es un conjunto para trayectorias constantes, no un intervalo general para el ATT. El código no reutiliza residuos ajustados sólo en pre como si eso fuera conformal exacto. Fuente metodológica abierta: https://arxiv.org/pdf/1712.09089.
 
 **Advertencia de diseño, no resultado adoptado:** la validez temporal depende de estabilidad y dependencia de los residuos; autocorrelación pre de orden 1=0,674; gap medio mayo–junio=0,095 pp frente a julio=4,824 pp. El quiebre de julio cuestiona la calibración. El p=0,0119 NO reemplaza el rango entre países 1/15=0,0667 ni justifica una nueva afirmación de significación. Recomiendo resolver M2 y ampliar donantes con regla documentada antes de adoptar inferencia temporal; mostrar ajuste de calendario y diferencia de medias como diagnósticos. Las cuatro referencias M4 siguen en notes/pending_literature_M4.md, sin introducir una metodología no aprobada en el manuscrito.
+
+## M3 — cronología y análisis horario
+
+Cronología con fuentes y episodios comparables: notes/round2_M3_chronology.md. El corte total alrededor de 15:00 UTC julio 18 precede al toque de queda nacional de la noche julio 19–20 local; las protestas y cortes parciales ya habían comenzado. Restauración fija desde 13:00 UTC julio 23; móvil desde 09:00 UTC julio 28. Esa secuencia ayuda a describir mecanismos, pero no elimina simultaneidad ni selección de quién recupera conexión primero.
+
+Diagnóstico horario disponible: PushEvents de Bangladesh, no el outcome principal sin definición recuperada. Se conservan las 10.241 cuentas como denominador, con 7.750 actores observados; 182.808 filas contienen 182.807 eventos únicos (una duplicación exacta eliminada sólo del diagnóstico). Se reportan todos los anchos de 6/12/24 horas y un gráfico, con referencia al mismo día/hora de la semana de julio 1–17.
+
+| Cambio | Usuarios activos por hora, 12 h antes | 12 h después |
+|---|---:|---:|
+| Corte total julio 18, 15:00 UTC | 130.00 | 2.42 |
+| Restauración fija julio 23, 13:00 UTC | 1.25 | 8.67 |
+| Restauración móvil julio 28, 09:00 UTC | 67.92 | 139.50 |
+
+Estas medias no son efectos causales ajustados: cambian también la hora del día y la población con acceso. Opciones: mantener el estimando de episodio con esta limitación, o reconstruir outcome y controles horarios y diseñar una comparación entre episodios. Recomiendo la segunda para separar conectividad y conflicto; no sustituir ahora la estimación principal con la serie de pushes. Pendiente `analysis/pending/m3_hourly_all_events.sql`, con eventos de donantes y países comparables ausentes localmente.
+
+Candidatos con fuentes abiertas: Rajasthan septiembre 26, 2021 (cierre por examen en Gunsilius–Van Dijcke, no protesta como motivo); Venezuela tras julio 28, 2024 (protestas sin corte nacional según Cloudflare, aunque con bloqueo de sitios). No se les atribuyen efectos GitHub inexistentes ni se los añade a los donantes. Hacen falta cohortes geográficas verificables y eventos horarios comparables, y aprobación para incorporar otro diseño.
