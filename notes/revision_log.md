@@ -347,3 +347,8 @@
 - Files: analysis/round2/r5_holidays.py; new results/diagnostics/round2/r5_*; notes/round2_R5.md; LaTeX Figure 1 note, Section 6.5 and bibliography.
 - Old: August 5 dip described only as holiday; source of week +2 decline unidentified. New: sourced August 4–5 shutdown and initially declared August 5–7 holidays, with August 6 reopening conflict explicit.
 - Numbers: alternative August 6/7 holiday flags 1 → 0 only in the new comparison; original files unchanged. DiD -13.087502 → -13.087502 pp; holiday-excluded DiD -13.379098 → -13.379098 pp. No headline change. Figure/table regeneration and PDF validation scheduled at Phase A close.
+
+## 2026-10-08 — R2: outcome and eligibility definitions
+- Section 4.1/4.2 and Table 2 distinguish stored primary productive_events>0 from verified secondary productive_output_active. UTC stated; any-event eligibility reconstructed; missing bot thresholds and exact event-type mapping flagged.
+- New audit script, outputs and pending BigQuery query; no original data or outcomes modified.
+- Numbers added, not substituted: primary pre-rate 17.254550%, secondary 15.379483%; 60,729 eligibility candidates, 59,158 retained, 1,571 unexplained exclusions; 104,786 of 1,103,680 active days lack documented components. Original headline unchanged. Exact event list and full sample builder remain blocked on upstream provenance.

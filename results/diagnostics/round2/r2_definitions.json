@@ -1,0 +1,12 @@
+{
+  "eligible_users": 59158,
+  "any_event_candidates_ge4": 60729,
+  "excluded_rule_unknown": 1571,
+  "eligible_primary_active_userdays": 1103680,
+  "active_without_documented_components": 104786,
+  "primary_pre_BD_pct": 17.25454996131688,
+  "secondary_pre_BD_pct": 15.379482672715756,
+  "name_bot_retained": 0,
+  "behavior_bot_retained": 0,
+  "exact_event_type_mapping": "not identifiable from aggregated files; upstream SQL missing"
+}
