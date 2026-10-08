@@ -148,9 +148,9 @@ OUTCOME_LABELS = {
 
 
 def tab_secondary() -> None:
-    fx = pd.read_csv(FINAL / "table_secondary_fixed_SC.csv").set_index("outcome")
-    sp = pd.read_csv(FINAL / "table_secondary_specific_SC.csv").set_index("outcome")
-    pl = pd.read_csv(FINAL / "table_secondary_placebo_summary.csv").set_index("outcome")
+    fx = pd.read_csv(FINAL / "table_secondary_fixed_SC_eligible.csv").set_index("outcome")
+    sp = pd.read_csv(FINAL / "table_secondary_specific_SC_eligible.csv").set_index("outcome")
+    pl = pd.read_csv(FINAL / "table_secondary_placebo_summary_eligible.csv").set_index("outcome")
     rows = []
     for k, lab in OUTCOME_LABELS.items():
         unit = " pp" if k.endswith("_pp") else ""
@@ -163,8 +163,8 @@ def tab_secondary() -> None:
             r"(\cref{tab:weights}). Outcome-specific specifications re-estimate donor weights "
             r"separately for each outcome (\cref{tab:weights_specific}). Rank values are exact "
             r"in-space placebo ranks for the outcome-specific specifications with 14 placebo "
-            r"countries; 0.0667 is the minimum attainable value. Placebo ranks are not "
-            r"reported for the count outcomes.")
+            r"countries; 0.0667 is the minimum attainable value. All outcomes are computed "
+            r"over eligible users in both the numerator and the denominator.")
     write("tab_secondary_outcomes", table(
         "Secondary outcomes", "tab:secondary", "lrrrrrr",
         r" & \multicolumn{2}{c}{Fixed primary weights} & \multicolumn{2}{c}{Outcome-specific weights}"
@@ -203,7 +203,7 @@ def tab_weights() -> None:
 
 
 def tab_weights_specific() -> None:
-    w = pd.read_csv(FINAL / "table_secondary_SC_weights.csv")
+    w = pd.read_csv(FINAL / "table_secondary_SC_weights_eligible.csv")
     rows, prev = [], None
     for r in w.itertuples():
         lab = OUTCOME_LABELS[r.outcome] if r.outcome != prev else ""
@@ -615,7 +615,7 @@ def tab_did_eventstudy_full() -> None:
 
 
 def tab_did_secondary() -> None:
-    a = pd.read_csv(FINAL / "table_DiD_all_outcomes.csv")
+    a = pd.read_csv(FINAL / "table_DiD_all_outcomes_eligible.csv")
     rows = []
     labels = {"active_rate_pp": "Active-user rate (primary)", **OUTCOME_LABELS}
     for k, lab in labels.items():
@@ -630,7 +630,7 @@ def tab_did_secondary() -> None:
         rows,
         r"Aggregate DiD as in \cref{tab:did}, Panel A, for each outcome; rates in percentage points, "
         r"counts per 1,000 eligible users. No placebo inference is stored for these specifications. "
-        r"Source: \texttt{results/final/table\_DiD\_all\_outcomes.csv}.",
+        r"Source: \texttt{results/final/table\_DiD\_all\_outcomes\_eligible.csv}.",
         size=r"\footnotesize"))
 
 

@@ -63,6 +63,10 @@ weights and stops unless the archived weights, ATT (-13.2559 pp), relative
 effect, RMSPEs, in-space placebos and leave-one-out estimates are reproduced.
 In-time placebos (`03_intime_placebos.py`) and a check of the archived SDID
 estimate (`02_sdid_archived_check.py`) write to `reproduced/`.
+`04_secondary_outcomes_eligible.py` rebuilds the secondary outcomes with
+eligible users in numerator and denominator (referee comment R1) and writes
+`country_day_outcomes_eligible.parquet` and `results/final/*_eligible.csv`;
+the archived secondary-outcome files are kept unchanged for comparison.
 
 `results/mechanism/`
 Commit-timing and push-timing mechanism results and robustness checks.

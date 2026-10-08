@@ -84,9 +84,10 @@ for thr, folder in PATHS.items():
     s["threshold"] = thr
     summaries[thr] = s
 
-    e = pd.read_csv(folder / "sectorwide_user_eventstudy.csv")
-    e["threshold"] = thr
-    events[thr] = e
+    if thr == "0.80":  # only the main threshold's event study is used below
+        e = pd.read_csv(folder / "sectorwide_user_eventstudy.csv")
+        e["threshold"] = thr
+        events[thr] = e
 
 long_summary = pd.concat(summaries.values(), ignore_index=True)
 long_summary.to_csv(OUT / "sector_threshold_robustness_full.csv", index=False)

@@ -453,6 +453,7 @@ def main() -> None:
     fig_mechanism_release(args.png_dir)
     fig_did_eventstudy(args.png_dir)
     fig_rdit(args.png_dir)
+    fig_sc_intime_placebos(args.png_dir)
     fig_sector_recovery_index(args.png_dir)
     fig_sector_eventstudy(args.png_dir)
 

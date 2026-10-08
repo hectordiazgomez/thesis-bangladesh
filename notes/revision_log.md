@@ -266,3 +266,19 @@
   20,000-account sector sample is not in the repository, and whether bot filters were
   applied is undocumented.
 - PDF: 45 pages before and after.
+
+## 2026-10-07 — Referee report: R1, R3 and bibliography
+
+- Comments addressed: R1, R3, and the bibliography section of the referee report.
+- R1: `country_day_outcomes_enriched.parquet` summed activity over all 150,017 users but divided by the 59,158 eligible users. New script `analysis/synthetic_control/04_secondary_outcomes_eligible.py` rebuilds the panel on eligible users, after reproducing the archived estimates from the archived panel. New outputs: `results/synthetic_control/country_day_outcomes_eligible.parquet`, `results/final/*_eligible.csv`, `results/final/table_secondary_archived_vs_eligible.csv`. Archived files unchanged; `make_all_tables.py` now reads the `_eligible` files.
+- Empirical numbers changed (secondary outcomes only; primary outcome unchanged):
+  - Fixed primary weights, ATT: productive -15.179 -> -11.665 pp; shipping -1.333 -> -0.979 pp; collaboration -0.780 -> -0.611 pp; collaboration events -24.095 -> -19.956 and shipping output -23.981 -> -17.913 per 1,000.
+  - Outcome-specific weights, relative effect: productive -86.2% -> -86.7%; shipping -92.2% -> -90.5%; collaboration -92.1% -> -91.9%.
+  - Placebo ranks: collaboration RMSPE ratio 0.20 -> 0.1333. Now reported for counts: collaboration events 0.2667 (ATT) / 0.1333 (ratio); shipping output 0.0667 / 0.0667.
+  - DiD, productive activity: -14.669 -> -11.748 pp (all days); -14.975 -> -12.007 pp (holidays excluded).
+  - Text updated: Section 6.4 (both paragraphs) and the introduction.
+- R3: `results/sector_recovery/sectorwide/sectorwide_support.csv` and `results/sector_recovery/pre8/sector_recovery_summary_pre8.csv` now versioned (`.gitignore`); `make_all_figures.py` now calls Figure A1; `10_make_sector_results_final.py` reads only the 0.80 event study. The four scripts (04, tables, figures, sector final) run in a fresh clone.
+- Bibliography: cloudflare2024 (Belson, July 16, 2024, URL), isoc2024 (specific page), githubevents (GHES 3.14 page with the 20-commit cap), schachenhofer2023 (vol. 98, art. 104101), aceto2018 (Pescapé); VERIFY comments removed; aceto2018 and schachenhofer2023 now cited in Section 3 (\nocite removed). In-text labels are now Belson (2024a) and (2024b).
+- Wording aligned with sources: Section 2.1 ("also records"; "fixed-broadband providers"), Table 1 (ISOC for the July 16-17 blocking), Section 3 (Kreitmeir and Raschky: binary indicators because actions are rare), Section 6.3 (Hausman and Rapson urge caution).
+- Repository: removed the stray empty file `latex-version` and its `.gitignore` entry.
+- PDF rebuilt with XeLaTeX and the same fonts; 45 pages. `paper/thesis.txt` and `paper/thesis.docx` were not modified.
