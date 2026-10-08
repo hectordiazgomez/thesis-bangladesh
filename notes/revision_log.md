@@ -392,3 +392,6 @@
 
 ## 2026-10-08 — Minor 6
 - Corrected the reversed Finance/Information ordering in Section 6.5: Finance 91.3, Information 94.5; stored results unchanged.
+
+## 2026-10-08 — Minor 7
+- Qualified the first-week within-range criterion and linked it to the separate M8 persistence measures. No numbers replaced.
