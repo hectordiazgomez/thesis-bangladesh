@@ -399,3 +399,7 @@
 ## 2026-10-08 — Minor 5: deterministic concentration ties
 - Added minor5_ties.py, ranking by backlog descending then lowercase login ascending; saved every old/new exclusion row and top-20 ranking in new files. Table note states rule and referee discrepancy.
 - Top-10 old N=2,739, backlog=651, 23.767798% → deterministic N=2,739, backlog=651, 23.767798%; all other reported exclusions also unchanged. Referee N=2,740 / 23.76% cannot be reproduced under this explicit rule; not silently substituted.
+
+## 2026-10-08 — Referee 2.4: sector numerical details
+- Verified stored sectorwide_user_eventstudy.csv: Real Estate week +7 = 108.262108; added +7 (108.3) to the list of above-baseline weeks alongside +5/+6.
+- Information weeks +10–+15 maximum = 126.34984833164808; changed 126.4 → 126.3 to avoid double rounding from the referee's 126.35. Original result files unchanged.
