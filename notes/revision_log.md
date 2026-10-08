@@ -282,3 +282,63 @@
 - Wording aligned with sources: Section 2.1 ("also records"; "fixed-broadband providers"), Table 1 (ISOC for the July 16-17 blocking), Section 3 (Kreitmeir and Raschky: binary indicators because actions are rare), Section 6.3 (Hausman and Rapson urge caution).
 - Repository: removed the stray empty file `latex-version` and its `.gitignore` entry.
 - PDF rebuilt with XeLaTeX and the same fonts; 45 pages. `paper/thesis.txt` and `paper/thesis.docx` were not modified.
+
+## 2026-10-08 — Referee pending items: literature, R4 counts and July 17 source
+
+- Comments addressed: requested literature additions, R4 sample-count provenance,
+  and the unsupported July 17 holiday in Table 1. Sources for R5 collected only;
+  M4 inference redesign remains pending advisor approval. Review began October 7.
+- Repository: created `referee-pending-items` from `referee-r1-r3-bib` at
+  `ba99159`. Pre-existing untracked `all_figures/` left untouched. No push.
+- Literature: all seven requested DOI records verified through Crossref and all
+  seven abstracts read. Added `abadie2015`, `zhang2011`, `mcdermott2021` to
+  `paper/latex/references.bib`; added accurate sentences in Section 3 (Zhang/Zhu,
+  McDermott/Hansen) and Section 5.4 (Abadie et al.), with an additional Abadie
+  citation at the in-time placebo discussion in Section 8.1. Files:
+  `sections/03_literature.tex`, `sections/05_empirical_strategy.tex`,
+  `sections/08_robustness.tex` under `paper/latex/`.
+- New `notes/pending_literature_M4.md`: verified metadata, proposed BibTeX entries,
+  one sentence and insertion location each for Chernozhukov et al. (2021),
+  Ferman/Pinto (2021), Ben-Michael et al. (2021), and Conley/Taber (2011).
+  None inserted into active bibliography or manuscript; no methodological change.
+- R4: new `analysis/sector_recovery/11_sector_sample_counts.py` reads local inputs
+  (SQLite explicitly read-only), writes versioned
+  `results/sector_recovery/sector_sample_counts.csv`, and records missing files
+  or mismatches without altering the manuscript. Existing `.gitignore` already
+  permits this new CSV, so no ignore changes were needed.
+  - Reproduced: 23,866 pre-active accounts; 168,875 distinct repository names;
+    92,979 successful historical README recoveries; 32,491 successful
+    classifications with a recovered README and score >= 0.80.
+  - Reproduced Arts concentration: 15,376 / 18,638 baseline events =
+    82.49812211610688%, matching 82.5% after rounding. The request's description
+    as a share of classified repositories differs from the actual Section 8.3
+    event-concentration claim; flagged in the audit, not silently substituted.
+  - Cross-checked predictions export against SQLite and sample membership against
+    the event panel. Missing-input behavior tested: blank values, required paths,
+    `matches=unavailable`, exit status 1. All five available-input rows match.
+- July 17: panel confirms `is_holiday=1`, `holiday_name=Ashura`; Table 1 now names
+  Ashura and cites `dailystar2024ashura` (The Daily Star, updated July 7, 2024).
+  Citation also included in its source note. Files: `references.bib` and
+  `sections/02_background.tex`. Official gazette not successfully retrieved;
+  the authorized reputable-news fallback explicitly confirms public-holiday status.
+- New `notes/referee_pending_items_audit.md`: source URLs actually opened,
+  verified references, R4 definitions and input fingerprints, local-log/export
+  differences, validation and open items. Records R5 evidence only: June 17
+  Eid al-Adha; initial August 5-7 holiday announcement; subsequent ISPR reopening
+  from August 6 (conflicts with stored August 6-7 holiday labels); renewed
+  Internet shutdown August 4-5. June/August text and data were not edited.
+- Open items: advisor approval for M4; R5 holiday-label adjudication/second-shutdown
+  treatment; missing original sector extraction/selection code and bot-filter
+  documentation; preferred government holiday gazette retrieval. All five R4
+  manuscript values are now traceable to local inputs.
+- Validation: ran `python3 analysis/tables/make_all_tables.py` using the existing
+  sector environment; all 22 generated tables unchanged. PDF rebuilt with
+  Tectonic (XeTeX/xdvipdfmx), preserving fonts, and saved to
+  `paper/latex/thesis.pdf`: 46 pages, no LaTeX errors or undefined citations or
+  references. All 29 bibliography entries cited; no `\nocite`; four M4 keys
+  absent. Rendered all pages and visually checked changed passages and references;
+  no overfull boxes, clipping or overlap. Non-fatal underfull/font/inputenc notices
+  remain. `git diff --check` passes.
+- Empirical numbers changed in manuscript: none. No archived result, processed
+  dataset, treatment date, donor pool or estimator changed. `paper/thesis.txt`
+  and `paper/thesis.docx` not modified.
