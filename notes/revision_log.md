@@ -386,3 +386,6 @@
 
 ## 2026-10-08 — Minor 3
 - Clarified query target versus universe in Section 4.3: 86,065 target = 17,000 sampled pre + 69,065 post; pre universe 134,479, sampling 12.64%. Resolution figures unchanged.
+
+## 2026-10-08 — Minor 4
+- Qualified authoredDate/committedDate agreement as dependent metadata fields, not independent clock validation. No numbers changed.
