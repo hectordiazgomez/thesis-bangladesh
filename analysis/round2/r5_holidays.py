@@ -13,6 +13,12 @@ def main():
     alt.loc[changed, 'is_holiday'] = 0
     audit = d.loc[select, ['country','date','active_rate_pp','is_holiday','holiday_name']].copy()
     audit['alternative_is_holiday'] = alt.loc[select,'is_holiday']
+    clean = pd.read_parquet(ROOT/'data/processed/panel_clean.parquet', columns=['country','date','hol_bd','f4_second'])
+    clean['date'] = pd.to_datetime(clean.date)
+    clean = clean[clean.country.eq('Bangladesh') & clean.date.between('2024-08-04','2024-08-07')]
+    assert clean.groupby('date')[['hol_bd','f4_second']].nunique().eq(1).all().all()
+    flags = clean.groupby('date')[['hol_bd','f4_second']].first().rename(columns={'hol_bd':'panel_clean_hol_bd','f4_second':'panel_clean_second_shutdown'})
+    audit = audit.merge(flags, on='date', validate='one_to_one')
     rows=[]
     for label, data in [('archived',d),('Aug6_reopening_alternative',alt)]:
         w=data.pivot(index='date',columns='country',values='active_rate_pp')

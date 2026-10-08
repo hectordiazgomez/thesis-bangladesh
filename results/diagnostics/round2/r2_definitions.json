@@ -8,5 +8,23 @@
   "secondary_pre_BD_pct": 15.379482672715756,
   "name_bot_retained": 0,
   "behavior_bot_retained": 0,
-  "exact_event_type_mapping": "not identifiable from aggregated files; upstream SQL missing"
+  "exact_event_type_mapping": "not identifiable from aggregated files; upstream SQL missing",
+  "retained_behavior_metric_exact_matches": {
+    "max_daily_commits": 59158,
+    "commit_days": 59158,
+    "commit_day_share": 59158
+  },
+  "independent_panel_types": [
+    "CommitCommentEvent",
+    "IssueCommentEvent",
+    "IssuesEvent",
+    "PullRequestEvent",
+    "PullRequestReviewCommentEvent",
+    "PullRequestReviewEvent",
+    "PushEvent",
+    "ReleaseEvent"
+  ],
+  "independent_common_userdays": 179468,
+  "event_matrix_rank": 8,
+  "augmented_rank_with_primary": 9
 }
