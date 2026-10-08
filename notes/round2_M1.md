@@ -1,0 +1,7 @@
+# M1 — author-date levels
+
+The reproducible new audit is analysis/round2/m1_levels.py. Archived samples and estimates are untouched. Outputs retain both calendar and 15:00 UTC onset cohorts, weighted daily author-date counts (July 1–August 10), six original placebo-window levels and six duration-matched comparisons, and early push dates. Original inverse metadata-request probabilities are computed from the universe and requested samples by push date; they do not correct missing metadata, incomplete payloads, or censoring.
+
+Conflict with a literal “97%” claim: 1,097 / 33,787.50 implies -96.75% but compares 5.375 with six days. Duration-matched windows give -96.35% (simple time scaling -96.38%). All are reported, with the prose using roughly 96–97%. Calendar-cohort creation is -91.32%, and its 829 backlog commits are 2.45% of the original six-day reference. The onset cohort contains 752 backlog commits (68.55% of 1,097, but 2.50% of duration-matched normal volume). Do not select among these by magnitude.
+
+The 345 early-pushed commits from 64 users include 246 on July 23 and 99 before that date. No source establishes those 64 users' actual location or connectivity; timestamps may also be inaccurate. Source-based onset: https://blog.cloudflare.com/a-recent-spate-of-internet-disruptions-july-2024/ (opened). Observation stops August 10; 35 calendar-cohort backlog commits are first pushed August 5–10. Missing later pushes could raise creation counts, so the decline concerns code made public within the observed horizon, not total production.

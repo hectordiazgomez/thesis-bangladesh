@@ -362,3 +362,9 @@
 - Added analysis/round2/m5_core_window.py and new diagnostic CSVs; Section 6.1 reports primary and July 19–22 sensitivity side by side with unchanged weights.
 - Original: actual 2.021287%, counterfactual 15.277226%, ATT -13.255939 pp (-86.769280%). Additional core window: 0.212382%, 14.686946%, -14.474564 pp (-98.553943%). Neither replaces the headline.
 - Residual 21.75 active accounts/day bounds the observed active potentially mislocated component, NOT total location error; Section 8 discusses mean reversion and donor decline -2.145761 pp.
+
+## 2026-10-08 — M1: mechanism in levels and onset cohort
+- New m1_levels.py and five diagnostic CSVs/JSON; new author-date figure generator and Section 7 figure. Rewrote mechanism framing in abstract, introduction, Section 7, discussion and conclusion.
+- Preserved calendar result 829/2,932 = 28.274216%; added onset cohort 752/1,097 = 68.550593%, 250 users versus calendar 835; 1,835 calendar commits precede onset. Weighted normal six-day level 33,787.497; matched 5.375-day level 30,038.262.
+- Added creation changes -91.322234% calendar; -96.753237% onset vs six-day reference; -96.347991% matched (-96.375706% duration-scaled). Backlog/normal 2.453570% calendar, 2.503474% onset matched. Replaced “substantial margin” and displacement claims with these levels and censoring limits.
+- Added explanation of 345 onset commits pushed before July 24 (64 users; 246 pushed July 23), and 35 calendar backlog commits pushed August 5–10. No headline SCM, sample, window or donor change.
