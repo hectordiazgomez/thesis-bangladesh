@@ -30,3 +30,22 @@ Fuentes abiertas documentan huelga universitaria desde julio 1 y movilización p
 - https://www.thedailystar.net/news/bangladesh/news/pension-protest-brings-public-univs-halt-3646701
 
 Recomiendo recuperar createdAt, membresías históricas si existen y datos de elegibilidad anteriores a mayo; mantener entretanto la tabla completa de sensibilidad. La elección de ventana debe justificarse por estabilidad y separación entre selección y estimación, no por magnitud o significación. No adopto ningún cambio de muestra ni de ajuste.
+
+## M4 — donantes, calendario e inferencia
+
+**Regla propuesta antes de ver nuevos outcomes:** enumerar todos los países de una lista global congelada de ubicaciones GitHub; requerir ≥1.000 cuentas elegibles con ≥4 días de cualquier evento antes de mayo, aplicar un filtro de bots documentado y exigir cobertura suficiente de fuentes externas de conectividad. Excluir cortes documentados con descenso nacional ≥20% durante ≥1 hora en mayo 1–septiembre 4 si se quiere interpretar también recuperación. No seleccionar por correlación post, signo, significación o peso estimado. Registrar también países sin cobertura como no evaluados. Esta regla deliberadamente podría quitar Pakistán por julio 31; no se adopta en el paper.
+
+El prototipo con la elegibilidad archivada (que NO es la ventana pre-mayo propuesta) deja fuera a Jordania, 446, por tamaño; Ghana, 1.373, supera el umbral. Los otros 13 donantes actuales superan el umbral de tamaño, pero falta su revisión completa de conectividad. No hay cuentas ni conteos de países adicionales en los datos locales: no se puede afirmar qué países se añadirían. La consulta exacta `analysis/pending/m4_candidate_universe.sql` devuelve los países que pasarían el primer filtro, una vez aportada la lista global congelada. Este subpedido está bloqueado por datos externos, no resuelto inventando candidatos aptos.
+
+El ajuste de efectos de día de semana específicos de país, estimados sólo en los 78 días pre, produce ATT -14.023087 pp frente al original -13.255939. Bangladesh tiene fin de semana viernes–sábado; se modelan los siete días, sin imponer sábado–domingo a todos los países. `m4_referee_weekdays.csv` reproduce la comparación mayo–junio sin feriados de Bangladesh. No se cambia la serie principal.
+
+DiD como diferencia de medias en exactamente los mismos datos:
+
+| Variante | BD pre | BD cierre | Media donantes pre | Media donantes cierre | DiD pp |
+|---|---:|---:|---:|---:|---:|
+| Todos los días | 17.254550 | 2.021287 | 15.919824 | 13.774063 | -13.087502 |
+| Sin feriados | 17.583364 | 2.021287 | 16.050254 | 13.867275 | -13.379098 |
+
+**Prototipo conformal CWZ:** 78 días pre + 6 de tratamiento. Para cada trayectoria nula constante tau, imputar Y−tau en tratamiento, reestimar pesos sobre los 84 días bajo esa nula, obtener residuos y calcular S1 con las 84 rotaciones circulares, incluida identidad. La grilla tau=-25…5 pp, paso 0,25, acepta -19 a -6,5 al 5%; para la nula cero p=1/84=0,011905. Es un conjunto para trayectorias constantes, no un intervalo general para el ATT. El código no reutiliza residuos ajustados sólo en pre como si eso fuera conformal exacto. Fuente metodológica abierta: https://arxiv.org/pdf/1712.09089.
+
+**Advertencia de diseño, no resultado adoptado:** la validez temporal depende de estabilidad y dependencia de los residuos; autocorrelación pre de orden 1=0,674; gap medio mayo–junio=0,095 pp frente a julio=4,824 pp. El quiebre de julio cuestiona la calibración. El p=0,0119 NO reemplaza el rango entre países 1/15=0,0667 ni justifica una nueva afirmación de significación. Recomiendo resolver M2 y ampliar donantes con regla documentada antes de adoptar inferencia temporal; mostrar ajuste de calendario y diferencia de medias como diagnósticos. Las cuatro referencias M4 siguen en notes/pending_literature_M4.md, sin introducir una metodología no aprobada en el manuscrito.

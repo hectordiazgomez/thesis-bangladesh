@@ -1,0 +1,10 @@
+{
+  "p_sharp_zero": 0.011904761904761904,
+  "accepted_grid_min": -19.0,
+  "accepted_grid_max": -6.5,
+  "accepted_grid_count": 51,
+  "pre_residual_lag1_autocorrelation": 0.6740140718660944,
+  "pre_gap_MayJun": 0.09518741701871167,
+  "pre_gap_July": 4.824121863400692,
+  "weekday_adjusted_ATT_pp": -14.023087304038038
+}
