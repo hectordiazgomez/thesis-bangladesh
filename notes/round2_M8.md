@@ -1,0 +1,7 @@
+# M8 — cumulative shortfall and persistence
+
+The rule in analysis/round2/m8_cumulative.py reports ALL five transparent return criteria, avoiding a selected recovery date: first daily synthetic crossing, first trailing-seven-day mean crossing, first seven consecutive nonnegative days, and daily/seven-day crossings of Bangladesh's own full pre-period mean. All use the archived cohort and synthetic path. The source output includes the complete daily arithmetic; see m8_return_criteria.csv and m8_summary.json.
+
+The deficit is 8,145.244 active user-days on July 18–23, 10,186.006 at the July 27 daily crossing, and 12,067.693 at the August 13 rolling-mean crossing. Seven consecutive nonnegative days end August 16. Own-pre-mean return dates are August 14 and August 22. Negative area 13,526.274 minus positive area 9,893.465 = net deficit 3,632.809 through September 4. No cumulative repayment is observed. These are fractional counterfactual user-day equivalents, not unique persons, hours, output or an identified causal long-run loss. No national data after September 4 are available; sectoral results have a different sample and are not substituted.
+
+Removed the unsupported specific policy prescriptions and the claim that timestamps reveal all three margins. Post-window overshoots are described as an arithmetic offset, not proof of causal catch-up. Pakistan's July 31 disturbance and the July 2 fit issue remain threats to this extrapolation.

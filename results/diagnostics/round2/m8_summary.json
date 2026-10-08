@@ -1,0 +1,14 @@
+{
+  "pre_mean_pct": 17.254549961316876,
+  "shutdown_net_loss_userdays": 8145.244067575771,
+  "total_negative_area_userdays": 13526.273953430624,
+  "total_positive_area_userdays": 9893.465199971088,
+  "net_loss_through_sep4_userdays": 3632.808753459537,
+  "lowest_cumulative_gap_userdays": -13236.56744396392,
+  "lowest_cumulative_date": "2024-08-09",
+  "post_days": 43,
+  "post_days_below_counterfactual": 15,
+  "post_negative_area_userdays": 5381.029885854852,
+  "post_positive_area_userdays": 9893.465199971086,
+  "cumulative_loss_repaid": false
+}
