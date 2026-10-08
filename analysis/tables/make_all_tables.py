@@ -376,7 +376,10 @@ def tab_concentration() -> None:
         "Concentration of the backlog across users and repositories", "tab:concentration",
         "lr", r"Statistic & Value", rows,
         r"Strict \texttt{authoredDate} sample. Users are ranked by their number of backlog "
-        r"commits."))
+        r"commits, breaking ties by lowercase login in ascending order. The deterministic "
+        r"audit reproduces the archived top-10 exclusion ($N=2,739$, 23.77 percent); the referee "
+        r"reports $N=2,740$ and 23.76 percent with an unspecified tie order. Both figures are "
+        r"recorded as a tie-handling discrepancy; the archived result is preserved."))
 
 
 # ---------------------------------------------------------------------------

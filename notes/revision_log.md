@@ -395,3 +395,7 @@
 
 ## 2026-10-08 — Minor 7
 - Qualified the first-week within-range criterion and linked it to the separate M8 persistence measures. No numbers replaced.
+
+## 2026-10-08 — Minor 5: deterministic concentration ties
+- Added minor5_ties.py, ranking by backlog descending then lowercase login ascending; saved every old/new exclusion row and top-20 ranking in new files. Table note states rule and referee discrepancy.
+- Top-10 old N=2,739, backlog=651, 23.767798% → deterministic N=2,739, backlog=651, 23.767798%; all other reported exclusions also unchanged. Referee N=2,740 / 23.76% cannot be reproduced under this explicit rule; not silently substituted.
