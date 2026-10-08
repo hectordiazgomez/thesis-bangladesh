@@ -425,3 +425,7 @@
 - Added chronology, sourced candidate episodes (Rajasthan 2021 exams; Venezuela 2024 unrest without national cut), hourly PushEvent diagnostic/figure, and pending comparable all-event query. All remain outside main specification.
 - Added 12-hour before/after active users per hour: total onset 130.000→2.4167; fixed restoration 1.250→8.6667; mobile restoration 67.9167→139.500. Every 6/12/24-hour comparison exported.
 - Flagged 182,808 stored rows vs 182,807 unique events (one exact duplicate); deduplicated NEW diagnostic only. Fixed denominator 10,241, 7,750 observed actors. No main outcome/estimate changed. OHCHR PDF access failed (403); chronology uses opened alternatives.
+
+## 2026-10-08 — M7: sector presentation decision prepared
+- Added three concrete editorial/methodological options to advisor_decisions_round2.md, recommending an appendix now and a pre-trait heterogeneity design only after approval and missing data recovery.
+- No restructuring, estimator, sample, threshold or numerical result changed. Proposed traits and group boundaries are proposals, not adopted specifications or invented findings.
