@@ -1,0 +1,9 @@
+# Main analysis; tested with Python 3.14. Use requirements_sector.txt additionally
+# only for external README retrieval/classification, not downstream replication.
+numpy==2.5.3
+pandas==3.0.6
+pyarrow==25.0.1
+scipy==1.18.1
+matplotlib==3.11.2
+db-dtypes==1.7.2
+jinja2==3.1.6

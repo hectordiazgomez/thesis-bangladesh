@@ -7,7 +7,7 @@
 The shutdown followed student protests against quotas in government jobs \citep{belson2024}.
 The political context matters for identification because the decision to restrict connectivity was not randomly assigned. The empirical design therefore relies on the timing and severity of the network disruption, together with cross-country and within-Bangladesh comparisons, rather than assuming that the broader domestic environment was unchanged.
 
-Available network measurements nevertheless provide a precise chronology. Cloudflare reports outages at major mobile operators beginning during the early hours of July 18, followed by a near-complete national loss of Internet traffic around 21:00 local time. Fixed broadband began to recover on July 23, initially as a limited restoration that prioritized sectors including banking, technology, exporters, outsourcing providers, and media. Some residential fixed networks returned later, while major mobile providers did not show substantial recovery until July 28 \citep{belson2024}. Internet Society Pulse independently records a national shutdown beginning July 18 and notes the gradual return of connectivity on July 23 \citep{isoc2024}.
+Available network measurements nevertheless provide a precise chronology. Cloudflare reports outages at major mobile operators beginning during the early hours of July 18, followed by a near-complete national loss of Internet traffic around 21:00 local time. Fixed broadband began to recover on July 23, initially as a limited restoration that prioritized sectors including banking, technology, exporters, outsourcing providers, and media. Some fixed-broadband providers returned later, while major mobile providers did not show substantial recovery until July 28 \citep{belson2024}. Internet Society Pulse also records a national shutdown beginning July 18 and notes the gradual return of connectivity on July 23 \citep{isoc2024}.
 
 The main treatment window in this paper is July 18--23 inclusive. This choice captures the six daily observations most clearly associated with the near-total national disruption while treating July 24 onward as the start of the restoration period in daily data. The distinction is necessarily approximate because restoration began during July 23 and differed across networks. For that reason, the main estimates average over the full July 18--23 window, the weekly event study reports the restoration weeks separately, and the regression discontinuity in time is used only as a robustness check.
 
@@ -21,7 +21,7 @@ The main treatment window in this paper is July 18--23 inclusive. This choice ca
 \toprule
 Date & Connectivity status & Empirical treatment \\
 \midrule
-July 16--17 & Selective social-media/service blocking reported before the nationwide outage & Pre-treatment warning period; July 17 holiday handled in robustness \\
+July 16--17 & Selective social-media/service blocking reported before the nationwide outage \citep{isoc2024} & Pre-treatment warning period; July 17 Ashura holiday handled in robustness \citep{dailystar2024ashura} \\
 July 18 & Mobile networks disconnect; traffic falls toward zero nationally & Treatment begins \\
 July 18--23 & Near-total nationwide Internet disruption & Main total-shutdown window \\
 July 23--27 & Partial fixed-broadband restoration & Restoration / post-treatment transition \\
@@ -30,7 +30,7 @@ July 28 onward & Mobile connectivity begins to recover & Post-treatment \\
 \end{tabular}
 \begin{tablenotes}[flushleft]
 \footnotesize
-\item \textit{Sources:} Cloudflare Radar reporting in \citet{belson2024} and Internet Society Pulse \citep{isoc2024}. Dates are operationalized at daily frequency for the empirical analysis.
+\item \textit{Sources:} Cloudflare Radar reporting in \citet{belson2024} and Internet Society Pulse \citep{isoc2024}; the Ashura holiday is documented by \citet{dailystar2024ashura}. Dates are operationalized at daily frequency for the empirical analysis.
 \end{tablenotes}
 \end{threeparttable}
 \end{table}

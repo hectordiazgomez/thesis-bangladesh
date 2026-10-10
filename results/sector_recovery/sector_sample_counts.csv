@@ -1,0 +1,6 @@
+statistic,value,manuscript_value,source_file,matches
+preactive_accounts,23866,23866,data/sector_recovery/bangladesh_full_preactivity_stats.parquet,true
+distinct_panel_repositories,168875,168875,data/sector_recovery/bd_preactive20000_repo_event_day_metadata.parquet,true
+historical_readmes_recovered,92979,92979,data/sector_recovery/repo_sector.sqlite,true
+classified_repositories_score_ge_0_80_with_readme,32491,32491,data/sector_recovery/repo_sector.sqlite,true
+arts_top1_repository_pre_events_share_pct,82.49812211610688,82.5,data/sector_recovery/bd_preactive20000_repo_event_day_metadata.parquet; data/sector_recovery/repo_sector.sqlite,true

@@ -1,0 +1,5 @@
+country,date,active_rate_pp,is_holiday,holiday_name,alternative_is_holiday,panel_clean_hol_bd,panel_clean_second_shutdown
+Bangladesh,2024-08-04,9.344790547798066,0,,0,0,1
+Bangladesh,2024-08-05,4.931159066497413,1,Public Holiday,1,0,1
+Bangladesh,2024-08-06,8.739380919832048,1,Public Holiday,0,0,0
+Bangladesh,2024-08-07,10.731373889268626,1,Public Holiday,0,0,0

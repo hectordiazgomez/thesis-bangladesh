@@ -55,7 +55,7 @@ def write(name: str, body: str) -> None:
 APPENDIX_LABELS = {"tab:weights", "tab:sc_placebos", "tab:weights_specific",
                    "tab:did_es_full", "tab:did_secondary", "tab:mech_placebos", "tab:metadata", "tab:push_completeness",
                    "tab:push_size", "tab:concentration", "tab:sector_threshold",
-                   "tab:sector_fixed_repo", "tab:sdid", "tab:sc_intime"}
+                   "tab:sector_fixed_repo", "tab:sdid", "tab:sc_intime", "tab:rdit_grid", "tab:rdit_arch_grid"}
 
 
 def table(caption: str, label: str, colspec: str, head: str, rows: list[str],
@@ -148,9 +148,9 @@ OUTCOME_LABELS = {
 
 
 def tab_secondary() -> None:
-    fx = pd.read_csv(FINAL / "table_secondary_fixed_SC.csv").set_index("outcome")
-    sp = pd.read_csv(FINAL / "table_secondary_specific_SC.csv").set_index("outcome")
-    pl = pd.read_csv(FINAL / "table_secondary_placebo_summary.csv").set_index("outcome")
+    fx = pd.read_csv(FINAL / "table_secondary_fixed_SC_eligible.csv").set_index("outcome")
+    sp = pd.read_csv(FINAL / "table_secondary_specific_SC_eligible.csv").set_index("outcome")
+    pl = pd.read_csv(FINAL / "table_secondary_placebo_summary_eligible.csv").set_index("outcome")
     rows = []
     for k, lab in OUTCOME_LABELS.items():
         unit = " pp" if k.endswith("_pp") else ""
@@ -163,8 +163,8 @@ def tab_secondary() -> None:
             r"(\cref{tab:weights}). Outcome-specific specifications re-estimate donor weights "
             r"separately for each outcome (\cref{tab:weights_specific}). Rank values are exact "
             r"in-space placebo ranks for the outcome-specific specifications with 14 placebo "
-            r"countries; 0.0667 is the minimum attainable value. Placebo ranks are not "
-            r"reported for the count outcomes.")
+            r"countries; 0.0667 is the minimum attainable value. All outcomes are computed "
+            r"over eligible users in both the numerator and the denominator.")
     write("tab_secondary_outcomes", table(
         "Secondary outcomes", "tab:secondary", "lrrrrrr",
         r" & \multicolumn{2}{c}{Fixed primary weights} & \multicolumn{2}{c}{Outcome-specific weights}"
@@ -203,7 +203,7 @@ def tab_weights() -> None:
 
 
 def tab_weights_specific() -> None:
-    w = pd.read_csv(FINAL / "table_secondary_SC_weights.csv")
+    w = pd.read_csv(FINAL / "table_secondary_SC_weights_eligible.csv")
     rows, prev = [], None
     for r in w.itertuples():
         lab = OUTCOME_LABELS[r.outcome] if r.outcome != prev else ""
@@ -376,7 +376,10 @@ def tab_concentration() -> None:
         "Concentration of the backlog across users and repositories", "tab:concentration",
         "lr", r"Statistic & Value", rows,
         r"Strict \texttt{authoredDate} sample. Users are ranked by their number of backlog "
-        r"commits."))
+        r"commits, breaking ties by lowercase login in ascending order. The deterministic "
+        r"audit reproduces the archived top-10 exclusion ($N=2,739$, 23.77 percent); the referee "
+        r"reports $N=2,740$ and 23.76 percent with an unspecified tie order. Both figures are "
+        r"recorded as a tie-handling discrepancy; the archived result is preserved."))
 
 
 # ---------------------------------------------------------------------------
@@ -615,7 +618,7 @@ def tab_did_eventstudy_full() -> None:
 
 
 def tab_did_secondary() -> None:
-    a = pd.read_csv(FINAL / "table_DiD_all_outcomes.csv")
+    a = pd.read_csv(FINAL / "table_DiD_all_outcomes_eligible.csv")
     rows = []
     labels = {"active_rate_pp": "Active-user rate (primary)", **OUTCOME_LABELS}
     for k, lab in labels.items():
@@ -630,7 +633,7 @@ def tab_did_secondary() -> None:
         rows,
         r"Aggregate DiD as in \cref{tab:did}, Panel A, for each outcome; rates in percentage points, "
         r"counts per 1,000 eligible users. No placebo inference is stored for these specifications. "
-        r"Source: \texttt{results/final/table\_DiD\_all\_outcomes.csv}.",
+        r"Source: \texttt{results/final/table\_DiD\_all\_outcomes\_eligible.csv}.",
         size=r"\footnotesize"))
 
 
@@ -701,6 +704,33 @@ def tab_sc_intime() -> None:
         size=r"\footnotesize"))
 
 
+def tab_rdit_round2():
+    d = pd.read_csv(RES / 'diagnostics/round2/m6_cutoff_bandwidth_grid.csv')
+    rows = []
+    for (cut, bw), g in d.groupby(['cutoff', 'bandwidth'], sort=True):
+        g = g.set_index('series')
+        cells = [cut[5:], str(bw)]
+        for country in ['Bangladesh', 'BD_minus_PH', 'Philippines']:
+            r = g.loc[country]
+            cells.append(f"{100*r.effect:.2f} ({100*r.se_hac:.2f})")
+        rows.append(' & '.join(cells))
+    write('tab_rdit_round2', table('RDiT: complete cutoff and bandwidth grid', 'tab:rdit_grid', 'llrrr',
+        'Cutoff & $h$ & Bangladesh & BD minus PH & Philippines', rows,
+        'All effects and HAC(2) standard errors in percentage points. Local linear fits with '
+        'separate slopes, cutoff day on the right, inclusive symmetric bandwidth, '
+        '$n/(n-4)$ variance correction. All 45 fits are reported; none replaces the archived '
+        'July 17, $h=7$ result. Source: new round-2 diagnostic grid.', width=r'\textwidth'))
+    a = pd.read_csv(RES / 'diagnostics/round2/m6_archived_16_grid.csv')
+    rows = [f"{r.bw_pre} & {str(r.poly).replace('_', ' ')} & {r.donut} & {100*r.tau:.1f} & {100*r.se_hac:.1f} & {r.n}" for r in a.itertuples()]
+    write('tab_rdit_archived_grid', table('RDiT: preserved archived 16-specification grid', 'tab:rdit_arch_grid', 'rlrrrr',
+        'Pre bandwidth & Polynomial & Donut & Effect (pp) & SE (pp) & $n$', rows,
+        r'Transcribed without re-estimation from data/processed/table3\_rdit\_sensitivity.csv. '
+        'The historical cutoff, outcome, sample and variance procedure are not documented. '
+        'The row labelled linear, 7 days, no donut is -14.0 pp, compared with -9.28 pp in the '
+        'reproduced preferred specification; this is an unresolved provenance conflict, not '
+        'evidence that one specification should replace the other.', width=r'\textwidth'))
+
+
 def main() -> None:
     sc = primary_sc()
     tab_main_estimates(sc)
@@ -715,6 +745,7 @@ def main() -> None:
     tab_leave_one_out()
     tab_sc_placebos(sc)
     tab_rdit()
+    tab_rdit_round2()
     tab_mechanism_placebos()
     tab_metadata_coverage()
     tab_push_completeness()

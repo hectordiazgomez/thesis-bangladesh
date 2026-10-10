@@ -1,0 +1,6 @@
+criterion,date,cumulative_gap_userdays,days_since_jul18
+first_daily_at_counterfactual,2024-07-27,-10186.005936225723,9
+first_trailing_7day_mean_at_counterfactual,2024-08-13,-12067.693394925003,26
+first_7_consecutive_days_at_counterfactual_end,2024-08-16,-11052.794521941494,29
+first_daily_at_own_pre_mean,2024-08-14,-11511.876959034991,27
+first_trailing_7day_mean_at_own_pre_mean,2024-08-22,-8071.317313064095,35

@@ -1,0 +1,16 @@
+{
+  "strict_commits": 59920,
+  "pre_requested": 17000,
+  "pre_universe": 134479,
+  "mean_6day_baseline": 33787.49716666667,
+  "mean_matched_baseline": 30038.262166666667,
+  "total_decline_raw_6day_pct": -96.75323687164892,
+  "total_decline_matched_pct": -96.3479911257405,
+  "total_decline_duration_scaled_pct": -96.37570627532902,
+  "calendar_decline_pct": -91.32223382650376,
+  "calendar_backlog_pct_normal": 2.453570313038329,
+  "total_backlog_pct_normal_matched": 2.5034737223729646,
+  "early_commits": 345,
+  "early_users": 64,
+  "calendar_backlog_aug5_10": 35
+}

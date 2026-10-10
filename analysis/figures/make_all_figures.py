@@ -444,6 +444,18 @@ def fig_sector_eventstudy(png_dir):
     save(fig, "fig6_sector_eventstudy", png_dir)
 
 
+def fig_author_levels(png_dir):
+    d = pd.read_csv(RES / "diagnostics/round2/m1_author_date_daily.csv", parse_dates=["adate"])
+    fig, ax = plt.subplots(figsize=(FULL_W, 2.9))
+    ax.plot(d.adate, d.weighted_commits, color=BD, marker="o", ms=2)
+    ax.axvspan(pd.Timestamp("2024-07-18 15:00", tz="UTC"), pd.Timestamp("2024-07-24", tz="UTC"), color=SHADE)
+    ax.set_ylabel("Weighted observed commits")
+    ax.set_xlabel("Git author date (UTC); pushes observed through August 10")
+    ax.xaxis.set_major_formatter(mdates.DateFormatter("%b %d"))
+    fig.tight_layout()
+    save(fig, "fig8_author_levels", png_dir)
+
+
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--png-dir", type=Path, default=None)
@@ -451,8 +463,10 @@ def main() -> None:
     fig_sc_actual_vs_synthetic(args.png_dir)
     fig_sc_placebos(args.png_dir)
     fig_mechanism_release(args.png_dir)
+    fig_author_levels(args.png_dir)
     fig_did_eventstudy(args.png_dir)
     fig_rdit(args.png_dir)
+    fig_sc_intime_placebos(args.png_dir)
     fig_sector_recovery_index(args.png_dir)
     fig_sector_eventstudy(args.png_dir)
 

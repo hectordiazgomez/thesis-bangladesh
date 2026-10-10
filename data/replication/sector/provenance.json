@@ -1,0 +1,44 @@
+[
+  {
+    "source": "data/sector_recovery/bangladesh_full_preactivity_stats.parquet",
+    "copy": "data/replication/sector/bangladesh_full_preactivity_stats.parquet",
+    "sha256": "837f0b1d8f9c89d365edfc9bf60a55977b7ec602690eb37b75350f0c37435fe3"
+  },
+  {
+    "source": "data/sector_recovery/bangladesh_preactive_sample_20000.parquet",
+    "copy": "data/replication/sector/bangladesh_preactive_sample_20000.parquet",
+    "sha256": "2be113c72078e569efcc26c8ca903650017540d7524e679c78acb5c7f9862677"
+  },
+  {
+    "source": "data/sector_recovery/bd_preactive20000_repo_event_day_metadata.parquet",
+    "copy": "data/replication/sector/bd_preactive20000_repo_event_day_metadata.parquet",
+    "sha256": "3f86ed1caf85829e4d2bb1b04506a2fe5ffc9c8388fa1c8fd41ed5d8d1ddbfbd"
+  },
+  {
+    "source": "data/sector_recovery/repo_sector.sqlite",
+    "copy": "data/replication/sector/repo_sector.sqlite",
+    "columns": [
+      "repo_name",
+      "first_activity",
+      "last_activity",
+      "target_date",
+      "total_events",
+      "pre_events",
+      "shutdown_events",
+      "recovery_events",
+      "readme_status",
+      "prediction_status",
+      "naics_code",
+      "sector",
+      "score",
+      "second_code",
+      "second_score",
+      "score_margin",
+      "high_confidence",
+      "model_name",
+      "model_revision"
+    ],
+    "rows": 168875,
+    "sha256": "3b1ba4c83d1ba5f76c068174edbe4ec4c23643ddfaf3f7062385aadc9fcd22e3"
+  }
+]

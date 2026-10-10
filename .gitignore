@@ -28,12 +28,12 @@ paper/latex/*.synctex.gz
 data/sector_recovery/
 logs/
 tools/
-latex-version
 thesis_processed_bundle.zip
 thesis_users_bundle.zip
 
 results/sector_recovery/eventstudy/
-results/sector_recovery/pre8/
+results/sector_recovery/pre8/*
+!results/sector_recovery/pre8/sector_recovery_summary_pre8.csv
 results/sector_recovery/repo_naics_predictions.*
 results/sector_recovery/sector_day_main.parquet
 results/sector_recovery/sector_week_main.parquet
@@ -46,7 +46,6 @@ results/sector_recovery/user_pre_sector_weights.*
 
 results/sector_recovery/sectorwide/sectorwide_eventstudy_*.png
 results/sector_recovery/sectorwide/sectorwide_recovery_index.png
-results/sector_recovery/sectorwide/sectorwide_support.csv
 
 results/sector_recovery/sectorwide_070/sectorwide_eventstudy_*.png
 results/sector_recovery/sectorwide_070/sectorwide_recovery_index.png
@@ -58,3 +57,6 @@ results/sector_recovery/sectorwide_090/sectorwide_recovery_index.png
 results/sector_recovery/sectorwide_090/sectorwide_support.csv
 results/sector_recovery/sectorwide_090/sectorwide_user_eventstudy.csv
 results/sector_recovery/sector_week_main.csv
+
+# XeLaTeX intermediate
+paper/latex/*.xdv

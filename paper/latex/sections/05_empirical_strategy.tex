@@ -6,7 +6,7 @@
 
 The headline design treats Bangladesh as the single treated country and the fourteen other countries as the donor pool. Let $Y_{ct}$ denote the daily active-user rate for country $c$ on date $t$. Synthetic-control weights are nonnegative, sum to one, and are chosen to minimize the mean squared difference between Bangladesh and the weighted donor combination over the pre-treatment period May 1--July 17. The estimated daily treatment effect is the gap between Bangladesh and the synthetic control during July 18--23.
 
-The method is well suited to the setting because treatment occurs at the country level and the number of aggregate comparison units is modest. Its main advantage here is transparency: the counterfactual is an explicit weighted combination of observed countries, and the credibility of the design can be evaluated through pre-treatment fit, donor weights, in-space placebos, and leave-one-out exercises \citep*{abadie2010,abadie2021}.
+The method suits the setting because treatment occurs at the country level and the number of aggregate comparison units is modest. Its main advantage here is transparency: the counterfactual is an explicit weighted combination of observed countries, and the credibility of the design can be evaluated through pre-treatment fit, donor weights, in-space placebos, and leave-one-out exercises \citep*{abadie2010,abadie2021}. Writing $w_j$ for the weight on donor $j$, the estimated average treatment effect on the treated over the shutdown is
 \begin{equation}
   \mathrm{ATT}_{\mathrm{SC}} = \frac{1}{|\mathcal{T}_{1}|}\sum_{t \in \mathcal{T}_{1}}
   \Bigl[\, Y_{\mathrm{BD},t} - \sum_{j} w_{j} Y_{j,t} \Bigr],
@@ -38,7 +38,7 @@ Because treatment varies only at the country level and there are fifteen countri
 \subsection{Regression discontinuity in time}
 \label{sec:rdit_method}
 
-A regression discontinuity in time provides a third temporal comparison. The preferred specification uses a cutoff at July 17, 2024, a bandwidth of $h=7$ days (July 10--24, fifteen daily observations), and a local linear fit on each side. With $\tilde{t} = t - \text{July 17}$ and $D_t = \mathbf{1}\{\tilde{t} \geq 0\}$, so that July 17 itself lies on the post-cutoff side, I estimate
+A regression discontinuity in time provides a third temporal comparison. The archived preferred specification uses a cutoff at July 17, 2024, a bandwidth of $h=7$ days (July 10--24, fifteen daily observations), and a local linear fit on each side. With $\tilde{t} = t - \text{July 17}$ and $D_t = \mathbf{1}\{\tilde{t} \geq 0\}$, so that July 17 itself lies on the post-cutoff side, I estimate
 \begin{equation}
   Y_{t} = \alpha + \tau D_{t} + \gamma_{1}\tilde{t} + \gamma_{2} D_{t}\tilde{t} + u_{t},
   \qquad |\tilde{t}| \leq h,
@@ -46,10 +46,12 @@ A regression discontinuity in time provides a third temporal comparison. The pre
 \end{equation}
 where $\tau$ is the discontinuity and $Y_t$ is the daily share of users with at least one productive GitHub event in a balanced user-day panel of 10,329 Bangladesh-associated and 3,025 Philippines-associated accounts. This eligible sample differs slightly from the 10,241 Bangladesh accounts of the country-day panel used for the synthetic control. I estimate \cref{eq:rdit} for Bangladesh, for the Bangladesh-minus-Philippines gap as a controlled specification, and for the Philippines alone as a geographic placebo. Inference uses heteroskedasticity-and-autocorrelation-consistent (HAC) Newey--West standard errors with two lags, following the cautions in \citet{hausman2018} regarding serial correlation in time-series discontinuity designs. Because time itself is the running variable and other contemporaneous events can occur at the same date, the RDiT is interpreted as a robustness check rather than a standalone source of causal identification.
 
+The July 17 cutoff reproduces the original preferred specification; it is not chosen because it yields a preferred estimate. No daily cutoff matches the event exactly: provider-level mobile outages began late on July 17 UTC, whereas the nationwide near-total cutoff occurred around 15:00 UTC on July 18 \citep{belson2024}. I therefore report a complete grid of July 17, 18, and 19 cutoffs crossed with 4-, 5-, 7-, 10-, and 14-day bandwidths in \cref{tab:rdit_grid}, together with the separate archived 16-specification grid in \cref{tab:rdit_arch_grid}. An hourly design would require a separate specification and is not pursued here.
+
 \subsection{Inference and robustness}
 \label{sec:inference}
 
-For synthetic control, I implement in-space placebos by assigning the treatment date to each donor country in turn and reconstructing its synthetic control using the remaining donors. The primary rank statistic compares Bangladesh's absolute ATT and post/pre RMSPE ratio with the placebo distribution. With fourteen placebo countries, the smallest possible finite-sample rank value is $1/(14+1) = 0.0667$; consequently, a value of 0.0667 means Bangladesh is the most extreme unit, not that the effect is weak.
+For synthetic control, I implement in-space placebos by assigning the treatment date to each donor country in turn and reconstructing its synthetic control using the remaining donors. The primary rank statistic compares Bangladesh's absolute ATT and post/pre RMSPE ratio with the placebo distribution. \citet*{abadie2015} illustrate the use of post/pre RMSPE ratios to scale post-intervention discrepancies by pre-intervention fit, alongside in-time placebos that reassign treatment to earlier dates. With fourteen placebo countries, the smallest possible finite-sample rank value is $1/(14+1) = 0.0667$; consequently, a value of 0.0667 means Bangladesh is the most extreme unit, not that the effect is weak.
 
 I also re-estimate the primary synthetic control after removing each donor country one at a time. Holidays are excluded in a separate DiD specification. Finally, outcome-specific synthetic controls allow donor weights to vary by outcome, whereas the main secondary-outcome table deliberately reuses the active-rate synthetic-control weights. Reusing the primary weights reduces the risk that each new outcome is matched with a different donor combination chosen after observing results.
 

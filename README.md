@@ -12,15 +12,43 @@ robustness checks, and mechanism analysis for my economics thesis.
 
 ## Current manuscript
 
-The main document for review is:
+**[Read the current thesis draft (PDF)](paper/latex/thesis.pdf)**
 
-`paper/thesis.docx`
+The current manuscript is `paper/latex/main.tex` and its included sections,
+with the review PDF at `paper/latex/thesis.pdf`.
+`paper/thesis.docx` and `paper/thesis.txt` are **obsolete historical drafts**,
+retained for provenance only. They are not synchronized and must not be used
+as the current thesis or as an input to revisions.
 
-A plain-text version used for reproducible review and auditing is:
+Install main-analysis dependencies with Python 3.14:
 
-`paper/thesis.txt`
+```sh
+python -m venv .venv
+.venv/bin/python -m pip install -r requirements.txt
+.venv/bin/python scripts/materialize_sector_inputs.py
+.venv/bin/python analysis/tables/make_all_tables.py
+.venv/bin/python analysis/figures/make_all_figures.py
+cd paper/latex
+latexmk -xelatex main.tex
+```
 
-The DOCX and TXT versions are currently synchronized.
+XeLaTeX, latexmk and the LaTeX packages used by main.tex are separate system
+requirements. The output is thesis.pdf. Downstream analyses use versioned
+inputs; full upstream replication remains incomplete (see
+`archive/upstream_local/README.md`, `notes/round2_R2.md`, and the round-2
+clean-clone audit). Versioned snapshots in `data/replication/sector/` permit downstream sector rebuilding
+after materialization; original ignored files are never replaced. README retrieval and
+classification from scratch still require external services. `db-dtypes` registers
+the historical BigQuery date extension; import `db_dtypes` before reading
+those historical files directly. Heavy sector dependencies are in
+`requirements_sector.txt`.
+
+Round-2 diagnostics write only new files under `results/diagnostics/round2/`.
+They do not replace the headline specification. `notes/advisor_decisions_round2.md`
+records pending methodological decisions. Stage new versioned files, then run
+`python scripts/update_manifest.py`: `manifest.csv` lists every versioned file
+and retains known export provenance; a blank original_path means unknown or
+repository-created provenance, not an invented Google Drive location. The manifest's own byte-size fields are blank to avoid circular self-sizing.
 
 ## Main empirical design
 
@@ -63,6 +91,10 @@ weights and stops unless the archived weights, ATT (-13.2559 pp), relative
 effect, RMSPEs, in-space placebos and leave-one-out estimates are reproduced.
 In-time placebos (`03_intime_placebos.py`) and a check of the archived SDID
 estimate (`02_sdid_archived_check.py`) write to `reproduced/`.
+`04_secondary_outcomes_eligible.py` rebuilds the secondary outcomes with
+eligible users in numerator and denominator (referee comment R1) and writes
+`country_day_outcomes_eligible.parquet` and `results/final/*_eligible.csv`;
+the archived secondary-outcome files are kept unchanged for comparison.
 
 `results/mechanism/`
 Commit-timing and push-timing mechanism results and robustness checks.
