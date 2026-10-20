@@ -1,0 +1,27 @@
+\begin{table}[htbp]
+\centering
+\small
+\caption{International synthetic controls by pre-treatment repository domain}
+\label{tab:sector_sc}
+\begin{threeparttable}
+\begin{tabular}{@{}p{0.23\textwidth}rrrrrr@{}}
+\toprule
+Domain & $N_{BD,s}$ & $J_s$ & ATT (pp) & Rel. (\%) & Pre RMSPE & Rank \\
+\midrule
+Retail & 368 & 11 & -15.69 & -91.8 & 2.91 & 0.083 \\
+Transport & 44 & 5 & -11.31 & -96.8 & 5.85 & 0.167 \\
+Information & 518 & 14 & -12.74 & -90.4 & 2.63 & 0.067 \\
+Finance & 90 & 9 & -12.28 & -85.8 & 4.04 & 0.100 \\
+Professional services & 151 & 11 & -16.13 & -89.6 & 3.91 & 0.083 \\
+Education & 424 & 13 & -15.04 & -88.2 & 4.91 & 0.071 \\
+Health & 155 & 5 & -16.84 & -91.8 & 7.21 & 0.167 \\
+Arts and recreation & 72 & 7 & -12.33 & -94.7 & 5.31 & 0.250 \\
+Unclassified & 8,078 & 14 & -12.77 & -85.8 & 3.41 & 0.067 \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}[flushleft]
+\footnotesize
+\item Main assignment: historical README and score at least 0.80. All supported domains and the unclassified group are shown. Outcome: primary public activity anywhere on GitHub among users assigned before treatment. ATT averages July 18--23. Rank compares absolute ATT with country placebos; its minimum depends on donor count. These are conditional comparative estimates, not effects on total industrial output or evidence that domain effects differ statistically.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}

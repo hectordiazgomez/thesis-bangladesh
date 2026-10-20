@@ -1,0 +1,37 @@
+{
+  "historical_cutoff_utc": "2024-07-17T23:59:59Z",
+  "classification_model": "aquiro1994/naics-github-classifier-multilingual",
+  "model_revision": "e40747e90bbc547e56b7145d2b97494bff69b42d",
+  "text_formatter_sha256": "e2142d66203d1779715df1ba199e250561b677b0e6e8f008b54f7d806a84e5eb",
+  "primary_country_sample_unchanged": true,
+  "min_country_domain_users": 30,
+  "minimum_donor_countries": 5,
+  "main_confidence_threshold": 0.8,
+  "main_requires_historical_readme": true,
+  "pre_period": [
+    "2024-05-01",
+    "2024-07-17"
+  ],
+  "treatment_period": [
+    "2024-07-18",
+    "2024-07-23"
+  ],
+  "primary_sector_selection": "Dominant pre-period repository by productive-active days, then productive event count, then lexical repo name",
+  "metadata_fields": [
+    "account createdAt only"
+  ],
+  "current_profile_text_used": false,
+  "main_requires_nonempty_readme": true,
+  "inference_precision": "float16 on MPS",
+  "maximum_input_tokens": 512,
+  "padding_optimization": "exact token-length sorting for final batches; same token content",
+  "readme_retrieval_status_counts": {
+    "ok_nonempty": 30402,
+    "empty_readme": 5177,
+    "no_root_readme": 11809,
+    "unavailable": 9932,
+    "no_commit_at_target": 801,
+    "unreadable_blob": 1
+  },
+  "all_19_named_domains_in_support_screen": true
+}

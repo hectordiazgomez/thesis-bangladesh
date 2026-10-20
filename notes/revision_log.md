@@ -480,3 +480,84 @@
 - Files changed beyond the merge: README.md (prominent relative link to the current PDF), notes/revision_log.md (this entry), manifest.csv (combined tracked-file inventory and updated sizes).
 - Manuscript sections and empirical numbers changed: none. The PDF, LaTeX manuscript, analysis, data, and results retain the reviewed `referee-round2` versions.
 - Validation: checked that both branch tips are ancestors of the merge, the reviewed PDF and manuscript/analysis/data/results files remain byte-identical to `referee-round2`, the advisor audit and feedback are preserved, and the manifest covers the combined versioned files. No analysis or PDF rebuild is required because inputs and manuscript content are unchanged.
+
+
+## 2026-10-19 - Advisor-directed expansion
+
+- Authorized by the user's request to implement the eight comments and run the international sector analysis. Full plan: `notes/advisor_plan_20261019.md`.
+- Preserved pre-edit manuscript and notes under `archive/advisor_20261019_before/`; original empirical result files remain unchanged.
+- Recovered original BigQuery extraction SQL. Re-extracted 1,619,571 eligible country-user-repository-day-event-type rows for May 1-July 23 across 15 countries. All 799,417 overlapping user-day primary counts match exactly. Replaced the obsolete unresolved-primary-definition statement, while retaining the unresolved 1,571 account exclusions.
+- Expanded literature, plain-language GitHub and outcome definitions, donor-selection limitations, and the constrained SCM optimization. Original national headline unchanged. Added five lag-specification diagnostics and pre-treatment holdout errors.
+- Moved the full RDiT methodology, graph and results into the appendix.
+- Added residual-activity cohort comparisons (40 core-window public users; 250 onset authors; 191 delayed onset authors), pre-treatment characteristics, account-age validation and concentration.
+- International historical repository retrieval and a pinned multilingual model are used for the new sector-domain comparisons.
+
+- Also corrected two pre-existing presentation inconsistencies: the descriptive sector equation now explicitly multiplies its probability change and standard error by 100 to match reported percentage-point results, and the main summary note distinguishes the RDiT cutoff discontinuity from the SCM/DiD window average. No underlying result was changed.
+
+- The initial historical-text audit found 30,402 nonempty READMEs and 5,177 empty cached texts. The subsequent source audit below found that most empty texts were legacy placeholders, not actual empty files. After fresh retrieval, the final extract contains 35,160 nonempty and 420 genuinely empty READMEs among 58,122 selected repositories. The original classification database was not altered.
+
+- Important cache audit: the 7,133 seeded legacy records included 4,840 with `readme_status=ok` but empty cached source text. All available legacy 'ok' records were empty; these could not support reuse as actual historical READMEs. First-pass results (3.49% Bangladesh assignment, unlike roughly 19-25% elsewhere) were preserved in `archive/advisor_20261019_cache_audit/results/`. All 7,133 legacy records were queued for fresh historical API retrieval and reclassification before final interpretation. This is a source-data repair, not a selection of estimates by sign or significance.
+
+- Final international extension: 2,163 Bangladesh users receive a high-confidence historical-text domain (21.12%); eight named domains with 1,822 users meet the support rule. All eight have negative July 18-23 gaps (-11.31 to -16.84 pp); all donor-omission estimates remain negative. Differences in fit and coarse placebo ranks prevent a statistically established industry ranking. The unclassified group remains explicit.
+- All 29 data/numerical checks passed, including exact primary-count reproduction, original national ATT, independently constrained optimization, fixed membership accounting, complete pinned-model classification, nonempty historical source bytes and complete legacy-cache refresh. No original empirical results or source datasets were changed.
+
+- Final PDF compiled successfully with XeLaTeX/latexmk: 65 pages, no undefined references, missing citations or overfull boxes. All pages visually reviewed; new appendix tables and figures kept under their section headings. Build and analysis package contain no credentials.
+
+
+## 2026-10-20 — Country/domain atlas and individual residual-publication audit
+
+- Author request: strengthen the paper with all country/domain charts and tables,
+  contemporaneous sources, and individual examination of residual activity for
+  automation. Preserved the existing October 19 revision and all original results.
+- Added `analysis/evidence_20261020/`, new public evidence caches and derived
+  outputs; full source register and limitations: `notes/evidence_review_20261020.md`.
+  Updated README, optional evidence-refresh requirements, manuscript text,
+  bibliography, tables, figures and final PDF; the earlier sector report generator
+  now retains the cross-reference to the complete atlas.
+- Added 300 country-domain panels (15 countries ×20 groups, including unclassified),
+  the country denominator matrix and all 15 national paths. Previously the paper
+  showed Bangladesh versus synthetic paths only. All 45 empty and 144 small nonempty
+  cells are explicit; no sample or donor is selected from post-treatment outcomes.
+- Individually reviewed 275 accounts (40 core,250 onset,15 overlap),1232 commit targets
+  and 321 historical repository snapshots;1210 commits and 314 repositories resolve.
+  All 165 retrievable core push heads have changed-file lists;15 are unavailable.
+  Review is AI-assisted and not independently human-validated; account holders
+  are not labelled bots. Exact evidence and decisions are retained per case.
+- New decomposition:113/180 core pushes (62.78%) have direct automation evidence
+  across 18 accounts:55 dependency,31 profile-graphic,15 metric,8 deployment and
+  4 generated-data heads. Four other heads are suggestive,48 have no identified
+  mechanism and 15 are unavailable. All 57 non-push primary events remain.
+- Original versus diagnostic excluding those 113 pushes:237→124 events;40→29
+  accounts with events;87→48 active user-days;0.2123816→0.1171761% daily rate.
+  Highest-volume account:42 primary events,41 bot-attributed dependency heads.
+  These diagnostics do not change the national outcome or estimate.
+- Original pooled pre-activity 36.7628% and median 47.5 pushes remain. New splits:
+  automated-head accounts 52.3504%,79.5 pushes; other core accounts 24.0093%,20.5;
+  other eligible accounts 17.1781%,21.0. Abstract/introduction/mechanism/discussion/
+  conclusion now qualify residual posting and inferred human resilience.
+- Onset count remains 1097. Excluding one directly generated bibliography commit
+  gives 1096; also excluding ten duration-only README edits gives 1086. Explicit
+  learning markers cover 83/250 accounts,87 repositories and 384/1097 commits.
+  No occupation, physical location or common course enrollment is inferred.
+- Flagged conflicting Cloudflare July 23 recovery times 12:00/13:00 UTC. Both
+  descriptive endpoints are shown:899/904 commits,211 accounts,123 pushed before
+  either endpoint,674/678 pushed fromJuly 24. Original endpoint:1097/250/345/752.
+- Corrected the ancillary weekend feature in NEW files from Saturday–Sunday to
+  Friday–Saturday (UTC labels). Mean active-day shares: all eligible 27.7211→25.9592%;
+  core 24.3161→24.0808%; onset 28.0080→24.5871%. Earlier outputs remain intact.
+- Added sourced unrest/reopening context and donor-outage chronology. Retained
+  August 6–7 holiday/reopening conflict; no input holiday labels were altered.
+  bdnews 24's 2026 update and non-exhaustive telemetry coverage are disclosed.
+- Main sample 59158, Bangladesh 10241, datesJuly 18–23, donor pool and headline
+  ATT−13.255939 pp (−86.76928%) unchanged. No original empirical result is replaced.
+- Validation before publication:140 checks pass, including 119 byte-identical
+  frozen input/result files and reconstruction of every stored main domain path
+  (maximum difference 1.42 e−14). Both main table/figure generators ran. Their nine
+  original figures changed only PDF creation-date metadata, so original bytes
+  were retained. XeLaTeX succeeds without undefined references/citations or
+  overfull boxes. All pages inspected in contact sheets and new table/figure
+  pages inspected individually. Original local PDF 65 pages→94 pages (published
+  main previously 50 pages). References use single spacing; long URLs wrap.
+- Re-ran the prior revision's 29 numerical checks with a new `--report` option
+  writing into the October 20 output directory; all passed without overwriting
+  the original verification report. Total checks across the two audits: 169.

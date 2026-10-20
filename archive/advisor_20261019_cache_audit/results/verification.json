@@ -1,0 +1,110 @@
+{
+  "checks": [
+    {
+      "check": "Original eligible sample 59158",
+      "passed": true
+    },
+    {
+      "check": "No duplicate cross-country logins",
+      "passed": true
+    },
+    {
+      "check": "15 countries extracted",
+      "passed": true
+    },
+    {
+      "check": "Dates restricted to authorized window",
+      "passed": true
+    },
+    {
+      "check": "Dominant repositories reproduce SQL extraction",
+      "passed": true
+    },
+    {
+      "check": "Recovered primary counts match exactly",
+      "passed": true
+    },
+    {
+      "check": "Original national ATT unchanged",
+      "passed": true
+    },
+    {
+      "check": "Independent constrained optimizer agrees",
+      "passed": true
+    },
+    {
+      "check": "All sector weights nonnegative",
+      "passed": true
+    },
+    {
+      "check": "All sector weights sum to one",
+      "passed": true
+    },
+    {
+      "check": "Every sector ATT equals mean daily gap",
+      "passed": true
+    },
+    {
+      "check": "All reported groups meet support rule",
+      "passed": true
+    },
+    {
+      "check": "Rank probabilities respect donor resolution",
+      "passed": true
+    },
+    {
+      "check": "Observed national activity exactly partitions into groups",
+      "passed": true
+    },
+    {
+      "check": "historical_readme_080 preserves all eligible users",
+      "passed": true
+    },
+    {
+      "check": "historical_readme_080 assigns only historical READMEs",
+      "passed": true
+    },
+    {
+      "check": "historical_readme_070 preserves all eligible users",
+      "passed": true
+    },
+    {
+      "check": "historical_readme_070 assigns only historical READMEs",
+      "passed": true
+    },
+    {
+      "check": "historical_readme_090 preserves all eligible users",
+      "passed": true
+    },
+    {
+      "check": "historical_readme_090 assigns only historical READMEs",
+      "passed": true
+    },
+    {
+      "check": "name_fallback_080 preserves all eligible users",
+      "passed": true
+    },
+    {
+      "check": "All selected repositories classified",
+      "passed": true
+    },
+    {
+      "check": "All model revisions pinned",
+      "passed": true
+    },
+    {
+      "check": "Residual core cohort 40",
+      "passed": true
+    },
+    {
+      "check": "Onset-author cohort 250",
+      "passed": true
+    },
+    {
+      "check": "Delayed onset-author cohort 191",
+      "passed": true
+    }
+  ],
+  "count": 26,
+  "all_passed": true
+}

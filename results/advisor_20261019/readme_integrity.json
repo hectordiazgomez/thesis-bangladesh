@@ -1,0 +1,16 @@
+{
+  "audit": "Final, after fresh retrieval of all 7,133 legacy records",
+  "status_counts": {
+    "empty_readme": 420,
+    "no_commit_at_target": 788,
+    "no_root_readme": 11804,
+    "ok": 35160,
+    "unavailable": 9949,
+    "unreadable_blob": 1
+  },
+  "all_ok_have_nonempty_text": true,
+  "source_counts": {
+    "github_graphql": 58122
+  },
+  "first_pass_preserved": "archive/advisor_20261019_cache_audit/results/readme_integrity.json"
+}

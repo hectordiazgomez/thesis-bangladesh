@@ -1,0 +1,81 @@
+variant,code,sector,BD_users,donors,supported,reason
+historical_readme_080,11,Agriculture,5,3,False,fewer than 30 Bangladesh users or five donor countries with 30 users
+historical_readme_080,21,Mining,0,0,False,fewer than 30 Bangladesh users or five donor countries with 30 users
+historical_readme_080,22,Utilities,1,0,False,fewer than 30 Bangladesh users or five donor countries with 30 users
+historical_readme_080,23,Construction,0,0,False,fewer than 30 Bangladesh users or five donor countries with 30 users
+historical_readme_080,31-33,Manufacturing,1,0,False,fewer than 30 Bangladesh users or five donor countries with 30 users
+historical_readme_080,42,Wholesale,0,0,False,fewer than 30 Bangladesh users or five donor countries with 30 users
+historical_readme_080,44-45,Retail,74,11,True,supported
+historical_readme_080,48-49,Transport,9,5,False,fewer than 30 Bangladesh users or five donor countries with 30 users
+historical_readme_080,51,Information,84,14,True,supported
+historical_readme_080,52,Finance,19,9,False,fewer than 30 Bangladesh users or five donor countries with 30 users
+historical_readme_080,53,Real estate,7,1,False,fewer than 30 Bangladesh users or five donor countries with 30 users
+historical_readme_080,54,Professional services,19,11,False,fewer than 30 Bangladesh users or five donor countries with 30 users
+historical_readme_080,56,Administrative support,5,1,False,fewer than 30 Bangladesh users or five donor countries with 30 users
+historical_readme_080,61,Education,79,13,True,supported
+historical_readme_080,62,Health,19,5,False,fewer than 30 Bangladesh users or five donor countries with 30 users
+historical_readme_080,71,Arts and recreation,10,7,False,fewer than 30 Bangladesh users or five donor countries with 30 users
+historical_readme_080,72,Accommodation and food,23,4,False,fewer than 30 Bangladesh users or five donor countries with 30 users
+historical_readme_080,81,Other services,1,1,False,fewer than 30 Bangladesh users or five donor countries with 30 users
+historical_readme_080,92,Public administration,1,0,False,fewer than 30 Bangladesh users or five donor countries with 30 users
+historical_readme_080,Unclassified,Unclassified,9884,14,True,supported
+historical_readme_070,11,Agriculture,9,3,False,fewer than 30 Bangladesh users or five donor countries with 30 users
+historical_readme_070,21,Mining,0,0,False,fewer than 30 Bangladesh users or five donor countries with 30 users
+historical_readme_070,22,Utilities,1,0,False,fewer than 30 Bangladesh users or five donor countries with 30 users
+historical_readme_070,23,Construction,0,0,False,fewer than 30 Bangladesh users or five donor countries with 30 users
+historical_readme_070,31-33,Manufacturing,2,0,False,fewer than 30 Bangladesh users or five donor countries with 30 users
+historical_readme_070,42,Wholesale,0,0,False,fewer than 30 Bangladesh users or five donor countries with 30 users
+historical_readme_070,44-45,Retail,80,11,True,supported
+historical_readme_070,48-49,Transport,13,6,False,fewer than 30 Bangladesh users or five donor countries with 30 users
+historical_readme_070,51,Information,129,14,True,supported
+historical_readme_070,52,Finance,22,10,False,fewer than 30 Bangladesh users or five donor countries with 30 users
+historical_readme_070,53,Real estate,8,2,False,fewer than 30 Bangladesh users or five donor countries with 30 users
+historical_readme_070,54,Professional services,45,13,True,supported
+historical_readme_070,56,Administrative support,6,1,False,fewer than 30 Bangladesh users or five donor countries with 30 users
+historical_readme_070,61,Education,87,13,True,supported
+historical_readme_070,62,Health,19,5,False,fewer than 30 Bangladesh users or five donor countries with 30 users
+historical_readme_070,71,Arts and recreation,10,8,False,fewer than 30 Bangladesh users or five donor countries with 30 users
+historical_readme_070,72,Accommodation and food,25,5,False,fewer than 30 Bangladesh users or five donor countries with 30 users
+historical_readme_070,81,Other services,2,1,False,fewer than 30 Bangladesh users or five donor countries with 30 users
+historical_readme_070,92,Public administration,2,0,False,fewer than 30 Bangladesh users or five donor countries with 30 users
+historical_readme_070,Unclassified,Unclassified,9781,14,True,supported
+historical_readme_090,11,Agriculture,3,1,False,fewer than 30 Bangladesh users or five donor countries with 30 users
+historical_readme_090,21,Mining,0,0,False,fewer than 30 Bangladesh users or five donor countries with 30 users
+historical_readme_090,22,Utilities,0,0,False,fewer than 30 Bangladesh users or five donor countries with 30 users
+historical_readme_090,23,Construction,0,0,False,fewer than 30 Bangladesh users or five donor countries with 30 users
+historical_readme_090,31-33,Manufacturing,0,0,False,fewer than 30 Bangladesh users or five donor countries with 30 users
+historical_readme_090,42,Wholesale,0,0,False,fewer than 30 Bangladesh users or five donor countries with 30 users
+historical_readme_090,44-45,Retail,67,10,True,supported
+historical_readme_090,48-49,Transport,4,2,False,fewer than 30 Bangladesh users or five donor countries with 30 users
+historical_readme_090,51,Information,55,13,True,supported
+historical_readme_090,52,Finance,10,7,False,fewer than 30 Bangladesh users or five donor countries with 30 users
+historical_readme_090,53,Real estate,6,0,False,fewer than 30 Bangladesh users or five donor countries with 30 users
+historical_readme_090,54,Professional services,4,2,False,fewer than 30 Bangladesh users or five donor countries with 30 users
+historical_readme_090,56,Administrative support,1,0,False,fewer than 30 Bangladesh users or five donor countries with 30 users
+historical_readme_090,61,Education,63,13,True,supported
+historical_readme_090,62,Health,17,5,False,fewer than 30 Bangladesh users or five donor countries with 30 users
+historical_readme_090,71,Arts and recreation,9,4,False,fewer than 30 Bangladesh users or five donor countries with 30 users
+historical_readme_090,72,Accommodation and food,22,4,False,fewer than 30 Bangladesh users or five donor countries with 30 users
+historical_readme_090,81,Other services,0,0,False,fewer than 30 Bangladesh users or five donor countries with 30 users
+historical_readme_090,92,Public administration,0,0,False,fewer than 30 Bangladesh users or five donor countries with 30 users
+historical_readme_090,Unclassified,Unclassified,9980,14,True,supported
+name_fallback_080,11,Agriculture,37,3,False,fewer than 30 Bangladesh users or five donor countries with 30 users
+name_fallback_080,21,Mining,0,0,False,fewer than 30 Bangladesh users or five donor countries with 30 users
+name_fallback_080,22,Utilities,4,0,False,fewer than 30 Bangladesh users or five donor countries with 30 users
+name_fallback_080,23,Construction,0,0,False,fewer than 30 Bangladesh users or five donor countries with 30 users
+name_fallback_080,31-33,Manufacturing,2,0,False,fewer than 30 Bangladesh users or five donor countries with 30 users
+name_fallback_080,42,Wholesale,0,0,False,fewer than 30 Bangladesh users or five donor countries with 30 users
+name_fallback_080,44-45,Retail,309,13,True,supported
+name_fallback_080,48-49,Transport,47,6,True,supported
+name_fallback_080,51,Information,146,14,True,supported
+name_fallback_080,52,Finance,66,11,True,supported
+name_fallback_080,53,Real estate,31,4,False,fewer than 30 Bangladesh users or five donor countries with 30 users
+name_fallback_080,54,Professional services,19,11,False,fewer than 30 Bangladesh users or five donor countries with 30 users
+name_fallback_080,56,Administrative support,5,1,False,fewer than 30 Bangladesh users or five donor countries with 30 users
+name_fallback_080,61,Education,386,14,True,supported
+name_fallback_080,62,Health,159,6,True,supported
+name_fallback_080,71,Arts and recreation,79,8,True,supported
+name_fallback_080,72,Accommodation and food,190,5,True,supported
+name_fallback_080,81,Other services,5,1,False,fewer than 30 Bangladesh users or five donor countries with 30 users
+name_fallback_080,92,Public administration,1,0,False,fewer than 30 Bangladesh users or five donor countries with 30 users
+name_fallback_080,Unclassified,Unclassified,8755,14,True,supported

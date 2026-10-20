@@ -1,0 +1,58 @@
+\section{Additional Empirical Diagnostics}
+\label{app:diagnostics}
+
+% Appendix tables are numbered A1, A2, ...
+\setcounter{table}{0}
+\renewcommand{\thetable}{A\arabic{table}}
+\setcounter{figure}{0}
+\renewcommand{\thefigure}{A\arabic{figure}}
+
+This appendix reports the detailed tables behind the synthetic-control, difference-in-differences, mechanism, and sectoral recovery results discussed in the main text. All tables are generated from the stored result files by \texttt{analysis/tables/make\_all\_tables.py}.
+
+\subsection{Synthetic control}
+
+\input{tables/tab_donor_weights}
+\input{tables/tab_sc_placebos}
+\input{tables/tab_donor_weights_specific}
+\input{tables/tab_sdid}
+
+\begin{figure}[H]
+\centering
+\caption{Synthetic-control in-time placebos: ATT over six-day pseudo-treatment windows}
+\label{fig:sc_intime}
+\includegraphics[width=\textwidth]{figA1_sc_intime_placebos.pdf}
+\fignote{Each grey row is a six-day pre-treatment window chosen by the rule in \cref{sec:sc_diagnostics}; donor weights are re-estimated using only the days before each window, and the ATT is the mean gap between Bangladesh and its synthetic control over the window, as in the primary specification (blue row). ``Holiday'' marks windows containing a Bangladesh national holiday. All eight eligible windows are shown. Details in \cref{tab:sc_intime}. Source: \texttt{results/synthetic\_control/reproduced/sc\_intime\_placebos.csv}.}
+\end{figure}
+
+\input{tables/tab_sc_intime}
+
+\subsection{Difference-in-differences and event study}
+
+\input{tables/tab_did_eventstudy_full}
+\input{tables/tab_did_secondary}
+
+
+\subsection{Regression discontinuity in time}
+\input{tables/tab_rdit_round2}
+\input{tables/tab_rdit_archived_grid}
+
+\subsection{Mechanism}
+
+\input{tables/tab_mechanism_placebos}
+\input{tables/tab_metadata_coverage}
+\input{tables/tab_push_completeness}
+\input{tables/tab_mechanism_push_size}
+\input{tables/tab_mechanism_concentration}
+
+\subsection{Sectoral recovery}
+
+\begin{figure}[H]
+\centering
+\caption{Sectoral event study: change in daily push-activity probability relative to the pre-shutdown baseline}
+\label{fig:sector_es}
+\includegraphics[width=\textwidth]{fig6_sector_eventstudy.pdf}
+\fignote{Points are $\beta_{sk}$ from \cref{eq:sector}: the mean change, across the fixed sample of 20,000 Bangladesh-associated accounts, in the daily probability of a PushEvent in a sector-$s$ repository during event week $k$, relative to each user's mean over May 23--July 17, 2024, in percentage points. Vertical lines are 95 percent confidence intervals from the cross-user standard deviation of these differences; they capture sampling variation across users but not common weekly shocks. Shaded: July 18--23 shutdown; the window ends at week $+17$ (November 13--19). Vertical scales differ across panels. Within-Bangladesh descriptive comparison, not a causal effect relative to an untreated control. Source: Author's calculations using GH Archive.}
+\end{figure}
+
+\input{tables/tab_sector_threshold}
+\input{tables/tab_sector_fixed_repo}

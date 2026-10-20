@@ -1,0 +1,15 @@
+# Versions used for the 19 October 2026 revision; Python 3.14.
+numpy==2.5.3
+pandas==3.0.6
+pyarrow==25.0.1
+scipy==1.18.1
+matplotlib==3.11.2
+db-dtypes==1.7.2
+torch==2.14.1
+transformers==5.18.0
+sentencepiece==0.2.2
+google-cloud-bigquery==3.46.2
+google-auth==2.62.0
+requests==2.34.2
+python-dotenv==1.2.4
+pymupdf==1.28.2

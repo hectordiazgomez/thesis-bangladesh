@@ -1,0 +1,72 @@
+\section{Empirical Strategy}
+\label{sec:strategy}
+
+\subsection{Synthetic control}
+\label{sec:sc}
+
+The headline design treats Bangladesh as the single treated country and the fourteen other countries as the donor pool. Let $Y_{ct}$ denote the daily active-user rate for country $c$ on date $t$. Synthetic-control weights are nonnegative, sum to one, and are chosen to minimize the mean squared difference between Bangladesh and the weighted donor combination over the pre-treatment period May 1--July 17. The estimated daily treatment effect is the gap between Bangladesh and the synthetic control during July 18--23.
+
+The method suits the setting because treatment occurs at the country level and the number of aggregate comparison units is modest. Its main advantage here is transparency: the counterfactual is an explicit weighted combination of observed countries, and the credibility of the design can be evaluated through pre-treatment fit, donor weights, in-space placebos, and leave-one-out exercises \citep*{abadie2010,abadie2021}. Writing $w_j$ for the weight on donor $j$, the estimated average treatment effect on the treated over the shutdown is
+\begin{equation}
+  \mathrm{ATT}_{\mathrm{SC}} = \frac{1}{|\mathcal{T}_{1}|}\sum_{t \in \mathcal{T}_{1}}
+  \Bigl[\, Y_{\mathrm{BD},t} - \sum_{j} w_{j} Y_{j,t} \Bigr],
+  \label{eq:att_sc}
+\end{equation}
+where $\mathcal{T}_{1}$ denotes the shutdown days.
+
+\subsection{Difference-in-differences and event study}
+\label{sec:did}
+
+As a complementary design, I compare the change in Bangladesh's mean outcome from the pre-period to the shutdown with the average corresponding change across the donor countries:
+\begin{equation}
+  \mathrm{ATT}_{\mathrm{DiD}} = \bigl[\bar{Y}_{\mathrm{BD},1} - \bar{Y}_{\mathrm{BD},0}\bigr]
+  - \frac{1}{14}\sum_{j=1}^{14}\bigl[\bar{Y}_{j,1} - \bar{Y}_{j,0}\bigr],
+  \label{eq:did_agg}
+\end{equation}
+where $\bar{Y}_{c,0}$ is country $c$'s mean daily active-user rate over May 1--July 17 and $\bar{Y}_{c,1}$ its mean over July 18--23. Unlike the synthetic control, which chooses donor weights to reproduce Bangladesh before the shutdown, this comparison gives equal weight to every donor. It is used primarily as a magnitude check against the synthetic-control estimate.
+
+To trace the dynamics of the gap, I replace the shutdown window with weekly event periods $k$ and compute
+\begin{equation}
+  \hat\theta_{k} = \bigl[\bar{Y}_{\mathrm{BD},k} - \bar{Y}_{\mathrm{BD},0}\bigr]
+  - \frac{1}{14}\sum_{j=1}^{14}\bigl[\bar{Y}_{j,k} - \bar{Y}_{j,0}\bigr],
+  \label{eq:es_agg}
+\end{equation}
+where $\bar{Y}_{c,k}$ is country $c$'s mean daily active-user rate in event period $k$; $k=-11,\dots,-1$ are seven-day bins ending July 17 (bin $-11$ also contains May 1), $k=0$ is the shutdown (July 18--23), and $k=+1,\dots,+6$ are seven-day bins from July 24 to September 3. \Cref{eq:es_agg} is computed directly from the stored country-day panel of the fifteen countries; it involves no regression and no user-level fixed effects. By construction, $\hat\theta_0 = \mathrm{ATT}_{\mathrm{DiD}}$, so the shutdown-week coefficient reproduces the aggregate DiD magnitude. Under parallel pre-shutdown paths, the coefficients for $k<0$ would fluctuate narrowly around zero. As shown in \cref{sec:did_results}, Bangladesh's pre-period is volatile and does not display a clean conventional parallel-trends pattern. The weekly coefficients are therefore not interpreted as an identified dynamic causal treatment path. They are diagnostic evidence on whether the largest break in the series is concentrated at the shutdown, and they complement, rather than replace, the synthetic control.
+
+Because treatment varies only at the country level and there are fifteen countries, I do not rely on user-clustered standard errors. Uncertainty is instead summarized with in-space placebos: each donor is assigned the treatment in turn and compared with the equal-weighted mean of the remaining thirteen donors. I report the standard deviation of the fourteen placebo estimates, a donor-placebo reference interval equal to $\hat\theta_k \pm 1.96$ times that standard deviation, and the rank of Bangladesh's absolute estimate among the fifteen units. These reference intervals describe how far donor countries move under the same calculation; they are not conventional sampling confidence intervals, and because Bangladesh's pre-period is more volatile than any donor's, they are not fully calibrated measures of uncertainty for Bangladesh.
+
+\subsection{Regression discontinuity in time}
+\label{sec:rdit_method}
+
+A regression discontinuity in time provides a third temporal comparison. The archived preferred specification uses a cutoff at July 17, 2024, a bandwidth of $h=7$ days (July 10--24, fifteen daily observations), and a local linear fit on each side. With $\tilde{t} = t - \text{July 17}$ and $D_t = \mathbf{1}\{\tilde{t} \geq 0\}$, so that July 17 itself lies on the post-cutoff side, I estimate
+\begin{equation}
+  Y_{t} = \alpha + \tau D_{t} + \gamma_{1}\tilde{t} + \gamma_{2} D_{t}\tilde{t} + u_{t},
+  \qquad |\tilde{t}| \leq h,
+  \label{eq:rdit}
+\end{equation}
+where $\tau$ is the discontinuity and $Y_t$ is the daily share of users with at least one productive GitHub event in a balanced user-day panel of 10,329 Bangladesh-associated and 3,025 Philippines-associated accounts. This eligible sample differs slightly from the 10,241 Bangladesh accounts of the country-day panel used for the synthetic control. I estimate \cref{eq:rdit} for Bangladesh, for the Bangladesh-minus-Philippines gap as a controlled specification, and for the Philippines alone as a geographic placebo. Inference uses heteroskedasticity-and-autocorrelation-consistent (HAC) Newey--West standard errors with two lags, following the cautions in \citet{hausman2018} regarding serial correlation in time-series discontinuity designs. Because time itself is the running variable and other contemporaneous events can occur at the same date, the RDiT is interpreted as a robustness check rather than a standalone source of causal identification.
+
+The July 17 cutoff reproduces the original preferred specification; it is not chosen because it yields a preferred estimate. No daily cutoff matches the event exactly: provider-level mobile outages began late on July 17 UTC, whereas the nationwide near-total cutoff occurred around 15:00 UTC on July 18 \citep{belson2024}. I therefore report a complete grid of July 17, 18, and 19 cutoffs crossed with 4-, 5-, 7-, 10-, and 14-day bandwidths in \cref{tab:rdit_grid}, together with the separate archived 16-specification grid in \cref{tab:rdit_arch_grid}. An hourly design would require a separate specification and is not pursued here.
+
+\subsection{Inference and robustness}
+\label{sec:inference}
+
+For synthetic control, I implement in-space placebos by assigning the treatment date to each donor country in turn and reconstructing its synthetic control using the remaining donors. The primary rank statistic compares Bangladesh's absolute ATT and post/pre RMSPE ratio with the placebo distribution. \citet*{abadie2015} illustrate the use of post/pre RMSPE ratios to scale post-intervention discrepancies by pre-intervention fit, alongside in-time placebos that reassign treatment to earlier dates. With fourteen placebo countries, the smallest possible finite-sample rank value is $1/(14+1) = 0.0667$; consequently, a value of 0.0667 means Bangladesh is the most extreme unit, not that the effect is weak.
+
+I also re-estimate the primary synthetic control after removing each donor country one at a time. Holidays are excluded in a separate DiD specification. Finally, outcome-specific synthetic controls allow donor weights to vary by outcome, whereas the main secondary-outcome table deliberately reuses the active-rate synthetic-control weights. Reusing the primary weights reduces the risk that each new outcome is matched with a different donor combination chosen after observing results.
+
+\subsection{Within-Bangladesh sectoral recovery}
+\label{sec:sector_method}
+
+The designs above estimate the effect of the shutdown during July 18--23. To describe how activity evolved after restoration, I use the fixed sample of 20,000 accounts described in \cref{sec:sector_data}. For user $i$, sector $s$, and day $t$, let $A_{ist}=1$ if the user records at least one PushEvent on day $t$ in a repository classified to sector $s$; activity in several repositories of the same sector on the same day counts once. Days are grouped into event periods $k$: the final eight complete pre-shutdown weeks, $k=-8,\dots,-1$ (May 23--July 17, 2024); the shutdown, $k=0$ (July 18--23); and consecutive seven-day bins after it, starting with $k=+1$ (July 24--30). Let $\bar{A}_{isk}$ be user $i$'s share of active days in period $k$, and $\bar{A}^{\mathrm{pre}}_{is}$ the corresponding share over the 56 baseline days. I report
+\begin{equation}
+  \beta_{sk} = \frac{1}{N}\sum_{i=1}^{N}\bigl(\bar{A}_{isk} - \bar{A}^{\mathrm{pre}}_{is}\bigr),
+  \qquad
+  R_{sk} = 100 \times \frac{\sum_{i} \bar{A}_{isk}}{\sum_{i} \bar{A}^{\mathrm{pre}}_{is}},
+  \label{eq:sector}
+\end{equation}
+where $N=20{,}000$ and users without activity in sector $s$ contribute zeros. The coefficient $\beta_{sk}$ is the change in the daily probability of sector-$s$ push activity relative to the baseline, in percentage points; the recovery index $R_{sk}$ normalizes the baseline to 100. Standard errors for $\beta_{sk}$ are the standard deviation of the user-level differences divided by $\sqrt{N}$, and 95 percent intervals use the normal approximation. As a summary of recovery timing, I report the first post-shutdown week that begins two consecutive weeks with $R_{sk}\geq 80$.
+
+Because the activity measure counts pushes to any classified repository, including repositories first observed after the shutdown, it captures recovery through new projects and through switching across repositories. As a complementary specification, I also follow only the repositories pushed to during the baseline weeks, whose activity cannot be replaced by new projects.
+
+This analysis compares each sector with its own pre-shutdown baseline and has no untreated comparison group. It therefore describes the heterogeneity and timing of recovery within Bangladesh; it does not estimate sector-specific causal effects. Post-shutdown deviations from the baseline may also reflect trends, seasonality, or other Bangladesh-specific developments. The confidence intervals capture sampling variation across users but not common shocks that affect all users in a given week. The pre-shutdown coefficients ($k<0$) indicate how much weekly activity fluctuates around the baseline in the absence of a shutdown and serve as a benchmark for interpreting post-shutdown deviations.

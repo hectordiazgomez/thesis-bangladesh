@@ -7,10 +7,11 @@
 \setcounter{figure}{0}
 \renewcommand{\thefigure}{A\arabic{figure}}
 
-This appendix reports the detailed tables behind the synthetic-control, difference-in-differences, mechanism, and sectoral recovery results discussed in the main text. All tables are generated from the stored result files by \texttt{analysis/tables/make\_all\_tables.py}.
+This appendix reports the detailed tables behind the synthetic-control, difference-in-differences, mechanism, and sectoral recovery results discussed in the main text. Tables are generated from stored result files by the original table script and the advisor-revision analysis scripts.
 
 \subsection{Synthetic control}
 
+\input{tables/tab_advisor_donors}
 \input{tables/tab_donor_weights}
 \input{tables/tab_sc_placebos}
 \input{tables/tab_donor_weights_specific}
@@ -26,6 +27,24 @@ This appendix reports the detailed tables behind the synthetic-control, differen
 
 \input{tables/tab_sc_intime}
 
+\subsection{International repository-domain diagnostics}
+\label{app:sector_sc}
+
+The following tables retain every country's coverage, all domain support decisions, and the fit and threshold diagnostics for the international extension. Missing estimates indicate insufficient support under the stated rule.
+
+\input{tables/tab_sector_coverage}
+\input{tables/tab_sector_support}
+\input{tables/tab_sector_fit}
+\input{tables/tab_sector_sc_sensitivity}
+
+\begin{figure}[H]
+\centering
+\caption{Observed and synthetic paths for all supported repository-domain cohorts}
+\label{fig:advisor_sector_paths}
+\includegraphics[width=\textwidth,height=0.76\textheight,keepaspectratio]{fig_advisor_sector_paths.pdf}
+\fignote{Fixed pre-treatment user cohorts; historical README and score at least 0.80. Grey marks July 18--23, the primary estimand. Paths after July 23 are descriptive and use the same pre-fitted weights. Panel scales vary. Full domain-country weights, donor placebos and leave-one-out estimates are retained in the replication outputs.}
+\end{figure}
+
 \subsection{Difference-in-differences and event study}
 
 \input{tables/tab_did_eventstudy_full}
@@ -33,10 +52,47 @@ This appendix reports the detailed tables behind the synthetic-control, differen
 
 
 \subsection{Regression discontinuity in time}
+\label{app:rdit_detail}
+\label{sec:rdit_method}
+
+A regression discontinuity in time provides a third temporal comparison. The archived preferred specification uses a cutoff at July 17, 2024, a bandwidth of $h=7$ days (July 10--24, fifteen daily observations), and a local linear fit on each side. With $\tilde{t} = t - \text{July 17}$ and $D_t = \mathbf{1}\{\tilde{t} \geq 0\}$, so that July 17 itself lies on the post-cutoff side, I estimate
+\begin{equation}
+  Y_{t} = \alpha + \tau D_{t} + \gamma_{1}\tilde{t} + \gamma_{2} D_{t}\tilde{t} + u_{t},
+  \qquad |\tilde{t}| \leq h,
+  \label{eq:rdit}
+\end{equation}
+where $\tau$ is the discontinuity and $Y_t$ is the daily share of users with at least one productive GitHub event in a balanced user-day panel of 10,329 Bangladesh-associated and 3,025 Philippines-associated accounts. This eligible sample differs slightly from the 10,241 Bangladesh accounts of the country-day panel used for the synthetic control. I estimate \cref{eq:rdit} for Bangladesh, for the Bangladesh-minus-Philippines gap as a controlled specification, and for the Philippines alone as a geographic placebo. Inference uses heteroskedasticity-and-autocorrelation-consistent (HAC) Newey--West standard errors with two lags, following the cautions in \citet{hausman2018} regarding serial correlation in time-series discontinuity designs. Because time itself is the running variable and other contemporaneous events can occur at the same date, the RDiT is interpreted as a robustness check rather than a standalone source of causal identification.
+
+The July 17 cutoff reproduces the original preferred specification; it is not chosen because it yields a preferred estimate. No daily cutoff matches the event exactly: provider-level mobile outages began late on July 17 UTC, whereas the nationwide near-total cutoff occurred around 15:00 UTC on July 18 \citep{belson2024}. I therefore report a complete grid of July 17, 18, and 19 cutoffs crossed with 4-, 5-, 7-, 10-, and 14-day bandwidths in \cref{tab:rdit_grid}, together with the separate archived 16-specification grid in \cref{tab:rdit_arch_grid}. An hourly design would require a separate specification and is not pursued here.
+
+
+\subsubsection{Results}
+\label{sec:rdit_results}
+
+\Cref{fig:rdit} shows the daily series used in the RDiT. In Bangladesh, the share of users with productive activity is 19.03 percent on July 17, falls to 10.74 percent on July 18, and lies between 0.48 and 1.23 percent from July 19 through July 23 before recovering gradually from July 24. The Philippines, used as a geographic placebo, shows no comparable break.
+
+\begin{figure}[htbp]
+\centering
+\caption{Regression discontinuity in time: daily share of users with productive activity around the July 17 cutoff (visual companion to \cref{tab:rdit})}
+\label{fig:rdit}
+\includegraphics[width=\textwidth]{fig7_rdit_cutoff.pdf}
+\fignote{Daily percentage of users with productive GitHub activity in the balanced user-day panels used for the RDiT (10,329 Bangladesh-associated and 3,025 Philippines-associated accounts). Filled markers are the fifteen days in the 7-day bandwidth of \cref{eq:rdit}. Lines are the fits of the archived preferred specification and correspond exactly to \cref{tab:rdit}. Dashed line: cutoff, with July 17 on the post-cutoff side; dotted line: shutdown boundary between July 17 and 18; shaded: July 18--23 shutdown. The RDiT is a temporal robustness check, not the primary design. Source: Author's calculations using GH Archive.}
+\end{figure}
+
+The RDiT produces a smaller point estimate but the same qualitative conclusion (\cref{tab:rdit}). The archived preferred local linear specification estimates a discontinuity of $-$9.28 percentage points in Bangladesh's active-user rate; a controlled Bangladesh-minus-Philippines version yields $-$9.16 percentage points. HAC $p$-values are approximately 0.065 in both cases, while the Philippines placebo is near zero. The smaller magnitude than in the synthetic control and DiD is consistent with the design visible in \cref{fig:rdit}: the cutoff day, July 17, precedes the shutdown but lies on the post-cutoff side, and the linear post-cutoff fit spans both the collapse and the beginning of the recovery on July 24.
+Because \citet{hausman2018} urge caution in interpreting RDiT estimates, I emphasize the direction and timing of the break rather than treating the RDiT $p$-value as the decisive inferential statistic.
+
+\input{tables/tab_rdit}
+
+The RDiT grid spans $-$4.45 to $-$19.52 percentage points for Bangladesh, illustrating substantial specification sensitivity (\cref{tab:rdit_grid}). The archived 16-row grid is also retained, but its input and cutoff provenance is unresolved. The RDiT sample includes 174 accounts absent from the main synthetic-control cohort, while 86 accounts in that cohort are absent from the RDiT sample; the difference is not simply 88 additional accounts. These facts limit a direct comparison of the two levels and estimates.
+
+
 \input{tables/tab_rdit_round2}
 \input{tables/tab_rdit_archived_grid}
 
 \subsection{Mechanism}
+
+\input{tables/tab_residual_domains}
 
 \input{tables/tab_mechanism_placebos}
 \input{tables/tab_metadata_coverage}
@@ -44,7 +100,58 @@ This appendix reports the detailed tables behind the synthetic-control, differen
 \input{tables/tab_mechanism_push_size}
 \input{tables/tab_mechanism_concentration}
 
-\subsection{Sectoral recovery}
+\subsection{Within-Bangladesh sectoral recovery}
+\label{sec:sector_method}
+
+The designs above estimate the effect of the shutdown during July 18--23. To describe how activity evolved after restoration, I use the fixed sample of 20,000 accounts described in \cref{sec:sector_data}. For user $i$, sector $s$, and day $t$, let $A_{ist}=1$ if the user records at least one PushEvent on day $t$ in a repository classified to sector $s$; activity in several repositories of the same sector on the same day counts once. Days are grouped into event periods $k$: the final eight complete pre-shutdown weeks, $k=-8,\dots,-1$ (May 23--July 17, 2024); the shutdown, $k=0$ (July 18--23); and consecutive seven-day bins after it, starting with $k=+1$ (July 24--30). Let $\bar{A}_{isk}$ be user $i$'s share of active days in period $k$, and $\bar{A}^{\mathrm{pre}}_{is}$ the corresponding share over the 56 baseline days. I report
+\begin{equation}
+  \beta_{sk} = \frac{100}{N}\sum_{i=1}^{N}\bigl(\bar{A}_{isk} - \bar{A}^{\mathrm{pre}}_{is}\bigr),
+  \qquad
+  R_{sk} = 100 \times \frac{\sum_{i} \bar{A}_{isk}}{\sum_{i} \bar{A}^{\mathrm{pre}}_{is}},
+  \label{eq:sector}
+\end{equation}
+where $N=20{,}000$ and users without activity in sector $s$ contribute zeros. The coefficient $\beta_{sk}$ is the change in the daily probability of sector-$s$ push activity relative to the baseline, in percentage points; the recovery index $R_{sk}$ normalizes the baseline to 100. Standard errors for $\beta_{sk}$ are 100 times the standard deviation of the user-level differences divided by $\sqrt{N}$, and 95 percent intervals use the normal approximation. As a summary of recovery timing, I report the first post-shutdown week that begins two consecutive weeks with $R_{sk}\geq 80$.
+
+Because the activity measure counts pushes to any classified repository, including repositories first observed after the shutdown, it captures recovery through new projects and through switching across repositories. As a complementary specification, I also follow only the repositories pushed to during the baseline weeks, whose activity cannot be replaced by new projects.
+
+This analysis compares each sector with its own pre-shutdown baseline and has no untreated comparison group. It therefore describes the heterogeneity and timing of recovery within Bangladesh; it does not estimate sector-specific causal effects. Post-shutdown deviations from the baseline may also reflect trends, seasonality, or other Bangladesh-specific developments. The confidence intervals capture sampling variation across users but not common shocks that affect all users in a given week. The pre-shutdown coefficients ($k<0$) indicate how much weekly activity fluctuates around the baseline in the absence of a shutdown and serve as a benchmark for interpreting post-shutdown deviations.
+
+\subsection{Sectoral recovery after restoration}
+\label{sec:sector_results}
+
+The synthetic-control estimates describe the collapse during the shutdown window. They do not show how activity evolved once connectivity returned, or whether recovery was common across the kinds of projects on which Bangladeshi developers work. This subsection addresses both questions using the fixed sample of 20,000 Bangladesh-associated accounts and the repository-sector classification of \cref{sec:sector_data}, estimated as described in \cref{sec:sector_method}. The analysis compares each sector with its own pre-shutdown baseline. It documents heterogeneity in recovery dynamics within Bangladesh; it does not estimate sector-specific causal effects relative to an untreated international control, and the synthetic-control estimate in \cref{sec:main_results} remains the paper's headline result. Throughout, a sector refers to the economic sector associated with the repositories in which observable GitHub activity occurs, not to developers' employers or industries of employment.
+
+\input{tables/tab_sector_recovery}
+
+All seven sectors show a sharp fall in observable push activity during July 18--23 (\cref{tab:sector_recovery,fig:sector_index}). The shutdown-period recovery index ranges from 3.5 in Accommodation/Food to 11.7 in Information and Education and 30.9 in Finance. In every sector, the 95 percent confidence interval for the change relative to the baseline excludes zero (Appendix \cref{fig:sector_es}).
+
+Restoration of connectivity did not imply an immediate or uniform recovery. In the first week after the shutdown (July 24--30), the recovery index ranges from 33.0 in Real Estate to 92.2 in Finance. Mobile connectivity returned only during this week, later than fixed broadband \citep{belson2024}, so part of the week $+1$ shortfall may reflect incomplete restoration. Recovery was also not monotonic: in Finance, Information, Education, Real Estate, and Accommodation/Food, the index is lower in week $+2$ (July 31--August 6) than in week $+1$. This week includes the renewed mobile shutdown on August 4 and the nationwide disruption on August 5 \citep{belson2024q3}, alongside unrest and initially declared holidays. These overlapping events prevent a separate attribution of the second-week decline. The stored holiday labels extend through August 7, although offices were ordered to reopen on August 6 \citep{bss2024reopen}; I keep the stored labels and document the discrepancy in the replication materials.
+
+\begin{figure}[htbp]
+\centering
+\caption{Recovery of observable GitHub push activity by repository sector}
+\label{fig:sector_index}
+\includegraphics[width=\textwidth]{fig5_sector_recovery_index.pdf}
+\fignote{Each panel highlights one sector's recovery index $R_{sk}$ (\cref{eq:sector}), 100 times its mean daily probability of push activity in event week $k$ relative to May 23--July 17, 2024; other sectors in grey. Shaded: July 18--23 shutdown; week $+1$ is July 24--30, and the window ends at week $+17$ (November 13--19). Lines mark 100 and 80; the one value above 200 is labeled. Fixed sample of 20,000 Bangladesh-associated accounts; sectors from a README classifier with confidence $\geq 0.80$ \citep{quispe2026naics} describe the repositories in which activity occurs, not developers' employers. Within-Bangladesh descriptive comparison, not a causal effect. Source: Author's calculations using GH Archive.}
+\end{figure}
+
+Finance and Information recovered fastest. Finance returned to an index of 92.2 in week $+1$, and both sectors begin a run of two consecutive weeks at or above 80 in week $+3$. Information exceeds its baseline by week $+4$ (106.0). In week $+8$, Finance is 91.3 and Information is 94.5. The Finance series is nonetheless noisy: its baseline includes a spike in week $-1$ (index 193.6), and its post-shutdown index falls back below 80 in several later weeks.
+
+Education and Health recovered more gradually. Their week $+1$ indices are 59.1 and 40.7, they reach 75.4 and 77.5 by week $+4$, and both begin a run of two consecutive weeks at or above 80 only in week $+6$. By week $+8$, they stand at 81.9 and 89.4.
+
+Accommodation/Food remained persistently depressed. Its index is 44.3 in week $+1$, 54.2 in week $+4$, and 62.6 in week $+8$, and it never records two consecutive weeks at or above 80 through the end of the observation window (week $+17$, November 13--19). This result should be read alongside the sector's unstable baseline: the index is 254.1 and 127.3 in the first two baseline weeks and between 40.8 and 95.5 in the remaining six. Part of the post-shutdown gap may therefore reflect a decline that began before the shutdown rather than a failure to recover.
+
+Real Estate recovered slowly at first and later approached its baseline. Its index remains between 25.1 and 44.4 through week $+4$, rises above 100 in weeks $+5$, $+6$ and $+7$ (115.1, 157.3 and 108.3), and is 85.5 in week $+8$. This later recovery is not durable within the observed window: from week $+12$ onward, the index lies between 31.9 and 46.7 (\cref{fig:sector_index}). Real Estate is also the smallest of the seven sectors, with 213 sampled users active in the baseline period, so its weekly estimates are imprecise.
+
+Retail shows a pronounced temporary rebound. Its index is about 52 in weeks $+1$ and $+2$, rises to 153.7 in week $+4$ (August 14--20), and falls back to 76.5 in week $+5$. Its first run of two consecutive weeks at or above 80 begins only in week $+9$. The week $+4$ value is therefore a transient overshoot, possibly reflecting a burst of catch-up activity, rather than evidence of completed recovery; the data do not identify what generated it. The timing of Retail's first two-week run is also sensitive to the classifier threshold (\cref{sec:sector_robustness}).
+
+Index values above 100 later in the window should not be read as gains caused by the shutdown. Information, for example, has an index between 111.5 and 126.3 in weeks $+10$ to $+15$ and 144.3 in week $+17$. Without an untreated comparison group, such movements cannot be separated from trend growth, seasonality, or changes in the sampled users' activity.
+
+The main specification counts pushes to any classified repository, including repositories first observed after the shutdown. A complementary specification follows only repositories pushed to during the eight baseline weeks (\cref{tab:sector_fixed_repo}). Activity in these pre-existing repositories recovers far less: in week $+8$, their indices range from 10.1 (Accommodation/Food) to 31.4 (Education), compared with 62.6 to 94.5 in the sector-wide specification. Because repositories selected on recent activity would become less active over time even without a shutdown, this gap does not measure a shutdown effect. It is nevertheless consistent with recovery occurring partly through new repositories and switching across projects rather than solely through a return to pre-existing ones.
+
+Taken together, the sectoral evidence indicates that the collapse in observable activity documented in \cref{sec:main_results} was followed by a recovery that was gradual and uneven across the economic sectors associated with developers' repositories. These are before--after comparisons within Bangladesh. They share the identification limitations discussed in \cref{sec:unrest} and, in addition, cannot separate post-shutdown recovery from other Bangladesh-specific developments between August and November 2024.
+
+\subsubsection{Additional sector-recovery diagnostics}
 
 \begin{figure}[H]
 \centering
@@ -56,3 +163,9 @@ This appendix reports the detailed tables behind the synthetic-control, differen
 
 \input{tables/tab_sector_threshold}
 \input{tables/tab_sector_fixed_repo}
+
+\clearpage
+\input{sections/appendix_evidence_audit}
+
+\clearpage
+\input{sections/appendix_country_atlas}

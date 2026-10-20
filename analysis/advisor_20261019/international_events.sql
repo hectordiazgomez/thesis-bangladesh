@@ -1,0 +1,1 @@
+SELECT u.country, LOWER(e.actor.login) AS login, e.repo.name AS repo_name, DATE(e.created_at) AS date, e.type AS event_type, COUNT(*) AS event_count FROM `githubarchive.day.2024*` e JOIN `olah-aac6b.github_shutdown.eligible_users_international` u ON LOWER(e.actor.login)=LOWER(u.login) WHERE _TABLE_SUFFIX BETWEEN '0501' AND '0723' GROUP BY 1,2,3,4,5

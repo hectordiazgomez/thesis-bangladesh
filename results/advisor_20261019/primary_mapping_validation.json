@@ -1,0 +1,15 @@
+{
+  "rows_compared": 799417,
+  "exact_count_matches": 799417,
+  "count_mismatches": 0,
+  "binary_mismatches": 0,
+  "event_types": [
+    "PushEvent",
+    "PullRequestEvent",
+    "PullRequestReviewEvent",
+    "PullRequestReviewCommentEvent",
+    "IssuesEvent",
+    "ReleaseEvent",
+    "CreateEvent"
+  ]
+}

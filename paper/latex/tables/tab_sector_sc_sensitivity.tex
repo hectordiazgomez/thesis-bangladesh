@@ -1,0 +1,28 @@
+\begin{table}[H]
+\centering
+\small
+\caption{Sector-cohort ATT sensitivity to classification rules}
+\label{tab:sector_sc_sensitivity}
+\begin{threeparttable}
+\begin{tabular}{@{}p{0.38\textwidth}rrrr@{}}
+\toprule
+Domain & 0.70 & 0.80 & 0.90 & Name fallback \\
+\midrule
+Accommodation and food & -14.56 & -- & -- & -15.71 \\
+Arts and recreation & -11.61 & -12.33 & -- & -10.90 \\
+Education & -16.30 & -15.04 & -15.83 & -14.15 \\
+Finance & -10.97 & -12.28 & -12.10 & -12.59 \\
+Health & -16.10 & -16.84 & -16.65 & -15.89 \\
+Information & -13.07 & -12.74 & -12.50 & -12.70 \\
+Professional services & -14.34 & -16.13 & -- & -16.13 \\
+Retail & -16.47 & -15.69 & -15.16 & -14.31 \\
+Transport & -10.95 & -11.31 & -- & -11.90 \\
+Unclassified & -12.76 & -12.77 & -12.92 & -12.58 \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}[flushleft]
+\footnotesize
+\item Effects in percentage points. The first three columns require a historical README. The final column admits classifications from names alone at score 0.80. Each rule changes the fixed cohort and may change donor support. A dash means insufficient support, not a zero effect; columns are therefore not estimates for an identical population.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}

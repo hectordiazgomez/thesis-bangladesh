@@ -1,0 +1,36 @@
+cohort,code,domain,users,cohort_users,cohort_pct
+All eligible,11,Agriculture,5,10241,0.048823357094033785
+All eligible,22,Utilities,1,10241,0.009764671418806757
+All eligible,31-33,Manufacturing,1,10241,0.009764671418806757
+All eligible,44-45,Retail,74,10241,0.7225856849917001
+All eligible,48-49,Transport,9,10241,0.08788204276926082
+All eligible,51,Information,84,10241,0.8202323991797676
+All eligible,52,Finance,19,10241,0.18552875695732837
+All eligible,53,Real estate,7,10241,0.0683526999316473
+All eligible,54,Professional services,19,10241,0.18552875695732837
+All eligible,56,Administrative support,5,10241,0.048823357094033785
+All eligible,61,Education,79,10241,0.7714090420857338
+All eligible,62,Health,19,10241,0.18552875695732837
+All eligible,71,Arts and recreation,10,10241,0.09764671418806757
+All eligible,72,Accommodation and food,23,10241,0.22458744263255542
+All eligible,81,Other services,1,10241,0.009764671418806757
+All eligible,92,Public administration,1,10241,0.009764671418806757
+All eligible,Unclassified,Unclassified,9884,10241,96.51401230348598
+Core publishers,61,Education,2,40,5.0
+Core publishers,Unclassified,Unclassified,38,40,95.0
+Onset authors,22,Utilities,1,250,0.4
+Onset authors,44-45,Retail,1,250,0.4
+Onset authors,51,Information,2,250,0.8
+Onset authors,53,Real estate,1,250,0.4
+Onset authors,61,Education,2,250,0.8
+Onset authors,71,Arts and recreation,1,250,0.4
+Onset authors,72,Accommodation and food,2,250,0.8
+Onset authors,Unclassified,Unclassified,240,250,96.0
+Delayed onset authors,22,Utilities,1,191,0.5235602094240838
+Delayed onset authors,44-45,Retail,1,191,0.5235602094240838
+Delayed onset authors,51,Information,2,191,1.0471204188481675
+Delayed onset authors,53,Real estate,1,191,0.5235602094240838
+Delayed onset authors,61,Education,1,191,0.5235602094240838
+Delayed onset authors,71,Arts and recreation,1,191,0.5235602094240838
+Delayed onset authors,72,Accommodation and food,1,191,0.5235602094240838
+Delayed onset authors,Unclassified,Unclassified,183,191,95.81151832460733

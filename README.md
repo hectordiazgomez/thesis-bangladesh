@@ -154,6 +154,33 @@ includes this extension; `paper/thesis.docx` and `paper/thesis.txt` do not.
 Figures and tables are regenerated with `analysis/figures/make_all_figures.py`
 and `analysis/tables/make_all_tables.py`.
 
+## International comparisons and residual-activity audit
+
+The current draft also contains fixed pre-treatment international repository-domain
+comparisons, every country-by-domain trajectory, and a case audit of residual
+publication. The audit distinguishes documented automated publication from
+suggestive patterns and unavailable evidence; it does not classify account
+holders as bots or revise the national estimate.
+
+To reproduce the October 20 additions from the included cached evidence:
+
+```sh
+python analysis/evidence_20261020/prepare_audit.py
+python analysis/evidence_20261020/analyze_audit.py
+python analysis/evidence_20261020/country_atlas.py
+python analysis/evidence_20261020/verify_evidence.py
+```
+
+The earlier international domain pipeline is in `analysis/advisor_20261019/`.
+The case register and numerical audit are in `results/evidence_20261020/`;
+source links and limitations are documented in `notes/evidence_review_20261020.md`.
+Refreshing public GitHub metadata is optional, uses `requirements_evidence.txt`
+and authenticated `gh`, and is separate from offline reproduction. Historical
+objects that are now unavailable remain flagged.
+
+After generating the tables and figures, build the current paper with
+`latexmk -xelatex main.tex` from `paper/latex/`.
+
 ## Interpretation
 
 The empirical outcomes measure observable public GitHub activity rather

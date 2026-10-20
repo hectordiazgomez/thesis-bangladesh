@@ -124,7 +124,7 @@ def tab_main_estimates(sc: dict) -> None:
     rows.append(f"RDiT, local linear & {num(100 * rdm.effect)} & -- & "
                 f"HAC $p = {rdm.p_hac:.3f}$ (SE {num(100 * rdm.se_hac, 2)} pp) & Temporal robustness")
     note = (r"Outcome: daily percentage of eligible users with observable productive GitHub activity; "
-            r"effects are averages over July 18--23, 2024, in percentage points. The inference column "
+            r"SCM and DiD effects average July 18--23, 2024; the RDiT effect is a cutoff discontinuity. All effects are in percentage points. The inference column "
             r"reports different objects that are not directly comparable. The rank values are the "
             r"share of the 15 countries whose estimate is at least as extreme as Bangladesh's; $1/15$ "
             r"is the minimum attainable and means that Bangladesh is the most extreme unit, not "

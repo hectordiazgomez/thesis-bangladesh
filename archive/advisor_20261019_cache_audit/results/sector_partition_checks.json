@@ -1,0 +1,22 @@
+[
+  {
+    "variant": "historical_readme_080",
+    "max_numerator_difference": 0.0,
+    "users_partitioned": 59158
+  },
+  {
+    "variant": "historical_readme_070",
+    "max_numerator_difference": 0.0,
+    "users_partitioned": 59158
+  },
+  {
+    "variant": "historical_readme_090",
+    "max_numerator_difference": 0.0,
+    "users_partitioned": 59158
+  },
+  {
+    "variant": "name_fallback_080",
+    "max_numerator_difference": 0.0,
+    "users_partitioned": 59158
+  }
+]

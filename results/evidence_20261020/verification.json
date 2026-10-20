@@ -1,0 +1,566 @@
+{
+  "checks": [
+    {
+      "check": "275 unique audited accounts",
+      "passed": true
+    },
+    {
+      "check": "Original overlapping cohorts",
+      "passed": true
+    },
+    {
+      "check": "Every account has a case reason",
+      "passed": true
+    },
+    {
+      "check": "Every direct core head has evidence",
+      "passed": true
+    },
+    {
+      "check": "180 distinct core PushEvents",
+      "passed": true
+    },
+    {
+      "check": "All pushes partitioned",
+      "passed": true
+    },
+    {
+      "check": "Primary event accounting",
+      "passed": true
+    },
+    {
+      "check": "Non-push primary events retained",
+      "passed": true
+    },
+    {
+      "check": "Original and sensitivity active user-days",
+      "passed": true
+    },
+    {
+      "check": "Automation types sum to audited heads",
+      "passed": true
+    },
+    {
+      "check": "All sensitivity counts use original 10241 denominator",
+      "passed": true
+    },
+    {
+      "check": "Original onset cohort retained",
+      "passed": true
+    },
+    {
+      "check": "Original onset push partition",
+      "passed": true
+    },
+    {
+      "check": "Alternative endpoints monotone and explicit",
+      "passed": true
+    },
+    {
+      "check": "Every country-domain-date included",
+      "passed": true
+    },
+    {
+      "check": "Empty denominators remain missing rates",
+      "passed": true
+    },
+    {
+      "check": "Rates valid for nonempty cells",
+      "passed": true
+    },
+    {
+      "check": "Every date partitions original sample",
+      "passed": true
+    },
+    {
+      "check": "Existing synthetic paths reproduced",
+      "passed": true
+    },
+    {
+      "check": "All 300 support cells disclosed",
+      "passed": true
+    },
+    {
+      "check": "Corrected weekend bounded",
+      "passed": true
+    },
+    {
+      "check": "Preserved data/processed/panel_user_day_all.parquet",
+      "passed": true
+    },
+    {
+      "check": "Preserved data/processed/panel_clean.parquet",
+      "passed": true
+    },
+    {
+      "check": "Preserved data/processed/placebos_did.csv",
+      "passed": true
+    },
+    {
+      "check": "Preserved data/processed/github_activity_bangladesh.parquet",
+      "passed": true
+    },
+    {
+      "check": "Preserved data/processed/github_activity_international_sparse.parquet",
+      "passed": true
+    },
+    {
+      "check": "Preserved data/processed/github_activity_sparse_all.parquet",
+      "passed": true
+    },
+    {
+      "check": "Preserved data/processed/github_activity_philippines.parquet",
+      "passed": true
+    },
+    {
+      "check": "Preserved data/processed/table3_rdit_sensitivity.csv",
+      "passed": true
+    },
+    {
+      "check": "Preserved data/processed/panel_user_day_bangladesh.parquet",
+      "passed": true
+    },
+    {
+      "check": "Preserved data/processed/placebos_rdit.csv",
+      "passed": true
+    },
+    {
+      "check": "Preserved data/processed/panel_user_day_philippines.parquet",
+      "passed": true
+    },
+    {
+      "check": "Preserved data/processed/table2_outcomes.csv",
+      "passed": true
+    },
+    {
+      "check": "Preserved data/processed/table1_phases.csv",
+      "passed": true
+    },
+    {
+      "check": "Preserved data/processed/fig2_event_study_weekly.csv",
+      "passed": true
+    },
+    {
+      "check": "Preserved data/processed/github_activity_international_enriched.parquet",
+      "passed": true
+    },
+    {
+      "check": "Preserved data/processed/fig1_daily_zoom.csv",
+      "passed": true
+    },
+    {
+      "check": "Preserved data/advisor_20261019/bd_account_creation.jsonl",
+      "passed": true
+    },
+    {
+      "check": "Preserved data/advisor_20261019/international_sector.sqlite",
+      "passed": true
+    },
+    {
+      "check": "Preserved data/advisor_20261019/international_repo_event_day.parquet",
+      "passed": true
+    },
+    {
+      "check": "Preserved data/advisor_20261019/international_query_job.json",
+      "passed": true
+    },
+    {
+      "check": "Preserved data/advisor_20261019/cache_seed_audit.parquet",
+      "passed": true
+    },
+    {
+      "check": "Preserved data/advisor_20261019/user_dominant_pre_repo.parquet",
+      "passed": true
+    },
+    {
+      "check": "Preserved data/advisor_20261019/international_repo_predictions.parquet",
+      "passed": true
+    },
+    {
+      "check": "Preserved results/mechanism/incomplete_large_pushes.parquet",
+      "passed": true
+    },
+    {
+      "check": "Preserved results/mechanism/author_push_delay_by_period.csv",
+      "passed": true
+    },
+    {
+      "check": "Preserved results/mechanism/mechanism_placebo_windows.csv",
+      "passed": true
+    },
+    {
+      "check": "Preserved results/mechanism/robust_backlog_by_push.csv",
+      "passed": true
+    },
+    {
+      "check": "Preserved results/mechanism/robust_backlog_by_repo.csv",
+      "passed": true
+    },
+    {
+      "check": "Preserved results/mechanism/cumulative_offline_backlog.png",
+      "passed": true
+    },
+    {
+      "check": "Preserved results/mechanism/robust_backlog_by_push_size.csv",
+      "passed": true
+    },
+    {
+      "check": "Preserved results/mechanism/robust_metadata_coverage.csv",
+      "passed": true
+    },
+    {
+      "check": "Preserved results/mechanism/commit_sha_author_push_master.parquet",
+      "passed": true
+    },
+    {
+      "check": "Preserved results/mechanism/robust_push_size_period.csv",
+      "passed": true
+    },
+    {
+      "check": "Preserved results/mechanism/mechanism_pre_vs_blackout.csv",
+      "passed": true
+    },
+    {
+      "check": "Preserved results/mechanism/clean_repo_sha_first_push.parquet",
+      "passed": true
+    },
+    {
+      "check": "Preserved results/mechanism/mechanism_summary.csv",
+      "passed": true
+    },
+    {
+      "check": "Preserved results/mechanism/bd_push_listed_commits_20240701_20240810.parquet",
+      "passed": true
+    },
+    {
+      "check": "Preserved results/mechanism/daily_author_commit_push.csv",
+      "passed": true
+    },
+    {
+      "check": "Preserved results/mechanism/bd_push_events_20240701_20240810.parquet",
+      "passed": true
+    },
+    {
+      "check": "Preserved results/mechanism/author_vs_push_daily.png",
+      "passed": true
+    },
+    {
+      "check": "Preserved results/mechanism/backlog_release_dates.csv",
+      "passed": true
+    },
+    {
+      "check": "Preserved results/mechanism/placebo_weighting_audit.csv",
+      "passed": true
+    },
+    {
+      "check": "Preserved results/mechanism/robust_backlog_by_user.csv",
+      "passed": true
+    },
+    {
+      "check": "Preserved results/mechanism/commit_metadata_graphql.parquet",
+      "passed": true
+    },
+    {
+      "check": "Preserved results/mechanism/robust_authored_vs_committed.csv",
+      "passed": true
+    },
+    {
+      "check": "Preserved results/synthetic_control/single_donor_fit.csv",
+      "passed": true
+    },
+    {
+      "check": "Preserved results/synthetic_control/sdid_donor_weights_clean.png",
+      "passed": true
+    },
+    {
+      "check": "Preserved results/synthetic_control/pre_treatment_country_summary.csv",
+      "passed": true
+    },
+    {
+      "check": "Preserved results/synthetic_control/sdid_time_weights.csv",
+      "passed": true
+    },
+    {
+      "check": "Preserved results/synthetic_control/sdid_weights.png",
+      "passed": true
+    },
+    {
+      "check": "Preserved results/synthetic_control/synthetic_control_weights.png",
+      "passed": true
+    },
+    {
+      "check": "Preserved results/synthetic_control/sc_inspace_placebo_rmspe.png",
+      "passed": true
+    },
+    {
+      "check": "Preserved results/synthetic_control/sc_inspace_placebos.csv",
+      "passed": true
+    },
+    {
+      "check": "Preserved results/synthetic_control/sc_gap.png",
+      "passed": true
+    },
+    {
+      "check": "Preserved results/synthetic_control/country_day_donor_pool_with_holidays.parquet",
+      "passed": true
+    },
+    {
+      "check": "Preserved results/synthetic_control/eligible_users_donors.parquet",
+      "passed": true
+    },
+    {
+      "check": "Preserved results/synthetic_control/main_synthetic_results.csv",
+      "passed": true
+    },
+    {
+      "check": "Preserved results/synthetic_control/sc_actual_vs_synthetic_clean.png",
+      "passed": true
+    },
+    {
+      "check": "Preserved results/synthetic_control/sdid_outcomes.png",
+      "passed": true
+    },
+    {
+      "check": "Preserved results/synthetic_control/donor_weights.csv",
+      "passed": true
+    },
+    {
+      "check": "Preserved results/synthetic_control/secondary_outcomes_specific_SC.csv",
+      "passed": true
+    },
+    {
+      "check": "Preserved results/synthetic_control/sc_inspace_placebo_att.png",
+      "passed": true
+    },
+    {
+      "check": "Preserved results/synthetic_control/actual_vs_synthetic_daily.csv",
+      "passed": true
+    },
+    {
+      "check": "Preserved results/synthetic_control/country_day_outcomes_eligible.parquet",
+      "passed": true
+    },
+    {
+      "check": "Preserved results/synthetic_control/secondary_outcomes_DiD_no_holidays.csv",
+      "passed": true
+    },
+    {
+      "check": "Preserved results/synthetic_control/secondary_outcomes_placebo_summary.csv",
+      "passed": true
+    },
+    {
+      "check": "Preserved results/synthetic_control/secondary_outcomes_DiD.csv",
+      "passed": true
+    },
+    {
+      "check": "Preserved results/synthetic_control/leave_one_out_sc.csv",
+      "passed": true
+    },
+    {
+      "check": "Preserved results/synthetic_control/country_day_outcomes_enriched.parquet",
+      "passed": true
+    },
+    {
+      "check": "Preserved results/synthetic_control/synthetic_control_outcomes.png",
+      "passed": true
+    },
+    {
+      "check": "Preserved results/synthetic_control/country_day_donor_pool.parquet",
+      "passed": true
+    },
+    {
+      "check": "Preserved results/synthetic_control/raw_donor_pool.png",
+      "passed": true
+    },
+    {
+      "check": "Preserved results/synthetic_control/sdid_estimation_panel.parquet",
+      "passed": true
+    },
+    {
+      "check": "Preserved results/synthetic_control/reproduced/sc_summary.csv",
+      "passed": true
+    },
+    {
+      "check": "Preserved results/synthetic_control/reproduced/sc_inspace_placebos.csv",
+      "passed": true
+    },
+    {
+      "check": "Preserved results/synthetic_control/reproduced/sc_daily_path_full.csv",
+      "passed": true
+    },
+    {
+      "check": "Preserved results/synthetic_control/reproduced/sdid_decomposition.csv",
+      "passed": true
+    },
+    {
+      "check": "Preserved results/synthetic_control/reproduced/sc_leave_one_out.csv",
+      "passed": true
+    },
+    {
+      "check": "Preserved results/synthetic_control/reproduced/sc_intime_placebos.csv",
+      "passed": true
+    },
+    {
+      "check": "Preserved results/synthetic_control/reproduced/sc_weekly_gaps.csv",
+      "passed": true
+    },
+    {
+      "check": "Preserved results/synthetic_control/reproduced/sdid_time_weights_summary.csv",
+      "passed": true
+    },
+    {
+      "check": "Preserved results/synthetic_control/reproduced/sc_weights.csv",
+      "passed": true
+    },
+    {
+      "check": "Preserved results/advisor_20261019/residual_user_characteristics.parquet",
+      "passed": true
+    },
+    {
+      "check": "Preserved results/advisor_20261019/sc_predictor_sensitivity.csv",
+      "passed": true
+    },
+    {
+      "check": "Preserved results/advisor_20261019/residual_user_characteristics_with_age.parquet",
+      "passed": true
+    },
+    {
+      "check": "Preserved results/advisor_20261019/sector_support.csv",
+      "passed": true
+    },
+    {
+      "check": "Preserved results/advisor_20261019/sector_membership_name_fallback_080.parquet",
+      "passed": true
+    },
+    {
+      "check": "Preserved results/advisor_20261019/residual_concentration.json",
+      "passed": true
+    },
+    {
+      "check": "Preserved results/advisor_20261019/input_provenance.json",
+      "passed": true
+    },
+    {
+      "check": "Preserved results/advisor_20261019/sector_membership_historical_readme_090.parquet",
+      "passed": true
+    },
+    {
+      "check": "Preserved results/advisor_20261019/sector_membership_historical_readme_080.parquet",
+      "passed": true
+    },
+    {
+      "check": "Preserved results/advisor_20261019/residual_domain_composition.csv",
+      "passed": true
+    },
+    {
+      "check": "Preserved results/advisor_20261019/sector_sc_placebos.csv",
+      "passed": true
+    },
+    {
+      "check": "Preserved results/advisor_20261019/international_event_type_counts.csv",
+      "passed": true
+    },
+    {
+      "check": "Preserved results/advisor_20261019/residual_own_repository_activity.csv",
+      "passed": true
+    },
+    {
+      "check": "Preserved results/advisor_20261019/residual_pre_activity_quartiles.csv",
+      "passed": true
+    },
+    {
+      "check": "Preserved results/advisor_20261019/sector_sc_weights.csv",
+      "passed": true
+    },
+    {
+      "check": "Preserved results/advisor_20261019/readme_integrity.json",
+      "passed": true
+    },
+    {
+      "check": "Preserved results/advisor_20261019/residual_cohort_counts.json",
+      "passed": true
+    },
+    {
+      "check": "Preserved results/advisor_20261019/sc_predictor_weights.csv",
+      "passed": true
+    },
+    {
+      "check": "Preserved results/advisor_20261019/sector_leave_one_out.csv",
+      "passed": true
+    },
+    {
+      "check": "Preserved results/advisor_20261019/sector_membership_historical_readme_070.parquet",
+      "passed": true
+    },
+    {
+      "check": "Preserved results/advisor_20261019/analysis_design.json",
+      "passed": true
+    },
+    {
+      "check": "Preserved results/advisor_20261019/sector_sc_paths.csv",
+      "passed": true
+    },
+    {
+      "check": "Preserved results/advisor_20261019/primary_mapping_discrepancies.csv",
+      "passed": true
+    },
+    {
+      "check": "Preserved results/advisor_20261019/pdf_quality_review.json",
+      "passed": true
+    },
+    {
+      "check": "Preserved results/advisor_20261019/retrieval_status.csv",
+      "passed": true
+    },
+    {
+      "check": "Preserved results/advisor_20261019/residual_account_age.csv",
+      "passed": true
+    },
+    {
+      "check": "Preserved results/advisor_20261019/revision_package_manifest.json",
+      "passed": true
+    },
+    {
+      "check": "Preserved results/advisor_20261019/optimizer_crosscheck.csv",
+      "passed": true
+    },
+    {
+      "check": "Preserved results/advisor_20261019/verification.json",
+      "passed": true
+    },
+    {
+      "check": "Preserved results/advisor_20261019/sector_report_summary.json",
+      "passed": true
+    },
+    {
+      "check": "Preserved results/advisor_20261019/primary_mapping_validation.json",
+      "passed": true
+    },
+    {
+      "check": "Preserved results/advisor_20261019/residual_group_summary.csv",
+      "passed": true
+    },
+    {
+      "check": "Preserved results/advisor_20261019/sector_classification_coverage.csv",
+      "passed": true
+    },
+    {
+      "check": "Preserved results/advisor_20261019/sector_partition_checks.json",
+      "passed": true
+    },
+    {
+      "check": "Preserved results/advisor_20261019/sector_sc_estimates.csv",
+      "passed": true
+    },
+    {
+      "check": "Preserved results/advisor_20261019/donor_audit.csv",
+      "passed": true
+    },
+    {
+      "check": "Preserved results/advisor_20261019/residual_core_daily.csv",
+      "passed": true
+    }
+  ],
+  "count": 140,
+  "all_passed": true
+}

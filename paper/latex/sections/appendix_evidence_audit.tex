@@ -1,0 +1,46 @@
+\subsection{Connectivity chronology and threats to the comparison}
+\label{app:connectivity_audit}
+
+The connectivity record is useful both for defining exposure and for assessing the comparison series. Network traffic is not itself a measure of GitHub production, and a provider-level disruption need not affect every account in a country. The following review records documented events within the May 1--September 4 observation period. Absence from these non-exhaustive reports is not evidence of uninterrupted connectivity.
+
+\begin{table}[htbp]
+\centering\small
+\caption{Documented connectivity events relevant to the analysis}
+\label{tab:evidence_connectivity}
+\begin{threeparttable}
+\begin{tabular}{@{}p{.14\textwidth}p{.16\textwidth}p{.36\textwidth}p{.25\textwidth}@{}}
+\toprule
+Country & Date (2024) & Documented event & Implication \\
+\midrule
+Bangladesh & July 18 & Near-zero national traffic around 15:00 UTC \citep{belson2024} & Daily July 18 includes pre-cut hours. \\
+Bangladesh & July 23 & Broadband recovery at 13:00 UTC in the August report, 12:00 UTC in Q3 \citep{belson2024,belson2024q3} & Both endpoints retained in author-cohort counts. \\
+Bangladesh & July 28 & Major mobile networks recover around 09:00 UTC \citep{belson2024} & Restoration differs across access networks. \\
+Bangladesh & August 4--5 & Renewed mobile outage, followed by national interruption on August 5 \citep{belson2024q3} & Later dip has additional network exposure. \\
+Kenya & May 2; May 12 & Power-related disruption; submarine-cable failures \citep{cloudflare2024} & Pre-period donor contamination. \\
+Kenya & June 25 & Large traffic disruption during protests; cause disputed \citep{cloudflare2024} & Connectivity and unrest are not separated. \\
+Kenya & August 30--31 & Power-outage disruption \citep{belson2024q3} & Later synthetic path may be depressed. \\
+Pakistan & July 31 & About two hours of disruption, with roughly 45\% national traffic decline \citep{belson2024} & Outside primary window; affects recovery comparison. \\
+Nepal & May 2; June 3 & Provider outages associated with upstream payments and routing \citep{cloudflare2024} & Exposure differs by provider. \\
+Malaysia & May 21 & Celcom disruption; a separate apparent dip was a Cloudflare processing issue \citep{cloudflare2024} & Telemetry artefacts must not be coded as outages. \\
+\bottomrule\end{tabular}
+\begin{tablenotes}[flushleft]\footnotesize
+\item Times are UTC. This source audit does not change the donor pool or refit weights. Pakistan's regional July restrictions are discussed in the main donor diagnostics. The August 6 reopening reported by BSS conflicts with August 6--7 holiday labels in the input panel; the original labels and separate sensitivity remain documented. Kenya and Pakistan have positive national weights, so their post-window disruptions are especially relevant to apparent catch-up. No causal GitHub effect is assigned to a listed event solely because it appears in the chronology.
+\end{tablenotes}\end{threeparttable}
+\end{table}
+
+\clearpage
+\subsection{Detailed residual-publication audit}
+\label{app:residual_audit}
+
+\input{tables/tab_evidence_features}
+
+\begin{figure}[htbp]
+\centering
+\caption{Core-window pushes by strength of automation evidence}
+\label{fig:evidence_automation}
+\includegraphics[width=\textwidth]{fig_evidence_automation.pdf}
+\fignote{All 180 PushEvents on July 19--22 from the 40 core publishers. Classification concerns the head commit and available historical evidence. Direct evidence requires a machine identity corroborated by messages/files or a matching generating workflow; suggestive patterns and unavailable objects remain separate. No-direct-evidence cases are not certified human activity. Non-push primary events are omitted from this figure but retained in Table~\ref{tab:evidence_audit}.}
+\end{figure}
+
+\clearpage
+\input{tables/tab_evidence_cases}

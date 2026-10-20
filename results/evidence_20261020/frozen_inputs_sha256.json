@@ -1,0 +1,478 @@
+[
+  {
+    "path": "data/processed/panel_user_day_all.parquet",
+    "sha256": "acc7d996098b439c136e5ad32cf6a5929398f9f934627c94b61d57d7970a812b"
+  },
+  {
+    "path": "data/processed/panel_clean.parquet",
+    "sha256": "0c6ae8c365ecc8285b45b8f3b809545e97d7b1b7dc47a4092a029fa7c60626f7"
+  },
+  {
+    "path": "data/processed/placebos_did.csv",
+    "sha256": "2952be1482a2a332257d501f7be0e12bfda7a7838a2e4f5fef22e6a12a8fdbbe"
+  },
+  {
+    "path": "data/processed/github_activity_bangladesh.parquet",
+    "sha256": "987bc7310e9945671ed2600f0a571753c667ccabe481b78b3a3ce1169c512577"
+  },
+  {
+    "path": "data/processed/github_activity_international_sparse.parquet",
+    "sha256": "771425e7fc555d6b79199ff5c193c0474f0ae200571fcd392b7ef495cf36d97c"
+  },
+  {
+    "path": "data/processed/github_activity_sparse_all.parquet",
+    "sha256": "391a1ea2f2f4d98eaac80f37bc4e5357e38bd843fa6d16de216607366775aba3"
+  },
+  {
+    "path": "data/processed/github_activity_philippines.parquet",
+    "sha256": "79b8ae0461595b31980e391698c27b57a47baefe0c3155ff79381266aad4c204"
+  },
+  {
+    "path": "data/processed/table3_rdit_sensitivity.csv",
+    "sha256": "77edacf77d2a768d32f4a474d041975d76f7f7ca33b92e4a7cb0031317915151"
+  },
+  {
+    "path": "data/processed/panel_user_day_bangladesh.parquet",
+    "sha256": "3d923b522281118b5666c23dfc529854db33504e6ae367e79e4d183999b306f0"
+  },
+  {
+    "path": "data/processed/placebos_rdit.csv",
+    "sha256": "365d56df10aee98538cefa45ae708cc303b2cbd0eea387762b8220f3dbe92ed2"
+  },
+  {
+    "path": "data/processed/panel_user_day_philippines.parquet",
+    "sha256": "dabf4f51b5a0cdb3066b39ad55c63cfa56c5b38975bd5461202eef33b1abda3e"
+  },
+  {
+    "path": "data/processed/table2_outcomes.csv",
+    "sha256": "b75bd7093fe3ecf3b717295438b5d82b87a5c89d1f10a4e7149a21455b2eafbb"
+  },
+  {
+    "path": "data/processed/table1_phases.csv",
+    "sha256": "f2ea1e307bd528353116d85af5e03879966454de5157320e636de0f1b61199ed"
+  },
+  {
+    "path": "data/processed/fig2_event_study_weekly.csv",
+    "sha256": "d98bd40d7a7809e2952cdd1fe56e675de4b5bd5186ebdbf287d939375aa6b5b4"
+  },
+  {
+    "path": "data/processed/github_activity_international_enriched.parquet",
+    "sha256": "a99bb61cadfbce6b13eef8cd5cbee4d90d206667f80962f0aa623fdaae1cdeb2"
+  },
+  {
+    "path": "data/processed/fig1_daily_zoom.csv",
+    "sha256": "3fd507af5a74fbb2edd79f5e319b33a997e63b3fbb08ba91033208535a991d37"
+  },
+  {
+    "path": "data/advisor_20261019/bd_account_creation.jsonl",
+    "sha256": "2174fae319e8ede20c58d955dfdc5cacc35bfba82a4a20453aa4cc685cef376d"
+  },
+  {
+    "path": "data/advisor_20261019/international_sector.sqlite",
+    "sha256": "2be5f3dfcda73b7f38653edc18f995a44b64be2c0e095c480facfc67cbdd675c"
+  },
+  {
+    "path": "data/advisor_20261019/international_repo_event_day.parquet",
+    "sha256": "dff7353a7184d832af08e21e829c57f923506c20d49d69ed97bc4751d594176d"
+  },
+  {
+    "path": "data/advisor_20261019/international_query_job.json",
+    "sha256": "02765d9c89e886e0f601cf5bc9c998c47231d29c0f39bba9bea588fc685aeed1"
+  },
+  {
+    "path": "data/advisor_20261019/cache_seed_audit.parquet",
+    "sha256": "dcef5a8f739a57138a3ee61b710646fd784b99bd72d43cc0254ae0b94ed2b410"
+  },
+  {
+    "path": "data/advisor_20261019/user_dominant_pre_repo.parquet",
+    "sha256": "c42bfe43453851d9562489f9ac211b5b4f6796ec42911591ec060492252fb556"
+  },
+  {
+    "path": "data/advisor_20261019/international_repo_predictions.parquet",
+    "sha256": "5d2e68a96d6bd4670b8c68b0eb7f1b4e09d00f63a428d7e25ab6c7d870bee111"
+  },
+  {
+    "path": "results/mechanism/incomplete_large_pushes.parquet",
+    "sha256": "ce9cbeeb2235b4e8a62019e42d9ed81dbac0d9566485b9c9275df83a1aa81049"
+  },
+  {
+    "path": "results/mechanism/author_push_delay_by_period.csv",
+    "sha256": "d172f7456aa2f6ae45a6138e72108283a753663d79deb68c22969465f06650da"
+  },
+  {
+    "path": "results/mechanism/mechanism_placebo_windows.csv",
+    "sha256": "b618b95f264afcc5e130dfca02a58353d0a7d5563b34eab72eedb3cc67b637b8"
+  },
+  {
+    "path": "results/mechanism/robust_backlog_by_push.csv",
+    "sha256": "1840dd9f059a73da9e178c5d96a839e4d304c2fd58aa7540f12ab0848be55e5d"
+  },
+  {
+    "path": "results/mechanism/robust_backlog_by_repo.csv",
+    "sha256": "103cab026045dcf16e6355b023688d6ac3af93a6c0a9435ecae93d5f58a9fa6f"
+  },
+  {
+    "path": "results/mechanism/cumulative_offline_backlog.png",
+    "sha256": "6e3a2fdf69b2fcb1040e3401c9e6777f001dacc72509d7bd037baa188e6d68c4"
+  },
+  {
+    "path": "results/mechanism/robust_backlog_by_push_size.csv",
+    "sha256": "d4d3ee8695438ff5ed9c9587965a55ad4432e100404cbc1c08d8f65ccb757047"
+  },
+  {
+    "path": "results/mechanism/robust_metadata_coverage.csv",
+    "sha256": "fb1c8c7ebd8d1616c1bbe5bc1cae2159ca7177fe712db300b7c6ee01718caeda"
+  },
+  {
+    "path": "results/mechanism/commit_sha_author_push_master.parquet",
+    "sha256": "fb780647c862435dc7661d115e271bdd694887bf2305fd037d9cab125cf8e250"
+  },
+  {
+    "path": "results/mechanism/robust_push_size_period.csv",
+    "sha256": "53938d2979e8b3e5241f5dff30878c053f4ee35360a669f68ffe5faa0bbf580c"
+  },
+  {
+    "path": "results/mechanism/mechanism_pre_vs_blackout.csv",
+    "sha256": "5180ca0941844336c4b77746486b34d7d37f8874240d41aa24b4400361e2c7ef"
+  },
+  {
+    "path": "results/mechanism/clean_repo_sha_first_push.parquet",
+    "sha256": "7fd89d1cd93c49fa6ff37f161bddc03da69153f27e1349ab2e77408b03f93898"
+  },
+  {
+    "path": "results/mechanism/mechanism_summary.csv",
+    "sha256": "f2326f9fbded8399237c8a28d25dd3ede825766f0de80c8338f613de619a8c14"
+  },
+  {
+    "path": "results/mechanism/bd_push_listed_commits_20240701_20240810.parquet",
+    "sha256": "2903e6dad75b1a5da44c6fb3d6080217186cf873e4ff93ec835dafac2c78d443"
+  },
+  {
+    "path": "results/mechanism/daily_author_commit_push.csv",
+    "sha256": "712d5afbdcd9eb472b6e619c4df416e951c33679c15b7b1c4efd23342d14dfd3"
+  },
+  {
+    "path": "results/mechanism/bd_push_events_20240701_20240810.parquet",
+    "sha256": "188e0da301dc5988b9ac12e42fd22ce72ebe9fe35225bf4a0beca48e6ad9429a"
+  },
+  {
+    "path": "results/mechanism/author_vs_push_daily.png",
+    "sha256": "b25c361ed5f8ee6618d8b0194d66989ad1710facb85e274a5188926a4ee54503"
+  },
+  {
+    "path": "results/mechanism/backlog_release_dates.csv",
+    "sha256": "442f806313a45ebba8f03e831c9e7e778b0d0bdb47c9362e84cb46081955b83c"
+  },
+  {
+    "path": "results/mechanism/placebo_weighting_audit.csv",
+    "sha256": "68b7e3217b02f2c52a884be2397a2efb1ad2bc52c216a49eb5df65032aec9558"
+  },
+  {
+    "path": "results/mechanism/robust_backlog_by_user.csv",
+    "sha256": "c371d302d604f1d9a11a8cba08cf873e9e72e62b9d4a983b786ccbbffd5df5a6"
+  },
+  {
+    "path": "results/mechanism/commit_metadata_graphql.parquet",
+    "sha256": "90728e4cc27236106a294e02084495525d04a8f1900ab464ed2c7a70763b3d22"
+  },
+  {
+    "path": "results/mechanism/robust_authored_vs_committed.csv",
+    "sha256": "704d64b77fbf8d625a45f757cde5b4af7f645f8c24dfc3b5c5aa44cbc7759cb8"
+  },
+  {
+    "path": "results/synthetic_control/single_donor_fit.csv",
+    "sha256": "95b88ac959c8c33e6747d885c8e7b82a327a12945630a959a2e5f944f79109f9"
+  },
+  {
+    "path": "results/synthetic_control/sdid_donor_weights_clean.png",
+    "sha256": "caf23f358276359f4fea001725c5821e9c663dbdd3a4e3f4453d20b056a0504e"
+  },
+  {
+    "path": "results/synthetic_control/pre_treatment_country_summary.csv",
+    "sha256": "ce3e5c074e356981d7d4c080cf688fabcf6d3757df2621e243a1a6fc3f00b725"
+  },
+  {
+    "path": "results/synthetic_control/sdid_time_weights.csv",
+    "sha256": "10c9bbb28e786efd2c39d824c9755c42eb955eb3ae27737948ce3569b3fe54d0"
+  },
+  {
+    "path": "results/synthetic_control/sdid_weights.png",
+    "sha256": "9ace77f14f17f204bc027e7b3b4d26739096b0cf8c1c5ee14570259563e5c734"
+  },
+  {
+    "path": "results/synthetic_control/synthetic_control_weights.png",
+    "sha256": "2b41c4efc97a45692740b84cfaf054f99242885a182912fdb4c66d9e0884bfbe"
+  },
+  {
+    "path": "results/synthetic_control/sc_inspace_placebo_rmspe.png",
+    "sha256": "7cd8248d70c8752b5895cea1f7a1840cfcbcffd14e61ebc0ec2f6542d19e9764"
+  },
+  {
+    "path": "results/synthetic_control/sc_inspace_placebos.csv",
+    "sha256": "3bc625193568f23c9a35350ee9675f2b31f5477427452de0330791a9ec3e7197"
+  },
+  {
+    "path": "results/synthetic_control/sc_gap.png",
+    "sha256": "63ba728ff4e47b0821507fc36513a3c954213b63170e26ef28ea7c524662fa0d"
+  },
+  {
+    "path": "results/synthetic_control/country_day_donor_pool_with_holidays.parquet",
+    "sha256": "208a3dfd4c50f1744f6a92e6b30920a296405a8deab59e7cdf8eb42d07497d65"
+  },
+  {
+    "path": "results/synthetic_control/eligible_users_donors.parquet",
+    "sha256": "5ca76cfc357426b40a95de8ce378c04b5c184c256a0b3a5c200457c23fa71843"
+  },
+  {
+    "path": "results/synthetic_control/main_synthetic_results.csv",
+    "sha256": "0103f9fbb6e1a56e45064c8c61870456edd164601a9d4718263e76cdc654eb80"
+  },
+  {
+    "path": "results/synthetic_control/sc_actual_vs_synthetic_clean.png",
+    "sha256": "0074cfdbc12a462de44bb5f7208cec2fe75395da088be08432b5c020c35fbb8c"
+  },
+  {
+    "path": "results/synthetic_control/sdid_outcomes.png",
+    "sha256": "d8296e09735201be3c51e2a6fddc5f287f05cad99e13cd0e515917002e7b57dc"
+  },
+  {
+    "path": "results/synthetic_control/donor_weights.csv",
+    "sha256": "1509faff3154aeb563625e9ec9f59ceb2ae8733b33c94d086500412416117e27"
+  },
+  {
+    "path": "results/synthetic_control/secondary_outcomes_specific_SC.csv",
+    "sha256": "19cc60a5cad165bd9a0e628f6ed291d13024ade1af33224ae0d40d035c9a3025"
+  },
+  {
+    "path": "results/synthetic_control/sc_inspace_placebo_att.png",
+    "sha256": "f813f1d3d61e1f91c50a7ee1a5756ef3305f46d5d3113e41cac79b1b63947773"
+  },
+  {
+    "path": "results/synthetic_control/actual_vs_synthetic_daily.csv",
+    "sha256": "5178ff029643b964ca84c1f233b519274aecd2134850bd1cbae8d42925ef9ea5"
+  },
+  {
+    "path": "results/synthetic_control/country_day_outcomes_eligible.parquet",
+    "sha256": "5e0603953ae024acf6547b05d09871a44dd5b8aac08af61bc232a14d6151731b"
+  },
+  {
+    "path": "results/synthetic_control/secondary_outcomes_DiD_no_holidays.csv",
+    "sha256": "4831079a4c3eaad2fa33b96a61cbd24272c4f35d2f45bb6f008cdbc9b1a36bab"
+  },
+  {
+    "path": "results/synthetic_control/secondary_outcomes_placebo_summary.csv",
+    "sha256": "2f692cff044811c97ff1c3f6859f6cbb67e49b7fdecb35c7eff4e0aa376c1b44"
+  },
+  {
+    "path": "results/synthetic_control/secondary_outcomes_DiD.csv",
+    "sha256": "6ba7c875df3bc2cef1aa9dd475c178b156cbc173689190e5a207bac6f47f10e3"
+  },
+  {
+    "path": "results/synthetic_control/leave_one_out_sc.csv",
+    "sha256": "f161ef3b9e118e842e567084ad55e25cd32d9d491e2acaddd08c9ff1e923b9ab"
+  },
+  {
+    "path": "results/synthetic_control/country_day_outcomes_enriched.parquet",
+    "sha256": "53a657b2b503ab551624309a1626cc5bdde4a0b414b3592ac28419efd4c2b0d6"
+  },
+  {
+    "path": "results/synthetic_control/synthetic_control_outcomes.png",
+    "sha256": "95dc32d02831051ab56feef4116cb3b7e62da45473641f1be74565a2bb4cab29"
+  },
+  {
+    "path": "results/synthetic_control/country_day_donor_pool.parquet",
+    "sha256": "84199ca7923ee9ed9e5d9ab19c8dad3c777466842ec8221b2e014c977d608e7b"
+  },
+  {
+    "path": "results/synthetic_control/raw_donor_pool.png",
+    "sha256": "1059c77dc0b091518c01f7bb8d63e17345d5bad1817fb153595d6520941672ec"
+  },
+  {
+    "path": "results/synthetic_control/sdid_estimation_panel.parquet",
+    "sha256": "8b78f1b45c367b510b8a2f1a502a0c8c72b2fe168079c78fdc4bc99e869149c8"
+  },
+  {
+    "path": "results/synthetic_control/reproduced/sc_summary.csv",
+    "sha256": "a922e13e083cea3375d9f4a6f478ed33c2e053338a1818700737b22412c6623a"
+  },
+  {
+    "path": "results/synthetic_control/reproduced/sc_inspace_placebos.csv",
+    "sha256": "21bd11af3533722cfe2d4cb03d0bacee9e6ccd79a3155f8256cfd7bc54113ddf"
+  },
+  {
+    "path": "results/synthetic_control/reproduced/sc_daily_path_full.csv",
+    "sha256": "58cc37ed05700639a47c53e31fbce01c121e7815daef0c2463650ece3f38365b"
+  },
+  {
+    "path": "results/synthetic_control/reproduced/sdid_decomposition.csv",
+    "sha256": "d3b36361b0e4ae31625e377dc2ace7ccc0876355e6ea40b003c80c5b95b23e09"
+  },
+  {
+    "path": "results/synthetic_control/reproduced/sc_leave_one_out.csv",
+    "sha256": "a83a87a2056324f8ff483e7a73e40345eb8b3db90eadeeee62467ffae108fdb1"
+  },
+  {
+    "path": "results/synthetic_control/reproduced/sc_intime_placebos.csv",
+    "sha256": "08e5783cd0b677939f1510388c32b1b80224ec4231a8aa1475e67d3175597357"
+  },
+  {
+    "path": "results/synthetic_control/reproduced/sc_weekly_gaps.csv",
+    "sha256": "40ad801a8acd6ff158c6b8970b38eb9ca4fc93f36f15c721dc625cfa49d0a382"
+  },
+  {
+    "path": "results/synthetic_control/reproduced/sdid_time_weights_summary.csv",
+    "sha256": "90696d1e7bbfa68a680389d43e526a1a3c8a949eb9e71c432e6e34fb9b74a2e2"
+  },
+  {
+    "path": "results/synthetic_control/reproduced/sc_weights.csv",
+    "sha256": "e77f08570916dbaa9a2d3b6d8ee3f98464435ddfdcaec5ca33b62b5083163423"
+  },
+  {
+    "path": "results/advisor_20261019/residual_user_characteristics.parquet",
+    "sha256": "3e0eed95b9508aa2467cb337968ca3ae0651d35d5cb6c3b43bbb8a4480117af8"
+  },
+  {
+    "path": "results/advisor_20261019/sc_predictor_sensitivity.csv",
+    "sha256": "323be36344053736863c3defe855342a96e172195694b38f47e1b3eeb2615a5e"
+  },
+  {
+    "path": "results/advisor_20261019/residual_user_characteristics_with_age.parquet",
+    "sha256": "0b4b9b37bd0791abaa6a7379205d9fa595e8ba1c03b6ab306b764f4001212021"
+  },
+  {
+    "path": "results/advisor_20261019/sector_support.csv",
+    "sha256": "15dc11d2e9387ef3acd05e9985bd0d0da416834fbc8f05fd62f6baa3a4761ab8"
+  },
+  {
+    "path": "results/advisor_20261019/sector_membership_name_fallback_080.parquet",
+    "sha256": "e1cc0b460e4d102ec673b1133603b5ae043a649ee7fbf1cf5c1e3c7100ad08fd"
+  },
+  {
+    "path": "results/advisor_20261019/residual_concentration.json",
+    "sha256": "94e2ace8c025587d061b874e65eeedc038e22542af620f68029571883f7c91e6"
+  },
+  {
+    "path": "results/advisor_20261019/input_provenance.json",
+    "sha256": "389630bf5957a83c9211e1498f522ae66b23e0752d336827924fe17582c04748"
+  },
+  {
+    "path": "results/advisor_20261019/sector_membership_historical_readme_090.parquet",
+    "sha256": "ff6918bc81a0b332100c55163e849afdf7a2223cfb9eeac09b03064ac16f5422"
+  },
+  {
+    "path": "results/advisor_20261019/sector_membership_historical_readme_080.parquet",
+    "sha256": "4a0b49c54550efaec3cd685d19b3e2e6d04473f6f534f32e717bc19b548ab28d"
+  },
+  {
+    "path": "results/advisor_20261019/residual_domain_composition.csv",
+    "sha256": "8f0ed25a2403d0ae31aec154644fd70454377e31bbf508fdf4483921d2a49efa"
+  },
+  {
+    "path": "results/advisor_20261019/sector_sc_placebos.csv",
+    "sha256": "09178799b7e6814c21972dd44d791c60957b59d27292caaa06c1618390b873db"
+  },
+  {
+    "path": "results/advisor_20261019/international_event_type_counts.csv",
+    "sha256": "1455e75a4034ad5a1b39469b9e556c8bcbf4316c082fd40fa430e7d1e34751ac"
+  },
+  {
+    "path": "results/advisor_20261019/residual_own_repository_activity.csv",
+    "sha256": "9e110e54f0a5e8a7cabd563c2d20bd5b7845960a8f696a09be0f5f3ccfaed05c"
+  },
+  {
+    "path": "results/advisor_20261019/residual_pre_activity_quartiles.csv",
+    "sha256": "802f938f19f4a84e6d434b6524f77f4818a745ae8ae1cda0168b7c6612cbc2ac"
+  },
+  {
+    "path": "results/advisor_20261019/sector_sc_weights.csv",
+    "sha256": "fbba0c97dc6e4fb229630bdb0c6ecbd81bef4c9c1e515278bca8c472fa886987"
+  },
+  {
+    "path": "results/advisor_20261019/readme_integrity.json",
+    "sha256": "270d6dac9c62b985fb558324a07ffd3c8799281a08479cdf14fdabf3ed508024"
+  },
+  {
+    "path": "results/advisor_20261019/residual_cohort_counts.json",
+    "sha256": "0cfee990e4e2d20062d5679db6052a953fb3e1386822005a73209ab43dfa8784"
+  },
+  {
+    "path": "results/advisor_20261019/sc_predictor_weights.csv",
+    "sha256": "c1c976bf9976eed5ef9570a1a1b5702cee9e200e999baa06b7e3da169b3da673"
+  },
+  {
+    "path": "results/advisor_20261019/sector_leave_one_out.csv",
+    "sha256": "f6b4d23cfb418e04ca2868e682a1a1ec3e816e4369da28c46568e576d93ed3ff"
+  },
+  {
+    "path": "results/advisor_20261019/sector_membership_historical_readme_070.parquet",
+    "sha256": "8e67a8d64e3c231a910ffd0d95588c5dd5bb51cfcbf649cbf7b2ef78edad5466"
+  },
+  {
+    "path": "results/advisor_20261019/analysis_design.json",
+    "sha256": "f2ab68af50cd2afd3ed487c7c60b1e88bf0ffd923d042c98783c874f5a040ce8"
+  },
+  {
+    "path": "results/advisor_20261019/sector_sc_paths.csv",
+    "sha256": "c4d638388995c7be80f0fc79fa61f3d5c123c9ec0a5cc87c46d98d0dfaadef36"
+  },
+  {
+    "path": "results/advisor_20261019/primary_mapping_discrepancies.csv",
+    "sha256": "50306af4e03dcda7e1ada7cfb3c4237d838735201f70dae3b982832c49c5d9c6"
+  },
+  {
+    "path": "results/advisor_20261019/pdf_quality_review.json",
+    "sha256": "520f3c9ea6d6531698bd4ba7ed73454740b505e1fa686afda772a09ededaff2c"
+  },
+  {
+    "path": "results/advisor_20261019/retrieval_status.csv",
+    "sha256": "bb80de177c5885feb96d7e1c4ecc647fc74b4268b1af95995ceb431fe6ee5bc3"
+  },
+  {
+    "path": "results/advisor_20261019/residual_account_age.csv",
+    "sha256": "54477868dddf43e4400c2a2c28fd27abeeb9eebdee1d93dcef70cfaa1cd13d23"
+  },
+  {
+    "path": "results/advisor_20261019/revision_package_manifest.json",
+    "sha256": "0ea96d82a41076c2904e7598fbc458696f2ab7fa06699be8aee64a33a289d566"
+  },
+  {
+    "path": "results/advisor_20261019/optimizer_crosscheck.csv",
+    "sha256": "83292c3a702e1bcfbab3e13fea6124db1cb49542881e4a1161d60692c388eccc"
+  },
+  {
+    "path": "results/advisor_20261019/verification.json",
+    "sha256": "d929021aeb4dbb956cdf1cd5ae85bd82e5522c6f1cb40405731e6c22a1168345"
+  },
+  {
+    "path": "results/advisor_20261019/sector_report_summary.json",
+    "sha256": "fedf250eea25850ff4bc76320b68ecd39e0f782762b236315972ac5b33623f6b"
+  },
+  {
+    "path": "results/advisor_20261019/primary_mapping_validation.json",
+    "sha256": "ad2d35b5507edb6a44b12a912effc359b62d6a6aff5ad128b37fcc4bf27cf92a"
+  },
+  {
+    "path": "results/advisor_20261019/residual_group_summary.csv",
+    "sha256": "ee57cfb38910feb34a4dd963e20b146cb7a2f2195b2b2943aec050aa85267617"
+  },
+  {
+    "path": "results/advisor_20261019/sector_classification_coverage.csv",
+    "sha256": "e8a5aa354ac52c30d62ed3f4ce13ccd5bca163fe43c7bb8355a2776f720e6961"
+  },
+  {
+    "path": "results/advisor_20261019/sector_partition_checks.json",
+    "sha256": "dc1a68f27d0139b9cf3eb18fe8728f4eb43ca3d1f8d2a2bc3cc890e4982695a5"
+  },
+  {
+    "path": "results/advisor_20261019/sector_sc_estimates.csv",
+    "sha256": "971897139a97efeb8eedeebd0fbc81777f44c41173da875080d42b771236a05c"
+  },
+  {
+    "path": "results/advisor_20261019/donor_audit.csv",
+    "sha256": "cb4541954473d4a0e77f13100952a7df3b44cfe742f4f581197e4a0b2be99747"
+  },
+  {
+    "path": "results/advisor_20261019/residual_core_daily.csv",
+    "sha256": "8c662e25766c9eb230b1530fcfe8d336cd73cfb2d738df297abcd1977b468641"
+  }
+]

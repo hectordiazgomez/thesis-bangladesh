@@ -1,0 +1,10 @@
+{
+  "countries": 15,
+  "domains": 20,
+  "panels": 300,
+  "dates": 127,
+  "zero_cells": 45,
+  "small_nonzero_cells": 144,
+  "max_synthetic_path_difference": 1.4210854715202004e-14,
+  "users": 59158
+}

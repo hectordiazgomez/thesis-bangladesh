@@ -1,0 +1,71 @@
+/Users/alexanderquispe/Documents/GitHub/thesis-bangladesh/notes/referee_report_2026-10-07/audit_scripts/08_context_checks.py:22: UserWarning: obj.round has no effect with datetime, timedelta, or period dtypes. Use obj.dt.round(...) instead.
+  print(h[(h.country == "Bangladesh") & (h.is_holiday == 1)][["date", "holiday_name", "active_rate_pp"]].round(2).to_string(index=False))
+A. Feriados codificados para Bangladesh
+      date          holiday_name  active_rate_pp
+2024-05-01               May Day           16.16
+2024-06-17           Eid al-Adha            6.19
+2024-06-18           Eid al-Adha            9.53
+2024-06-19           Eid al-Adha           11.02
+2024-07-17                Ashura           19.36
+2024-08-05        Public Holiday            4.93
+2024-08-06        Public Holiday            8.74
+2024-08-07        Public Holiday           10.73
+2024-08-15 National Mourning Day           16.63
+
+   Feriados de cualquier país entre el 12 y el 24 de julio:
+   country       date             holiday_name
+Bangladesh 2024-07-17                   Ashura
+  Pakistan 2024-07-15                   Ashura
+  Pakistan 2024-07-16                   Ashura
+ Sri Lanka 2024-07-20 Esala Full Moon Poya Day
+  Thailand 2024-07-20            Asarnha Bucha
+  Thailand 2024-07-21        Buddhist Lent Day
+  Thailand 2024-07-22  Asarnha Bucha (in lieu)
+
+B. Fases codificadas en data/processed/panel_clean.parquet (análisis previo del autor)
+   f0_jul17        2024-07-17 -> 2024-07-17  (1 días)
+   f1_total        2024-07-18 -> 2024-07-23  (6 días)
+   f2_broadband    2024-07-24 -> 2024-07-27  (4 días)
+   f3_socialblock  2024-07-28 -> 2024-08-03  (7 días)
+   f4_second       2024-08-04 -> 2024-08-05  (2 días)
+   f5_post         2024-08-06 -> 2024-09-04  (30 días)
+
+C. Bangladesh y su sintético, 24 de julio - 12 de agosto (pp)
+date               2024-07-24  2024-07-25  2024-07-26  2024-07-27  2024-07-28  2024-07-29  2024-07-30  2024-07-31  2024-08-01  2024-08-02  2024-08-03  2024-08-04  2024-08-05  2024-08-06  2024-08-07  2024-08-08  2024-08-09  2024-08-10  2024-08-11  2024-08-12
+Bangladesh               6.15       10.09       11.65       12.63       14.12       14.02       13.34       13.14       13.97       12.90       11.03        9.34        4.93        8.74       10.73       11.84       11.82       13.51       14.47       16.06
+Synthetic_Control       16.73       16.66       15.18       11.87       12.05       15.24       16.01       15.01       14.80       13.53       11.51       10.73       13.89       14.80       14.91       14.39       12.85       10.79       10.77       13.89
+gap                    -10.58       -6.57       -3.53        0.76        2.07       -1.22       -2.67       -1.87       -0.82       -0.63       -0.48       -1.38       -8.96       -6.06       -4.18       -2.55       -1.04        2.72        3.70        2.18
+
+   Bangladesh y su sintético, 26 de junio - 17 de julio (pp)
+date               2024-06-26  2024-06-27  2024-06-28  2024-06-29  2024-06-30  2024-07-01  2024-07-02  2024-07-03  2024-07-04  2024-07-05  2024-07-06  2024-07-07  2024-07-08  2024-07-09  2024-07-10  2024-07-11  2024-07-12  2024-07-13  2024-07-14  2024-07-15  2024-07-16  2024-07-17
+Bangladesh              15.98       15.86       14.48       16.07       16.99       19.12       25.49       24.77       23.19       18.56       21.78       24.15       24.26       25.82       25.74       20.47       19.27       21.16       22.37       21.39       19.64       19.36
+Synthetic_Control       18.05       17.53       17.02       14.46       13.86       18.84       18.91       20.28       18.73       16.95       14.15       14.40       19.54       19.29       19.26       18.69       17.28       14.43       13.92       17.27       16.48       16.12
+gap                     -2.07       -1.67       -2.54        1.62        3.13        0.28        6.58        4.49        4.47        1.61        7.63        9.75        4.72        6.53        6.48        1.77        1.99        6.73        8.45        4.13        3.16        3.25
+
+D. Event study: semanas en las que Bangladesh es la unidad más extrema de las 15 (rank p = 1/15)
+ event_week      start        end  theta_pp  placebo_min_pp  placebo_max_pp  rank_p
+        -11 2024-05-01 2024-05-08    -0.863          -1.678           4.624   0.600
+        -10 2024-05-09 2024-05-15    -1.829          -2.232           2.488   0.267
+         -9 2024-05-16 2024-05-22     0.578          -1.061           2.459   0.467
+         -8 2024-05-23 2024-05-29    -0.511          -2.364           1.923   0.467
+         -7 2024-05-30 2024-06-05    -0.054          -1.722           2.024   1.000
+         -6 2024-06-06 2024-06-12    -1.233          -0.995           2.542   0.200
+         -5 2024-06-13 2024-06-19    -4.888          -3.642           2.338   0.067
+         -4 2024-06-20 2024-06-26    -2.706          -3.058           1.623   0.133
+         -3 2024-06-27 2024-07-03     1.670          -1.314           1.448   0.067
+         -2 2024-07-04 2024-07-10     6.096          -1.736           1.619   0.067
+         -1 2024-07-11 2024-07-17     3.865          -1.633           0.978   0.067
+          0 2024-07-18 2024-07-23   -13.088          -1.718           1.604   0.067
+          1 2024-07-24 2024-07-30    -2.665          -1.954           2.231   0.067
+          2 2024-07-31 2024-08-06    -2.761          -1.215           2.557   0.067
+          3 2024-08-07 2024-08-13     0.517          -1.867           2.733   0.933
+          4 2024-08-14 2024-08-20     4.315          -1.818           2.773   0.067
+          5 2024-08-21 2024-08-27     4.840          -1.477           2.711   0.067
+          6 2024-08-28 2024-09-03     2.532          -2.318           2.309   0.067
+   semanas previas con rango 1/15: 4 de 11 -> [-5, -3, -2, -1]
+   semanas posteriores con rango 1/15: 5 de 6 -> [1, 2, 4, 5, 6]
+
+E. Parquet de data/processed cuya columna de fecha exige la extensión db-dtypes de pandas
+   github_activity_bangladesh.parquet: tipo de fecha 'dbdate'
+   github_activity_philippines.parquet: tipo de fecha 'dbdate'
+   github_activity_sparse_all.parquet: tipo de fecha 'dbdate'

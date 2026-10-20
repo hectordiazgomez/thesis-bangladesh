@@ -1,0 +1,44 @@
+\section{Mechanism: Offline Work and Delayed Synchronization}
+\label{sec:mechanism}
+
+\subsection{Main backlog measure}
+\label{sec:backlog}
+
+A fall in public GitHub events does not necessarily imply an equal fall in code creation. Git is decentralized: developers may continue editing files and creating commits locally, then push them only after connectivity returns. The commit-level analysis examines this pattern among code that is subsequently observed publicly.
+
+In the strict sample, 2,932 commits are authored during July 18--23. Of these, 829 first appear in a public push on or after July 24. The resulting author-time backlog share is 28.27 percent (\cref{tab:mechanism}). Replacing the author timestamp with the committer timestamp produces a nearly identical 27.16 percent backlog share (790 of 2,909 commits). The two timestamps do not validate each other: \texttt{authoredDate} and \texttt{committedDate} are Git metadata that can be set by the same local client and clock, so their agreement shows only that the result is not sensitive to the choice of field. Neither is an externally verified record of when the code was written. The mechanism evidence is therefore consistent with local work followed by delayed synchronization, but it does not directly observe the underlying production process.
+
+Comparisons in levels sharply limit how much adaptation this backlog represents. The calendar cohort contains 2,932 commits (835 users), including 1,835 timestamped before 15:00 UTC on July 18, approximately when national connectivity collapsed \citep{belson2024}. Starting the author-time cohort at that onset leaves 1,097 commits from 250 users; 752 were first pushed on or after July 24 (68.55 percent), compared with 829 of 2,932 (28.27 percent) in the original calendar cohort. Both definitions retain pushes observed through August 10.
+
+Inverse push-day sampling weights produce a mean of 33,787.50 commits across the six original six-day placebo windows. The onset cohort is 96.75 percent smaller, but lasts 5.375 rather than six days. Matching the placebo windows to the same 15:00 start gives a baseline of 30,038.26 and a 96.35 percent decline; scaling the six-day baseline by duration gives 96.38 percent. Creation of code that became public by August 10 therefore fell roughly 96--97 percent, and delayed publication within that horizon offsets only a small part of the shortfall. The data cannot determine how much of the remaining shortfall reflects work that was not done, work pushed after August 10, or work never published. The original calendar cohort falls 91.32 percent relative to its six-day baseline. Backlog is small in levels: 829 commits are 2.45 percent of the six-day baseline, and the onset cohort's 752 are 2.50 percent of the matched baseline. These are descriptive level comparisons, not a second causal estimate; the early-July activity increase and unresolved metadata both affect their interpretation.
+
+\begin{figure}[htbp]
+\centering
+\caption{Observable commits by Git author date: weighted levels}
+\label{fig:author_levels}
+\includegraphics[width=\textwidth]{fig8_author_levels.pdf}
+\fignote{Strict author-equals-pusher sample, UTC dates; counts weighted by the inverse daily metadata-request probability for pushes before July 18, and weight one thereafter. The date of authorship, not publication, defines the outcome. Zero means no observed qualifying commits. Commits never pushed publicly, pushed after August 10, omitted from incomplete payloads, or unresolved by the metadata query are unobserved; weights correct sampling, not those omissions. Later author cohorts have shorter follow-up.}
+\end{figure}
+
+The 345 onset-cohort commits pushed before July 24 involve 64 users. Of these, 246 were pushed on July 23, when fixed broadband began returning; 99 were pushed earlier. The calendar window therefore cannot be treated as complete isolation for every sampled account. The data cannot distinguish among physical location outside Bangladesh, exceptional access, and timestamp error as explanations. Nor is observation complete: 35 calendar-cohort backlog commits first appear on August 5--10. Further pushes after August 10 and code never published are censored. The estimated creation decline therefore applies to code eventually observed publicly within this horizon, not all code written.
+
+Long publication delays are far more common during the shutdown than before it. Among shutdown-authored commits, 29.71 percent have an author-to-push delay above 24 hours, 25.38 percent above 48 hours, and 22.75 percent above 72 hours. In six overlapping pre-shutdown placebo windows, the corresponding averages are approximately 1.10 percent, 0.72 percent, and 0.46 percent (\cref{tab:mech_placebos}). Because commit metadata were queried for only a daily sample of commits pushed before July 18 but for all commits pushed from July 18 onward, the placebo rates use inverse-probability weights, while shutdown-authored commits, all pushed on or after July 18, receive weight one. The shutdown cohort therefore lies far outside the normal pre-period delay distribution.
+
+\input{tables/tab_mechanism_main}
+
+\subsection{Timing and concentration of delayed pushes}
+\label{sec:timing}
+
+The delayed commits are released quickly once connectivity begins to return (\cref{fig:mechanism}). Of the 829 author-time backlog commits, 354 (42.7 percent) appear on July 24 and 544 (65.6 percent) by July 25. By July 27, 81.1 percent have appeared; by July 31, 92.0 percent have appeared. This temporal concentration immediately after restoration is consistent with a synchronization backlog rather than ordinary long-lived branches or sporadic publication.
+
+\begin{figure}[htbp]
+\centering
+\caption{Release timing of commits with shutdown-period Git author timestamps}
+\label{fig:mechanism}
+\includegraphics[width=\textwidth]{fig4_mechanism_release.pdf}
+\fignote{Strict sample: commits whose GitHub-linked author equals the Bangladeshi pusher, with a non-missing author timestamp and nonnegative author-to-push delay; the cohort is the 2,932 commits authored July 18--23 (UTC). Panel (a): date of first public push; panel (b): cumulative share pushed. 829 commits (28.27\%) first appear on or after July 24; pushes are observed through August 10. Git \texttt{authoredDate} and \texttt{committedDate} are metadata, not verified measurements of when code was written; the pattern is consistent with local work followed by delayed synchronization. The share refers only to this strict sample, not to all software production in Bangladesh. Source: Author's calculations using GH Archive and GitHub commit metadata.}
+\end{figure}
+
+The backlog is not generated by only a handful of unusually active users (\cref{tab:concentration}). The 2,932 shutdown-authored commits come from 835 users and 977 repositories. Two hundred twenty-two users (26.6 percent) and 246 repositories (25.2 percent) contribute at least one backlog commit. The largest user accounts for 2.77 percent of backlog commits, the top five users for 12.06 percent, and the top ten for 21.47 percent. Dropping the twenty users with the most backlog still leaves a 20.37 percent backlog share.
+
+Backlog is, however, more common in larger pushes (\cref{tab:push_size}). Restricting to pushes with at most 10 commits lowers the backlog share to 21.0 percent; at most 5 commits, 14.4 percent; at most 2 commits, 7.8 percent; and single-commit pushes, 3.3 percent. This pattern is economically meaningful rather than merely inconvenient: if developers accumulate local commits while offline and synchronize later, restoration should produce larger-than-normal push batches. At the same time, it means that the 28.3 percent calendar-cohort backlog share should not be interpreted as applying uniformly to every kind of push.

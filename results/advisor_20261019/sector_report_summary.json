@@ -1,0 +1,11 @@
+{
+  "supported_named_domains": 8,
+  "BD_assigned_users": 2163,
+  "BD_assigned_pct": 21.120984278879018,
+  "BD_supported_named_users": 1822,
+  "BD_supported_named_pct": 17.79123132506591,
+  "named_ATT_min": -16.839000066358413,
+  "named_ATT_max": -11.314397467478129,
+  "weighted_contribution_supported_named_pp": -2.566670797585068,
+  "national_headline_unchanged": true
+}

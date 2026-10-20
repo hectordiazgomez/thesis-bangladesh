@@ -1,0 +1,23 @@
+\begin{table}[htbp]
+\centering
+\small
+\caption{Sensitivity to pre-treatment outcome predictors}
+\label{tab:advisor_lags}
+\begin{threeparttable}
+\begin{tabular}{@{}lrrrr@{}}
+\toprule
+Predictors & $K$ & ATT (pp) & Pre RMSPE & Holdout RMSPE \\
+\midrule
+All 78 daily lags & 78 & -13.26 & 3.26 & 7.25 \\
+Complete weekly means & 11 & -14.14 & 3.46 & 6.80 \\
+Last 28 daily lags & 28 & -14.70 & 3.82 & 7.52 \\
+Last 14 daily lags & 14 & -15.37 & 4.25 & 7.17 \\
+Weekday means & 7 & -12.00 & 3.74 & 6.40 \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}[flushleft]
+\footnotesize
+\item Same users, donor pool and July 18--23 estimand in every row. Weekly means use the final 77 fitting days, grouped into 11 complete weeks. Holdout errors use a separate fit through June 30 and score July 1--17, applying each predictor rule to the shorter training sample; they are not treatment-period tuning statistics. All errors are in percentage points.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}

@@ -1,0 +1,3 @@
+definition,events,users,active_user_days,daily_rate_pct
+Original primary events,237,40,87,0.21238160335904696
+Retaining all events except automated heads,124,29,48,0.11717605702568108

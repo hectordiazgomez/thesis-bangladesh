@@ -1,0 +1,17 @@
+{
+  "checks": {
+    "pages": 65,
+    "references_resolved": true,
+    "no_replacement_characters": true,
+    "main_sector_table_present": true,
+    "new_domain_count_present": true,
+    "repaired_coverage_present": true,
+    "strict_onset_cohort_present": true,
+    "no_overfull_boxes": true,
+    "no_undefined_references": true,
+    "original_empirical_files_unchanged": true,
+    "original_manuscript_backup_preserved": true
+  },
+  "visual_review": "All pages inspected in contact sheets; full-size inspection of new tables and key pages. Appendix placement corrected and re-rendered.",
+  "sha256": "ba26c71a57280a078144c14e38e2f8a69eaf678d4f0b2f7fb7bd89075a8d9f08"
+}

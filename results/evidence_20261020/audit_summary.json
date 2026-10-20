@@ -1,0 +1,123 @@
+{
+  "automated_core_heads": 113,
+  "automated_core_accounts": 18,
+  "core_head_categories": {
+    "direct": 113,
+    "no_direct_evidence": 48,
+    "suggestive": 4,
+    "unavailable": 15
+  },
+  "auto_kind_counts": {
+    "Dependencies": 55,
+    "Deployment": 8,
+    "Generated data": 4,
+    "Profile graphic": 31,
+    "Profile metrics": 15
+  },
+  "core_case_status": {
+    "direct": 18,
+    "mixed": 1,
+    "no_direct_evidence": 16,
+    "suggestive": 1,
+    "unavailable_or_insufficient": 4
+  },
+  "retrieved_commits": 1210,
+  "requested_commits": 1232,
+  "core_sensitivity": [
+    {
+      "definition": "Original primary events",
+      "events": 237,
+      "users": 40,
+      "active_user_days": 87,
+      "daily_rate_pct": 0.21238160335904696
+    },
+    {
+      "definition": "Retaining all events except automated heads",
+      "events": 124,
+      "users": 29,
+      "active_user_days": 48,
+      "daily_rate_pct": 0.11717605702568108
+    }
+  ],
+  "onset_direct_automated_commits": 1,
+  "onset_duration_only_commits": 10,
+  "onset_unchanged_count": 1097,
+  "onset_without_direct_automation": 1096,
+  "onset_without_direct_and_duration_only": 1086,
+  "explicit_learning_accounts": 83,
+  "explicit_learning_repositories": 87,
+  "explicit_learning_commits": 384,
+  "timing": [
+    {
+      "author_end_exclusive_utc": "2024-07-23T12:00:00Z",
+      "commits": 899,
+      "users": 211,
+      "pushed_before_endpoint": 123,
+      "pushed_from_jul24": 674
+    },
+    {
+      "author_end_exclusive_utc": "2024-07-23T13:00:00Z",
+      "commits": 904,
+      "users": 211,
+      "pushed_before_endpoint": 123,
+      "pushed_from_jul24": 678
+    },
+    {
+      "author_end_exclusive_utc": "2024-07-24T00:00:00Z",
+      "commits": 1097,
+      "users": 250,
+      "pushed_before_endpoint": 345,
+      "pushed_from_jul24": 752
+    }
+  ],
+  "features": [
+    {
+      "group": "All eligible",
+      "users": 10241,
+      "activity_pct": 17.25454996131688,
+      "median_pushes": 21.0,
+      "weekend_frisa": 25.95919605818129,
+      "old_weekend_satsun": 27.7210825412494
+    },
+    {
+      "group": "Core publishers",
+      "users": 40,
+      "activity_pct": 36.76282051282051,
+      "median_pushes": 47.5,
+      "weekend_frisa": 24.08079577756953,
+      "old_weekend_satsun": 24.316146900427093
+    },
+    {
+      "group": "Core with automated heads",
+      "users": 18,
+      "activity_pct": 52.350427350427346,
+      "median_pushes": 79.5,
+      "weekend_frisa": 23.107180075781173,
+      "old_weekend_satsun": 25.151740775407816
+    },
+    {
+      "group": "Other core publishers",
+      "users": 22,
+      "activity_pct": 24.009324009324015,
+      "median_pushes": 20.5,
+      "weekend_frisa": 24.877390442669093,
+      "old_weekend_satsun": 23.63247918453377
+    },
+    {
+      "group": "Other eligible users",
+      "users": 10201,
+      "activity_pct": 17.178054439107274,
+      "median_pushes": 21.0,
+      "weekend_frisa": 25.966563056046223,
+      "old_weekend_satsun": 27.734436539252435
+    },
+    {
+      "group": "Onset authors",
+      "users": 250,
+      "activity_pct": 32.62051282051282,
+      "median_pushes": 51.5,
+      "weekend_frisa": 24.58705807685446,
+      "old_weekend_satsun": 28.008030568549465
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "eligible_users": 10241,
+  "onset_commits": 1097,
+  "onset_users": 250,
+  "onset_users_in_eligible": 250,
+  "calendar_public_users": 1128,
+  "core_public_users": 40,
+  "delayed_onset_users": 191,
+  "early_onset_publisher_users": 19,
+  "restoration_day_publisher_users": 48,
+  "early_onset_commits": 99,
+  "onset_author_core_public_overlap": 15
+}

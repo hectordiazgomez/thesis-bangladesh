@@ -1,0 +1,2 @@
+# Optional public API refresh only; cached offline analysis uses requirements.txt.
+requests==2.34.2

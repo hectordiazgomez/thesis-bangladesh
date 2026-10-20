@@ -1,0 +1,53 @@
+master: filas 86065 | found 70576 (82.00%) | metadata_requested 86065
+push_time rango: 2024-07-01 00:14:50+00:00 -> 2024-08-10 23:59:10+00:00
+muestra estricta: 59920 (paper: 59,920)
+autorados Jul 18-23 UTC: 2932 | flag authored_during_blackout: 2932
+backlog (push >= Jul 24 UTC): 829 = 28.2742% | flag offline_author_backlog: 829
+  delay > 24h: 29.7067%
+  delay > 48h: 25.3752%
+  delay > 72h: 22.7490%
+  delay > 120h: 13.8813%
+  mean delay h: 40.9404
+committedDate (committer=pusher): N 2616, backlog 790 = 30.199%
+committedDate (author=pusher):    N 2909, backlog 790 = 27.157%   (paper: 790 de 2,909 = 27.16%)
+usuarios 835 | con backlog 222 (26.59%) | repos 977 | con backlog 246 (25.18%)
+top1 2.77% | top5 12.06% | top10 21.47%
+  sin top1: N 2909, backlog 27.71%
+  sin top3: N 2868, backlog 26.67%
+  sin top5: N 2831, backlog 25.75%
+  sin top10: N 2740, backlog 23.76%
+  sin top20: N 2577, backlog 20.37%
+  push_size all   N  2932 backlog  829 = 28.27%
+  push_size <=10  N  2503 backlog  526 = 21.01%
+  push_size <=5   N  2217 backlog  320 = 14.43%
+  push_size <=2   N  1947 backlog  151 = 7.76%
+  push_size ==1   N  1707 backlog   57 = 3.34%
+liberación backlog: {'2024-07-24': (354, np.float64(42.7)), '2024-07-25': (190, np.float64(65.6)), '2024-07-26': (79, np.float64(75.2)), '2024-07-27': (49, np.float64(81.1)), '2024-07-28': (45, np.float64(86.5)), '2024-07-29': (27, np.float64(89.7)), '2024-07-30': (8, np.float64(90.7)), '2024-07-31': (11, np.float64(92.0))}
+
+cobertura por período de push:
+               N  found_pct  author_login_pct    aep
+BLACKOUT   3197      84.24             79.17  69.69
+POST      65868      81.81             77.81  71.05
+PRE       17000      82.34             77.95  71.49
+
+================ DIAGNÓSTICOS ADICIONALES (cálculos propios del auditor) ================
+Commits autorados durante Jul 18-23 por día de autoría (UTC):
+                N  backlog  users  same_day  pushed_in_blackout_window  backlog_pct
+aday                                                                              
+2024-07-18  1939      153    722      1781                       1786          7.9
+2024-07-19   182      139     77        16                         43         76.4
+2024-07-20   182      149     79        17                         33         81.9
+2024-07-21   179      133     69        31                         46         74.3
+2024-07-22   172      125     66        11                         47         72.7
+2024-07-23   278      130    101       148                        148         46.8
+autorados Jul 18 antes de 15:00 UTC (antes del apagón total): N 1835, backlog 77 = 4.2%, empujados dentro de la ventana Jul 18-23: 1758, usuarios 692
+autorados desde Jul 18 15:00 UTC hasta Jul 23 (apagón total): N 1097, backlog 752 = 68.6%, empujados dentro de la ventana Jul 18-23: 345, usuarios 250
+  -> de los autorados en apagón total y empujados antes de Jul 24: por día de push {'2024-07-18': 24, '2024-07-19': 16, '2024-07-20': 17, '2024-07-21': 31, '2024-07-22': 11, '2024-07-23': 246} | usuarios 64
+
+Volumen: commits estrictos autorados por ventana placebo de 6 días (ponderado): 33,787; durante el apagón: 2,932 = 8.7% de lo normal; backlog 829 = 2.45% del volumen normal; autorados en apagón total (>=15:00 UTC Jul 18): 1,097 = 3.2%
+último push observado: 2024-08-10 23:59:10+00:00 | commits del backlog empujados en Aug 5-10: 35
+autorados por hora UTC el 18 de julio: {0: 34, 1: 29, 2: 52, 3: 77, 4: 159, 5: 206, 6: 202, 7: 180, 8: 140, 9: 131, 10: 160, 11: 122, 12: 122, 13: 122, 14: 99, 15: 43, 16: 19, 17: 13, 18: 10, 19: 7, 20: 7, 21: 3, 22: 2}
+push_size mediana backlog vs no backlog: 7.0 1.0 | commits de backlog en pushes >10: 303
+
+pushers en bd_push_events: 7,750 | dentro de los 10,241 elegibles de Bangladesh: 7,750
+universo de pares repo-SHA: 203,544 | empujados antes del 18 de julio: 134,479 | con metadata solicitada: 17,000 (12.6%)

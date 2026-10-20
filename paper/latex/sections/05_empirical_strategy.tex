@@ -14,6 +14,18 @@ The method suits the setting because treatment occurs at the country level and t
 \end{equation}
 where $\mathcal{T}_{1}$ denotes the shutdown days.
 
+\paragraph{How the weights are obtained.} Let $\mathcal T_0$ be the 78 dates from May 1 to July 17, and let $\Delta^{14}=\{w\in\mathbb R^{14}:w_j\geq0,\sum_{j=1}^{14}w_j=1\}$. The estimator solves
+\begin{equation}
+ \widehat w=\arg\min_{w\in\Delta^{14}}\frac{1}{78}\sum_{t\in\mathcal T_0}
+ \left(Y_{\mathrm{BD},t}-\sum_{j=1}^{14}w_jY_{jt}\right)^2.
+ \label{eq:sc_minimization}
+\end{equation}
+Thus every pre-shutdown daily outcome is a lagged predictor. If $X_1$ is Bangladesh's $78\times1$ vector and $X_0$ the $78\times14$ donor matrix, the objective is $(X_1-X_0w)'V(X_1-X_0w)$ with $V=I_{78}/78$. No intercept or extrapolation beyond the donors' convex hull is permitted. The optimization uses only pre-treatment observations; the six shutdown observations do not select donors or tune weights. The three positive weights are solutions to this constrained least-squares problem, rather than subjective measures of economic similarity. A zero weight does not mean a country was dropped from the original donor pool. Numerically, nonnegative least squares uses a heavily weighted adding-up constraint, followed by normalization and verification that weights sum to one. The reported fit is evaluated in percentage points on the original daily series.
+
+\paragraph{Covariates and identifying assumptions.} The primary specification matches lagged outcomes only. It includes no temperature, precipitation, electricity-use or macroeconomic covariates, and it does not estimate a separate predictor-weighting matrix. Historical outcomes may summarize persistent determinants of activity, but this does not guarantee balance on every relevant factor. To assess dependence on the lag representation, I also report fits using weekly means, the last 28 or 14 daily observations, and weekday means; these are sensitivity exercises, not replacements selected by their treatment estimates. Pre-treatment holdout errors are reported alongside them. Electricity consumption measured during the shutdown could itself respond to the disruption and must not be added as an ordinary control for its total effect. Weather controls would require a geographically defensible measure of developers' exposure; assigning national developers the weather of one capital city would introduce an unvalidated proxy. Neither is silently included in the estimates.
+
+For $\widehat Y^0_{\mathrm{BD},t}=\sum_j\widehat w_jY_{jt}$ to approximate Bangladesh without the episode, the pre-period relationship must remain stable, donors must not be affected by Bangladesh's shutdown or their own coincident interventions, and no other Bangladesh-specific shock may generate the same discontinuity. International collaboration can transmit spillovers, while domestic unrest can violate the last assumption. Good pre-treatment fit is a diagnostic for these conditions, not proof of them. Placebos re-estimate the weights for each comparison country; the small donor pool limits the attainable rank probabilities. The main estimate is therefore conditional on these assumptions and concerns observable public activity during the shutdown episode.
+
 \subsection{Difference-in-differences and event study}
 \label{sec:did}
 
@@ -35,18 +47,7 @@ where $\bar{Y}_{c,k}$ is country $c$'s mean daily active-user rate in event peri
 
 Because treatment varies only at the country level and there are fifteen countries, I do not rely on user-clustered standard errors. Uncertainty is instead summarized with in-space placebos: each donor is assigned the treatment in turn and compared with the equal-weighted mean of the remaining thirteen donors. I report the standard deviation of the fourteen placebo estimates, a donor-placebo reference interval equal to $\hat\theta_k \pm 1.96$ times that standard deviation, and the rank of Bangladesh's absolute estimate among the fifteen units. These reference intervals describe how far donor countries move under the same calculation; they are not conventional sampling confidence intervals, and because Bangladesh's pre-period is more volatile than any donor's, they are not fully calibrated measures of uncertainty for Bangladesh.
 
-\subsection{Regression discontinuity in time}
-\label{sec:rdit_method}
-
-A regression discontinuity in time provides a third temporal comparison. The archived preferred specification uses a cutoff at July 17, 2024, a bandwidth of $h=7$ days (July 10--24, fifteen daily observations), and a local linear fit on each side. With $\tilde{t} = t - \text{July 17}$ and $D_t = \mathbf{1}\{\tilde{t} \geq 0\}$, so that July 17 itself lies on the post-cutoff side, I estimate
-\begin{equation}
-  Y_{t} = \alpha + \tau D_{t} + \gamma_{1}\tilde{t} + \gamma_{2} D_{t}\tilde{t} + u_{t},
-  \qquad |\tilde{t}| \leq h,
-  \label{eq:rdit}
-\end{equation}
-where $\tau$ is the discontinuity and $Y_t$ is the daily share of users with at least one productive GitHub event in a balanced user-day panel of 10,329 Bangladesh-associated and 3,025 Philippines-associated accounts. This eligible sample differs slightly from the 10,241 Bangladesh accounts of the country-day panel used for the synthetic control. I estimate \cref{eq:rdit} for Bangladesh, for the Bangladesh-minus-Philippines gap as a controlled specification, and for the Philippines alone as a geographic placebo. Inference uses heteroskedasticity-and-autocorrelation-consistent (HAC) Newey--West standard errors with two lags, following the cautions in \citet{hausman2018} regarding serial correlation in time-series discontinuity designs. Because time itself is the running variable and other contemporaneous events can occur at the same date, the RDiT is interpreted as a robustness check rather than a standalone source of causal identification.
-
-The July 17 cutoff reproduces the original preferred specification; it is not chosen because it yields a preferred estimate. No daily cutoff matches the event exactly: provider-level mobile outages began late on July 17 UTC, whereas the nationwide near-total cutoff occurred around 15:00 UTC on July 18 \citep{belson2024}. I therefore report a complete grid of July 17, 18, and 19 cutoffs crossed with 4-, 5-, 7-, 10-, and 14-day bandwidths in \cref{tab:rdit_grid}, together with the separate archived 16-specification grid in \cref{tab:rdit_arch_grid}. An hourly design would require a separate specification and is not pursued here.
+\paragraph{Temporal robustness.} Regression discontinuity in time is retained only as a sensitivity check. Its cutoff predates the nationwide outage, and its estimates depend on bandwidth and sample; the equation and complete results are reported in \cref{app:rdit_detail}.
 
 \subsection{Inference and robustness}
 \label{sec:inference}
@@ -55,18 +56,17 @@ For synthetic control, I implement in-space placebos by assigning the treatment 
 
 I also re-estimate the primary synthetic control after removing each donor country one at a time. Holidays are excluded in a separate DiD specification. Finally, outcome-specific synthetic controls allow donor weights to vary by outcome, whereas the main secondary-outcome table deliberately reuses the active-rate synthetic-control weights. Reusing the primary weights reduces the risk that each new outcome is matched with a different donor combination chosen after observing results.
 
-\subsection{Within-Bangladesh sectoral recovery}
-\label{sec:sector_method}
 
-The designs above estimate the effect of the shutdown during July 18--23. To describe how activity evolved after restoration, I use the fixed sample of 20,000 accounts described in \cref{sec:sector_data}. For user $i$, sector $s$, and day $t$, let $A_{ist}=1$ if the user records at least one PushEvent on day $t$ in a repository classified to sector $s$; activity in several repositories of the same sector on the same day counts once. Days are grouped into event periods $k$: the final eight complete pre-shutdown weeks, $k=-8,\dots,-1$ (May 23--July 17, 2024); the shutdown, $k=0$ (July 18--23); and consecutive seven-day bins after it, starting with $k=+1$ (July 24--30). Let $\bar{A}_{isk}$ be user $i$'s share of active days in period $k$, and $\bar{A}^{\mathrm{pre}}_{is}$ the corresponding share over the 56 baseline days. I report
+\subsection{International synthetic controls by repository domain}
+\label{sec:sector_sc_method}
+
+Let $G_i$ be the domain assigned before treatment and $N_{cs}$ the fixed number of eligible users in country $c$ assigned to group $s$. The country-domain outcome is
 \begin{equation}
-  \beta_{sk} = \frac{1}{N}\sum_{i=1}^{N}\bigl(\bar{A}_{isk} - \bar{A}^{\mathrm{pre}}_{is}\bigr),
-  \qquad
-  R_{sk} = 100 \times \frac{\sum_{i} \bar{A}_{isk}}{\sum_{i} \bar{A}^{\mathrm{pre}}_{is}},
-  \label{eq:sector}
+ Y_{cst}=\frac{100}{N_{cs}}\sum_{i\in\mathcal U_c}\mathbf1\{G_i=s\}\mathbf1\{P_{it}>0\}.
+ \label{eq:sector_cohort}
 \end{equation}
-where $N=20{,}000$ and users without activity in sector $s$ contribute zeros. The coefficient $\beta_{sk}$ is the change in the daily probability of sector-$s$ push activity relative to the baseline, in percentage points; the recovery index $R_{sk}$ normalizes the baseline to 100. Standard errors for $\beta_{sk}$ are the standard deviation of the user-level differences divided by $\sqrt{N}$, and 95 percent intervals use the normal approximation. As a summary of recovery timing, I report the first post-shutdown week that begins two consecutive weeks with $R_{sk}\geq 80$.
+It counts the same primary public activity anywhere on GitHub among this fixed cohort; it does not condition on remaining in the original repository after the shutdown. Post-treatment switching therefore cannot change membership or the denominator. Each country-domain series is compared with the same domain in other countries, solving \cref{eq:sc_minimization} separately for $s$, on the same 78 pre-treatment dates. The shutdown ATT is the six-day mean of $Y_{\mathrm{BD},st}-\sum_j\widehat w_{js}Y_{jst}$.
 
-Because the activity measure counts pushes to any classified repository, including repositories first observed after the shutdown, it captures recovery through new projects and through switching across repositories. As a complementary specification, I also follow only the repositories pushed to during the baseline weeks, whose activity cannot be replaced by new projects.
+The support rule requires at least 30 eligible users in the Bangladesh group and in each candidate donor group, and at least five eligible donor countries. This rule is based on sample support, not the observed effect. Every supported domain is reported, together with its denominator, donor count, pre-fit, placebo ranks and leave-one-out sensitivity. Unsupported domains are listed separately; they are not assigned zero effects. The unclassified group is also estimated when supported. Confidence-threshold sensitivities change membership explicitly and never replace the original national sample. The July 1--17 holdout diagnostic refits weights through June 30; group definitions remain fixed at July 17, so this is a conditional fit diagnostic rather than a fully prospective prediction experiment.
 
-This analysis compares each sector with its own pre-shutdown baseline and has no untreated comparison group. It therefore describes the heterogeneity and timing of recovery within Bangladesh; it does not estimate sector-specific causal effects. Post-shutdown deviations from the baseline may also reflect trends, seasonality, or other Bangladesh-specific developments. The confidence intervals capture sampling variation across users but not common shocks that affect all users in a given week. The pre-shutdown coefficients ($k<0$) indicate how much weekly activity fluctuates around the baseline in the absence of a shutdown and serve as a benchmark for interpreting post-shutdown deviations.
+A causal interpretation requires the same counterfactual stability and no-spillover conditions as national synthetic control, now within each group, as well as comparable measurement across countries. In particular, sector-specific unrest or differences in unobserved jobs may violate these conditions. Country placebos provide a reference distribution, with minimum rank value $1/(J_s+1)$ when $J_s$ donors qualify; they do not justify conventional 5-percent significance claims or a causal ranking across many sectors. Different group effects need not be statistically distinguishable. The observed national rate can be reconstructed exactly as $Y_{ct}=\sum_s(N_{cs}/N_c)Y_{cst}$, including the unclassified group. The sector-specific synthetic counterfactual does not generally aggregate to the national synthetic counterfactual because weights and donor support differ across groups. A weighted sum of supported group effects is therefore reported only as a contribution for that covered sample, never substituted for the national headline.

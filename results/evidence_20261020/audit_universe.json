@@ -1,0 +1,11 @@
+{
+  "audit_users": 275,
+  "core_users": 40,
+  "onset_users": 250,
+  "overlap": 15,
+  "core_primary_events": 237,
+  "core_primary_repositories": 51,
+  "core_pushes": 180,
+  "onset_commits": 1097,
+  "snapshot_repositories": 321
+}

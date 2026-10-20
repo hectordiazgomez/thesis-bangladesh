@@ -1,0 +1,27 @@
+\begin{table}[H]
+\centering
+\small
+\caption{Sector-cohort fit and scale-adjusted placebo diagnostics}
+\label{tab:sector_fit}
+\begin{threeparttable}
+\begin{tabular}{@{}p{0.27\textwidth}rrrr@{}}
+\toprule
+Domain & Pre RMSPE / mean & Holdout (pp) & Post/pre RMSPE & Ratio rank \\
+\midrule
+Retail & 0.15 & 3.57 & 5.43 & 0.083 \\
+Transport & 0.51 & 5.16 & 1.96 & 0.167 \\
+Information & 0.16 & 3.61 & 4.98 & 0.067 \\
+Finance & 0.27 & 6.27 & 3.10 & 0.100 \\
+Professional services & 0.24 & 5.24 & 4.18 & 0.083 \\
+Education & 0.24 & 9.12 & 3.13 & 0.071 \\
+Health & 0.32 & 6.20 & 2.40 & 0.167 \\
+Arts and recreation & 0.31 & 6.65 & 2.32 & 0.125 \\
+Unclassified & 0.20 & 7.50 & 3.89 & 0.067 \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}[flushleft]
+\footnotesize
+\item The normalized fit divides pre-period RMSPE by mean pre-period activity. Holdout weights are fitted through June 30 and evaluated July 1--17, conditional on July 17 cohort definitions. Large errors limit counterfactual credibility. Ratio rank compares the shutdown/pre-period RMSPE ratio with sector-specific donor placebos.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}

@@ -1,0 +1,32 @@
+[
+  {
+    "path": "results/synthetic_control/eligible_users_donors.parquet",
+    "bytes": 933088,
+    "sha256": "5ca76cfc357426b40a95de8ce378c04b5c184c256a0b3a5c200457c23fa71843"
+  },
+  {
+    "path": "results/synthetic_control/country_day_donor_pool.parquet",
+    "bytes": 118911,
+    "sha256": "84199ca7923ee9ed9e5d9ab19c8dad3c777466842ec8221b2e014c977d608e7b"
+  },
+  {
+    "path": "data/processed/github_activity_international_enriched.parquet",
+    "bytes": 13367218,
+    "sha256": "a99bb61cadfbce6b13eef8cd5cbee4d90d206667f80962f0aa623fdaae1cdeb2"
+  },
+  {
+    "path": "results/mechanism/commit_sha_author_push_master.parquet",
+    "bytes": 7668085,
+    "sha256": "fb780647c862435dc7661d115e271bdd694887bf2305fd037d9cab125cf8e250"
+  },
+  {
+    "path": "data/advisor_20261019/international_repo_event_day.parquet",
+    "bytes": 45457760,
+    "sha256": "dff7353a7184d832af08e21e829c57f923506c20d49d69ed97bc4751d594176d"
+  },
+  {
+    "path": "data/advisor_20261019/user_dominant_pre_repo.parquet",
+    "bytes": 2422924,
+    "sha256": "c42bfe43453851d9562489f9ac211b5b4f6796ec42911591ec060492252fb556"
+  }
+]

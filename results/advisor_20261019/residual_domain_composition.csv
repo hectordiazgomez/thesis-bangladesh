@@ -1,0 +1,49 @@
+cohort,code,domain,users,cohort_users,cohort_pct
+All eligible,11,Agriculture,25,10241,0.24411678547016893
+All eligible,22,Utilities,8,10241,0.07811737135045406
+All eligible,23,Construction,1,10241,0.009764671418806757
+All eligible,31-33,Manufacturing,8,10241,0.07811737135045406
+All eligible,44-45,Retail,368,10241,3.5933990821208868
+All eligible,48-49,Transport,44,10241,0.4296455424274973
+All eligible,51,Information,518,10241,5.0580997949419
+All eligible,52,Finance,90,10241,0.8788204276926082
+All eligible,53,Real estate,49,10241,0.4784688995215311
+All eligible,54,Professional services,151,10241,1.4744653842398203
+All eligible,56,Administrative support,36,10241,0.35152817107704326
+All eligible,61,Education,424,10241,4.140220681574065
+All eligible,62,Health,155,10241,1.5135240699150474
+All eligible,71,Arts and recreation,72,10241,0.7030563421540865
+All eligible,72,Accommodation and food,192,10241,1.8748169124108973
+All eligible,81,Other services,18,10241,0.17576408553852163
+All eligible,92,Public administration,4,10241,0.03905868567522703
+All eligible,Unclassified,Unclassified,8078,10241,78.87901572112098
+Core publishers,22,Utilities,1,40,2.5
+Core publishers,44-45,Retail,1,40,2.5
+Core publishers,51,Information,1,40,2.5
+Core publishers,52,Finance,1,40,2.5
+Core publishers,61,Education,4,40,10.0
+Core publishers,Unclassified,Unclassified,32,40,80.0
+Onset authors,11,Agriculture,1,250,0.4
+Onset authors,22,Utilities,2,250,0.8
+Onset authors,44-45,Retail,6,250,2.4
+Onset authors,51,Information,11,250,4.4
+Onset authors,52,Finance,1,250,0.4
+Onset authors,53,Real estate,1,250,0.4
+Onset authors,54,Professional services,5,250,2.0
+Onset authors,61,Education,18,250,7.2
+Onset authors,62,Health,5,250,2.0
+Onset authors,71,Arts and recreation,4,250,1.6
+Onset authors,72,Accommodation and food,4,250,1.6
+Onset authors,Unclassified,Unclassified,192,250,76.8
+Delayed onset authors,11,Agriculture,1,191,0.5235602094240838
+Delayed onset authors,22,Utilities,1,191,0.5235602094240838
+Delayed onset authors,44-45,Retail,5,191,2.6178010471204187
+Delayed onset authors,51,Information,10,191,5.2356020942408374
+Delayed onset authors,52,Finance,1,191,0.5235602094240838
+Delayed onset authors,53,Real estate,1,191,0.5235602094240838
+Delayed onset authors,54,Professional services,2,191,1.0471204188481675
+Delayed onset authors,61,Education,13,191,6.806282722513089
+Delayed onset authors,62,Health,3,191,1.5706806282722514
+Delayed onset authors,71,Arts and recreation,2,191,1.0471204188481675
+Delayed onset authors,72,Accommodation and food,3,191,1.5706806282722514
+Delayed onset authors,Unclassified,Unclassified,149,191,78.01047120418848

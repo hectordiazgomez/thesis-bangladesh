@@ -1,0 +1,38 @@
+Comparación contra country_day_outcomes_enriched.parquet (celdas idénticas de 1905 / max|dif|)
+outcome                                solo elegibles     todos los usuarios
+productive_active_users                 0 / 719             1905 / 0        
+shipping_active_users                   9 / 82              1905 / 0        
+collaboration_active_users             87 / 34              1905 / 0        
+broad_interaction_active_users          3 / 100             1905 / 0        
+suma collaboration_events              87 / 176             1905 / 0        
+suma shipping_output                    9 / 312             1905 / 0        
+suma productive_output                  0 / 569455          1905 / 0        
+suma issues_opened                   1905 / 0               1905 / 0        
+suma issue_comments                  1905 / 0               1905 / 0        
+
+productive_active_rate_pp archivada vs (todos/elegibles): max|dif| 3.552713678800501e-15 | vs (todos/todos): max|dif| 16.842964982432278
+            primario_active_rate_pp (elegibles)  productive_active_rate_pp (archivado)  num_productive_todos  num_productive_elegibles  n_users
+date                                                                                                                                           
+2024-07-14                               22.371                                 22.176                  2271                      2027    10241
+2024-07-15                               21.394                                 21.433                  2195                      1949    10241
+2024-07-16                               19.637                                 19.363                  1983                      1763    10241
+2024-07-17                               19.363                                 18.973                  1943                      1720    10241
+2024-07-18                               10.409                                 10.683                  1094                       942    10241
+2024-07-19                                0.195                                  0.547                    56                        20    10241
+2024-07-20                                0.176                                  0.508                    52                        18    10241
+2024-07-21                                0.254                                  0.615                    63                        24    10241
+2024-07-22                                0.225                                  0.596                    61                        22    10241
+2024-07-23                                0.869                                  1.308                   134                        83    10241
+2024-07-24                                6.152                                  6.738                   690                       568    10241
+2024-07-25                               10.087                                 11.210                  1148                       928    10241
+
+usuarios por país: user-day completo vs elegibles, y razón
+country    Bangladesh    Ghana  Indonesia   Jordan    Kenya  Malaysia  Morocco    Nepal   Nigeria  Pakistan  Philippines  Sri Lanka  Thailand  Tunisia  Vietnam
+todos        22613.00  3264.00   27349.00  1449.00  8198.00   4292.00  4110.00  5885.00  16841.00  22019.00      7985.00    7958.00   6535.00  2917.00  8602.00
+elegibles    10241.00  1373.00   10965.00   446.00  3553.00   1396.00  1651.00  2373.00   6961.00   7276.00      2926.00    3068.00   2317.00  1012.00  3600.00
+ratio            2.21     2.38       2.49     3.25     2.31      3.07     2.49     2.48      2.42      3.03         2.73       2.59      2.82     2.88     2.39
+
+Media pre-período: tasa productiva archivada vs tasa primaria (pp)
+country               Bangladesh  Ghana  Indonesia  Jordan  Kenya  Malaysia  Morocco  Nepal  Nigeria  Pakistan  Philippines  Sri Lanka  Thailand  Tunisia  Vietnam
+productive_rate_arch       17.36  17.05      16.83   15.21  18.74     18.05    16.56  17.48    16.38     14.63        19.03      16.85     18.43    15.36    18.33
+primary_rate               17.25  17.03      15.71   14.07  18.58     14.87    15.80  16.56    16.52     14.48        17.10      15.68     15.49    14.21    16.76

@@ -1,0 +1,22 @@
+\subsection{International comparisons by repository domain}
+\label{sec:sector_sc_results}
+
+The international extension complements the before--after sector comparison with a separate comparison-country counterfactual for each fixed pre-treatment repository-domain cohort. The main historical-text rule assigns 2,163 of the 10,241 Bangladesh accounts (21.1 percent) to a domain. Of these, 1,822 accounts belong to 8 named domains that pass the support rule; the remaining eligible accounts are either in unsupported named groups or the separately reported unclassified group. Coverage by country and the full support screen are reported in \cref{tab:sector_coverage,tab:sector_support}. The complete country-by-country appendix (\cref{app:country_atlas}) displays all 20 groups, including unclassified accounts, across all 15 countries: 300 panels, of which 45 have no assigned users and 144 contain fewer than 30. These cells remain visible even when they cannot support estimation. A country-domain denominator of zero is not a zero activity rate, and small cells can produce large daily percentage movements.
+
+\input{tables/tab_sector_sc}
+
+Across the 8 supported named domains, estimated July 18--23 changes range from -16.84 to -11.31 percentage points. \Cref{fig:advisor_sector_sc} shows every supported estimate and the range obtained when one donor is omitted. These ranges are sensitivity summaries, not confidence intervals. \Cref{tab:sector_fit} reports pre-fit and scale-adjusted placebo ranks, and \cref{tab:sector_sc_sensitivity} retains all classification-threshold comparisons. Smaller domain samples and fewer eligible donors make the reference distributions coarser than in the national analysis. No domain ranking is treated as a statistically established ranking of causal exposure.
+
+Retail- and Information-associated cohorts provide relatively closer pre-period fits: their RMSPEs are 2.91 and 2.63 percentage points, compared with estimated shutdown gaps of -15.69 and -12.74. Health has a larger point estimate (-16.84) but also a pre-period RMSPE of 7.21; Education's earlier-fit holdout error is 9.12 points. These diagnostics weaken a comparison of the largest point estimates. Every leave-one-donor-out estimate remains negative, but this robustness does not resolve imperfect fit, classifier error or common exposure to unrest.
+
+\begin{figure}[htbp]
+\centering
+\caption{Synthetic-control gaps across pre-treatment repository domains}
+\label{fig:advisor_sector_sc}
+\includegraphics[width=\textwidth]{fig_advisor_sector_sc.pdf}
+\fignote{Points show the July 18--23 ATT for all supported groups. Horizontal segments span the estimates from omitting each donor country in turn; they are not sampling confidence intervals. Assignment uses pre-shutdown activity and historical README classification at score 0.80. The outcome follows assigned users' public activity across repositories.}
+\end{figure}
+
+The supported named groups comprise 17.8 percent of eligible Bangladesh accounts. Weighting their estimates by their shares of the national eligible sample gives a contribution of -2.57 percentage points. This is a partial decomposition for the covered groups, not a national treatment effect: unsupported groups have no assigned zero effect, and the unclassified group is substantial. Moreover, domain-specific weights differ from the national weights. The national headline therefore remains the original $-$13.26 percentage points.
+
+These comparisons strengthen the design relative to the older within-Bangladesh recovery indices because they introduce untreated-country counterfactuals and freeze group membership before the shock. They still depend on country-domain comparability, imperfect text classification and the absence of coincident group-specific shocks. They concern public activity among users associated with a repository domain; they do not establish effects on firms, employment sectors or industrial output. The separate recovery indices and their broader Bangladesh sample are preserved in the appendix (\cref{sec:sector_results}).

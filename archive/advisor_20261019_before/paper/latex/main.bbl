@@ -1,0 +1,195 @@
+\begin{thebibliography}{31}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Abadie(2021)]{abadie2021}
+A.~Abadie.
+\newblock Using synthetic controls: Feasibility, data requirements, and methodological aspects.
+\newblock \emph{Journal of Economic Literature}, 59\penalty0 (2):\penalty0 391--425, 2021.
+\newblock \doi{10.1257/jel.20191450}.
+
+\bibitem[Abadie and Gardeazabal(2003)]{abadie2003}
+A.~Abadie and J.~Gardeazabal.
+\newblock The economic costs of conflict: A case study of the {Basque} {Country}.
+\newblock \emph{American Economic Review}, 93\penalty0 (1):\penalty0 113--132, 2003.
+\newblock \doi{10.1257/000282803321455188}.
+
+\bibitem[Abadie et~al.(2010)Abadie, Diamond, and Hainmueller]{abadie2010}
+A.~Abadie, A.~Diamond, and J.~Hainmueller.
+\newblock Synthetic control methods for comparative case studies: Estimating the effect of {California's} tobacco control program.
+\newblock \emph{Journal of the American Statistical Association}, 105\penalty0 (490):\penalty0 493--505, 2010.
+\newblock \doi{10.1198/jasa.2009.ap08746}.
+
+\bibitem[Abadie et~al.(2015)Abadie, Diamond, and Hainmueller]{abadie2015}
+A.~Abadie, A.~Diamond, and J.~Hainmueller.
+\newblock Comparative politics and the synthetic control method.
+\newblock \emph{American Journal of Political Science}, 59\penalty0 (2):\penalty0 495--510, 2015.
+\newblock \doi{10.1111/ajps.12116}.
+
+\bibitem[Aceto et~al.(2018)Aceto, Botta, Marchetta, Persico, and Pescap{\'e}]{aceto2018}
+G.~Aceto, A.~Botta, P.~Marchetta, V.~Persico, and A.~Pescap{\'e}.
+\newblock A comprehensive survey on {Internet} outages.
+\newblock \emph{Journal of Network and Computer Applications}, 113:\penalty0 36--63, 2018.
+\newblock \doi{10.1016/j.jnca.2018.03.026}.
+
+\bibitem[Akerman et~al.(2015)Akerman, Gaarder, and Mogstad]{akerman2015}
+A.~Akerman, I.~Gaarder, and M.~Mogstad.
+\newblock The skill complementarity of broadband {Internet}.
+\newblock \emph{Quarterly Journal of Economics}, 130\penalty0 (4):\penalty0 1781--1824, 2015.
+\newblock \doi{10.1093/qje/qjv028}.
+
+\bibitem[Allcott et~al.(2016)Allcott, Collard-Wexler, and O'Connell]{allcott2016}
+H.~Allcott, A.~Collard-Wexler, and S.~D. O'Connell.
+\newblock How do electricity shortages affect industry? {Evidence} from {India}.
+\newblock \emph{American Economic Review}, 106\penalty0 (3):\penalty0 587--624, 2016.
+\newblock \doi{10.1257/aer.20140389}.
+
+\bibitem[Arkhangelsky et~al.(2021)Arkhangelsky, Athey, Hirshberg, Imbens, and Wager]{arkhangelsky2021}
+D.~Arkhangelsky, S.~Athey, D.~A. Hirshberg, G.~W. Imbens, and S.~Wager.
+\newblock Synthetic difference-in-differences.
+\newblock \emph{American Economic Review}, 111\penalty0 (12):\penalty0 4088--4118, 2021.
+\newblock \doi{10.1257/aer.20190159}.
+
+\bibitem[{Bangladesh Sangbad Sangstha}(2024)]{bss2024reopen}
+{Bangladesh Sangbad Sangstha}.
+\newblock All offices, educational institutions open tomorrow: Ispr, 2024.
+\newblock URL \url{https://www.bssnews.net/news/top-news/202726}.
+\newblock August 5.
+
+\bibitem[Belson(2024{\natexlab{a}})]{belson2024}
+D.~Belson.
+\newblock A recent spate of {Internet} disruptions.
+\newblock Cloudflare Blog, 2024{\natexlab{a}}.
+\newblock URL \url{https://blog.cloudflare.com/a-recent-spate-of-internet-disruptions-july-2024/}.
+\newblock August 1, 2024.
+
+\bibitem[Belson(2024{\natexlab{b}})]{cloudflare2024}
+D.~Belson.
+\newblock {Q2} 2024 {Internet} disruption summary.
+\newblock Cloudflare Blog, 2024{\natexlab{b}}.
+\newblock URL \url{https://blog.cloudflare.com/q2-2024-internet-disruption-summary/}.
+\newblock July 16, 2024.
+
+\bibitem[Belson(2024{\natexlab{c}})]{belson2024q3}
+David Belson.
+\newblock Forced offline: the q3 2024 internet disruption summary.
+\newblock Cloudflare Blog, 2024{\natexlab{c}}.
+\newblock URL \url{https://blog.cloudflare.com/q3-2024-internet-disruption-summary/}.
+
+\bibitem[Birkholz and Gomtsyan(2026)]{birkholz2026}
+C.~Birkholz and D.~Gomtsyan.
+\newblock The global software production network.
+\newblock \emph{Journal of Development Economics}, 180:\penalty0 103708, 2026.
+\newblock \doi{10.1016/j.jdeveco.2025.103708}.
+
+\bibitem[{GH Archive}(n.d.)]{gharchive}
+{GH Archive}.
+\newblock {GH Archive}, n.d.
+\newblock URL \url{https://www.gharchive.org/}.
+
+\bibitem[{GitHub}(n.d.)]{githubevents}
+{GitHub}.
+\newblock {GitHub} event types.
+\newblock GitHub Enterprise Server 3.14 Docs, n.d.
+\newblock URL \url{https://docs.github.com/en/enterprise-server@3.14/rest/using-the-rest-api/github-event-types}.
+
+\bibitem[Gunsilius and Van~Dijcke(2023)]{gunsilius2023}
+F.~Gunsilius and D.~Van~Dijcke.
+\newblock Free discontinuity regression: With an application to the economic effects of {Internet} shutdowns.
+\newblock arXiv:2309.14630, 2023.
+
+\bibitem[Hausman and Rapson(2018)]{hausman2018}
+C.~Hausman and D.~S. Rapson.
+\newblock Regression discontinuity in time: Considerations for empirical applications.
+\newblock \emph{Annual Review of Resource Economics}, 10:\penalty0 533--552, 2018.
+\newblock \doi{10.1146/annurev-resource-121517-033306}.
+
+\bibitem[Hjort and Poulsen(2019)]{hjort2019}
+J.~Hjort and J.~Poulsen.
+\newblock The arrival of fast {Internet} and employment in {Africa}.
+\newblock \emph{American Economic Review}, 109\penalty0 (3):\penalty0 1032--1079, 2019.
+\newblock \doi{10.1257/aer.20161385}.
+
+\bibitem[Hu et~al.(2023)Hu, Hu, Yang, and Chau]{hu2023}
+J.~Hu, D.~Hu, X.~Yang, and M.~Chau.
+\newblock The impacts of lockdown on open source software contributions during the {COVID-19} pandemic.
+\newblock \emph{Research Policy}, 52\penalty0 (10):\penalty0 104885, 2023.
+\newblock \doi{10.1016/j.respol.2023.104885}.
+
+\bibitem[{Internet Society}(2024{\natexlab{a}})]{isoc2024}
+{Internet Society}.
+\newblock Shutdown: {Bangladesh}.
+\newblock Internet Society Pulse, 2024{\natexlab{a}}.
+\newblock URL \url{https://pulse.internetsociety.org/en/shutdowns/internet-suspended-in-bangladesh-18-july-2024/}.
+
+\bibitem[{Internet Society}(2024{\natexlab{b}})]{isoc2024pakbal}
+{Internet Society}.
+\newblock Internet suspended in {Balochistan}, {Pakistan}, 14 {July} 2024.
+\newblock Internet Society Pulse, 2024{\natexlab{b}}.
+\newblock URL \url{https://pulse.internetsociety.org/en/shutdowns/internet-suspended-in-balochistan-pakistan-14-july-2024/}.
+
+\bibitem[{Internet Society}(2024{\natexlab{c}})]{isoc2024pakpun}
+{Internet Society}.
+\newblock Internet suspended in {Punjab}, {Pakistan}, 16 {July} 2024.
+\newblock Internet Society Pulse, 2024{\natexlab{c}}.
+\newblock URL \url{https://pulse.internetsociety.org/en/shutdowns/internet-suspended-in-punjab-pakistan-16-july-2024/}.
+
+\bibitem[Kreitmeir and Raschky(2024)]{kreitmeir2024}
+D.~H. Kreitmeir and P.~A. Raschky.
+\newblock The heterogeneous productivity effects of generative {AI}.
+\newblock SoDa Laboratories Working Paper 2024-01, SoDa Laboratories, Monash University, 2024.
+\newblock arXiv:2403.01964.
+
+\bibitem[McDermott and Hansen(2021)]{mcdermott2021}
+G.~R. McDermott and B.~Hansen.
+\newblock Labor reallocation and remote work during {COVID-19}: Real-time evidence from {GitHub}.
+\newblock NBER Working Paper 29598, National Bureau of Economic Research, 2021.
+
+\bibitem[Nagle(2019)]{nagle2019}
+F.~Nagle.
+\newblock Open source software and firm productivity.
+\newblock \emph{Management Science}, 65\penalty0 (3):\penalty0 1191--1215, 2019.
+\newblock \doi{10.1287/mnsc.2017.2977}.
+
+\bibitem[Quispe and Xu(2026)]{quispe2026naics}
+A.~Quispe and K.~Xu.
+\newblock {NAICS} {GitHub} repository classifier, multilingual.
+\newblock Hugging Face model card, 2026.
+\newblock URL \url{https://huggingface.co/aquiro1994/naics-github-classifier-multilingual}.
+
+\bibitem[Schachenhofer et~al.(2023)Schachenhofer, Hirsch, and Gronalt]{schachenhofer2023}
+L.~Schachenhofer, P.~Hirsch, and M.~Gronalt.
+\newblock How {Internet} blackouts affect information flows in organizations -- analyzing cascade effects and feedback loops.
+\newblock \emph{International Journal of Disaster Risk Reduction}, 98:\penalty0 104101, 2023.
+\newblock \doi{10.1016/j.ijdrr.2023.104101}.
+
+\bibitem[Tagat et~al.(2024)Tagat, Phokeer, and Kreitem]{tagat2024}
+A.~Tagat, A.~Phokeer, and H.~M. Kreitem.
+\newblock {Net Loss}: An econometric method to measure the impact of {Internet} shutdowns.
+\newblock \emph{ACM Journal on Computing and Sustainable Societies}, 2\penalty0 (2), 2024.
+\newblock \doi{10.1145/3659466}.
+\newblock Article 25.
+
+\bibitem[{The Daily Star}(2024)]{dailystar2024ashura}
+{The Daily Star}.
+\newblock Holy {Ashura} to be observed on {July} 17.
+\newblock The Daily Star, 2024.
+\newblock URL \url{https://www.thedailystar.net/news/bangladesh/news/holy-ashura-be-observed-july-17-3650606}.
+\newblock Staff Correspondent; updated July 7, 2024.
+
+\bibitem[Wachs et~al.(2022)Wachs, Nitecki, Schueller, and Polleres]{wachs2022}
+J.~Wachs, M.~Nitecki, W.~Schueller, and A.~Polleres.
+\newblock The geography of open source software: Evidence from {GitHub}.
+\newblock \emph{Technological Forecasting and Social Change}, 176:\penalty0 121478, 2022.
+\newblock \doi{10.1016/j.techfore.2022.121478}.
+
+\bibitem[Zhang and Zhu(2011)]{zhang2011}
+X.~(Michael) Zhang and F.~Zhu.
+\newblock Group size and incentives to contribute: A natural experiment at {Chinese Wikipedia}.
+\newblock \emph{American Economic Review}, 101\penalty0 (4):\penalty0 1601--1615, 2011.
+\newblock \doi{10.1257/aer.101.4.1601}.
+
+\end{thebibliography}
