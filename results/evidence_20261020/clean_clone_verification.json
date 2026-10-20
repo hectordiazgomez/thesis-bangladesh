@@ -1,0 +1,49 @@
+{
+  "source_commit": "44171f55c710fd42640ab3554f8261d5621a2810",
+  "environment": "fresh local clone; existing Python/TeX runtimes; no network retrieval or model refit",
+  "checks": [
+    {
+      "command": "python analysis/evidence_20261020/prepare_audit.py",
+      "exit_code": 0,
+      "seconds": 2.09
+    },
+    {
+      "command": "python analysis/evidence_20261020/analyze_audit.py",
+      "exit_code": 0,
+      "seconds": 1.15
+    },
+    {
+      "command": "python analysis/evidence_20261020/country_atlas.py",
+      "exit_code": 0,
+      "seconds": 7.88
+    },
+    {
+      "command": "python analysis/advisor_20261019/verify_revision.py --report results/evidence_20261020/prior_revision_verification.json",
+      "exit_code": 0,
+      "seconds": 3.12
+    },
+    {
+      "command": "python analysis/evidence_20261020/verify_evidence.py",
+      "exit_code": 0,
+      "seconds": 0.4
+    },
+    {
+      "command": "python analysis/tables/make_all_tables.py",
+      "exit_code": 0,
+      "seconds": 0.28
+    },
+    {
+      "command": "python analysis/figures/make_all_figures.py",
+      "exit_code": 0,
+      "seconds": 1.2
+    },
+    {
+      "command": "latexmk -xelatex main.tex (paper/latex)",
+      "exit_code": 0,
+      "seconds": 3.81
+    }
+  ],
+  "new_numerical_and_manuscript_outputs_identical": true,
+  "compiled_pdf_text_identical": true,
+  "all_passed": true
+}

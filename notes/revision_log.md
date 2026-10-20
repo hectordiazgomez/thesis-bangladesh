@@ -561,3 +561,10 @@
 - Re-ran the prior revision's 29 numerical checks with a new `--report` option
   writing into the October 20 output directory; all passed without overwriting
   the original verification report. Total checks across the two audits: 169.
+- Clean-clone verification passed for all seven documented offline analysis,
+  validation and table/figure-generation commands, followed by XeLaTeX. The
+  numerical summary, individual case register, atlas validation and generated
+  manuscript fragments match the working version byte for byte; PDF text is
+  identical. This uses the existing installed Python/TeX runtimes, not a fresh
+  dependency installation. API refreshes and model retraining were not run.
+  Details: `results/evidence_20261020/clean_clone_verification.json`.

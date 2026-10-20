@@ -334,7 +334,7 @@ Vietnam_github_users.json,data/users/Vietnam_github_users.json,Vietnam_github_us
 ,notes/referee_report_2026-10-07/referee_report.pdf,referee_report.pdf,.pdf,75433,0.07193851470947266
 ,notes/referee_report_2026-10-07/referee_report.tex,referee_report.tex,.tex,37065,0.035347938537597656
 ,notes/referee_report_2026-10-07/revision_checklist.md,revision_checklist.md,.md,8947,0.008532524108886719
-,notes/revision_log.md,revision_log.md,.md,53745,0.051255226135253906
+,notes/revision_log.md,revision_log.md,.md,54277,0.05176258087158203
 ,notes/round2_M1.md,round2_M1.md,.md,1572,0.001499176025390625
 ,notes/round2_M3_chronology.md,round2_M3_chronology.md,.md,4542,0.0043315887451171875
 ,notes/round2_M8.md,round2_M8.md,.md,1456,0.0013885498046875
@@ -507,6 +507,7 @@ results/fig3_rdit.png,other/fig3_rdit.png,fig3_rdit.png,.png,49107,0.04683208465
 ,results/evidence_20261020/audit_summary.json,audit_summary.json,.json,3220,0.003070831298828125
 ,results/evidence_20261020/audit_universe.json,audit_universe.json,.json,227,0.00021648406982421875
 ,results/evidence_20261020/author_endpoint_sensitivity.csv,author_endpoint_sensitivity.csv,.csv,192,0.00018310546875
+,results/evidence_20261020/clean_clone_verification.json,clean_clone_verification.json,.json,1373,0.0013093948364257812
 ,results/evidence_20261020/commit_audit_targets.csv,commit_audit_targets.csv,.csv,124147,0.11839580535888672
 ,results/evidence_20261020/core_event_decomposition.parquet,core_event_decomposition.parquet,.parquet,8142,0.0077648162841796875
 ,results/evidence_20261020/core_push_audit.csv,core_push_audit.csv,.csv,74859,0.07139110565185547
